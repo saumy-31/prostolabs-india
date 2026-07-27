@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { 
   Star, 
   Quote, 
@@ -17,30 +17,6 @@ import {
 } from 'lucide-react'
 
 // --- ANIMATED NUMBER COUNTER ---
-function LiveCounter({ value, suffix = "", decimals = 0 }: { value: number; suffix?: string; decimals?: number }) {
-  const count = useMotionValue(0)
-  const rounded = useTransform(count, (latest) => 
-    decimals > 0 ? latest.toFixed(decimals) : Math.round(latest).toString()
-  )
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
-
-  useEffect(() => {
-    if (isInView) {
-      animate(count, value, {
-        duration: 2,
-        ease: [0.16, 1, 0.3, 1],
-      })
-    }
-  }, [isInView, value, count])
-
-  return (
-    <span>
-      <motion.span ref={ref}>{rounded}</motion.span>
-      {suffix}
-    </span>
-  )
-}
 
 // --- TESTIMONIAL DATA ---
 const testimonials = [
