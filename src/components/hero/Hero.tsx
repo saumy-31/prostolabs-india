@@ -115,7 +115,7 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-4 sm:pt-12 md:pt-16 lg:pt-20 pb-4 sm:pb-6 lg:pb-8 bg-[#FAFAFA] overflow-hidden select-none" 
+      className="relative pt-24 sm:pt-28 lg:pt-28 pb-6 sm:pb-8 lg:pb-12 bg-[#FAFAFA] overflow-hidden select-none" 
       id="hero"
     >
       {/* CONTINUOUS AMBIENT MOVING BACKLIGHT */}
@@ -129,10 +129,10 @@ export function Hero({ onOpenModal }: HeroProps) {
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* GRID STRUCTURE */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* LEFT COLUMN: HERO COPY & VALUE PROP */}
-          <div className="lg:col-span-7 space-y-3 sm:space-y-4 lg:space-y-5">
+          <div className="lg:col-span-7 space-y-3.5 sm:space-y-4 lg:space-y-5">
             
             {/* BADGE */}
             <motion.div 
@@ -150,9 +150,9 @@ export function Hero({ onOpenModal }: HeroProps) {
             </motion.div>
 
             {/* HEADLINE */}
-            <h1 className="text-[2rem] sm:text-5xl lg:text-6xl font-black text-[#0A0A0A] font-sans tracking-tight leading-[1.12] sm:leading-[1.08]">
+            <h1 className="text-[1.85rem] sm:text-5xl lg:text-6xl font-black text-[#0A0A0A] font-sans tracking-tight leading-[1.12] sm:leading-[1.08]">
               {/* Line 1 */}
-              <div className="overflow-hidden pb-1">
+              <div className="overflow-hidden pb-0.5 sm:pb-1">
                 <motion.div
                   initial={{ y: "110%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
@@ -185,7 +185,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
-                    className="text-2xl sm:text-3xl font-bold text-[#2563EB] ml-0.5"
+                    className="text-xl sm:text-3xl font-bold text-[#2563EB] ml-0.5"
                   >
                     /month
                   </motion.span>
@@ -198,7 +198,7 @@ export function Hero({ onOpenModal }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.4, ease: "easeOut" }}
-              className="text-sm sm:text-base lg:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl"
+              className="text-xs sm:text-base lg:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl"
             >
               Launch a modern, mobile-friendly website for your business without paying agency prices. Hosting, maintenance, security, and support are included.
             </motion.p>
@@ -212,8 +212,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             >
               <div className="inline-flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white border border-gray-200/90 shadow-2xs text-[11px] sm:text-xs font-semibold">
                 <div className="flex items-center gap-1.5 text-gray-500">
-                  <span className="hidden xs:inline">Agencies</span>
-                  <span className="xs:hidden">Agencies</span>
+                  <span>Agencies</span>
                   <span className="line-through text-gray-400 font-bold">₹20k+</span>
                 </div>
                 <span className="text-gray-300 font-normal">→</span>
@@ -224,8 +223,8 @@ export function Hero({ onOpenModal }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* CTA ACTIONS */}
-            <div className="pt-1 space-y-2 sm:space-y-0 sm:flex sm:items-center sm:gap-3">
+            {/* CTA BUTTONS */}
+            <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <motion.button 
                 onClick={() => onOpenModal?.('care')}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -233,7 +232,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 transition={{ duration: 0.45, delay: 1.7, ...springBouncy }}
                 whileHover={{ scale: 1.02, boxShadow: "0 20px 35px -10px rgba(37,99,235,0.35)" }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full sm:w-auto h-13 sm:h-auto bg-[#2563EB] text-white font-bold text-sm px-7 py-3.5 rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
+                className="h-[52px] sm:h-auto bg-[#2563EB] text-white font-bold text-sm px-7 py-3.5 rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
               >
                 <span>Start at ₹499/month</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -250,25 +249,25 @@ export function Hero({ onOpenModal }: HeroProps) {
               </motion.a>
             </div>
 
-            {/* TRUST BADGES */}
+            {/* TRUST BADGES (CLEAN 3-BADGE MOBILE STRIP, 5-BADGE DESKTOP) */}
             <div className="pt-2 sm:pt-3 border-t border-gray-200/60">
-              <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-1.5 sm:gap-y-2 text-[11px] sm:text-xs font-semibold text-gray-600">
+              <div className="flex flex-wrap items-center gap-x-3.5 sm:gap-x-5 gap-y-1.5 text-[11px] sm:text-xs font-semibold text-gray-600">
                 {[
-                  "Hosting Included",
-                  "Mobile Friendly",
-                  "SEO Ready",
-                  "WhatsApp Support",
-                  "SSL Security"
-                ].map((badgeText, idx) => (
+                  { text: "Hosting Included", mobile: true },
+                  { text: "Mobile Friendly", mobile: false },
+                  { text: "SEO Ready", mobile: true },
+                  { text: "WhatsApp Support", mobile: true },
+                  { text: "SSL Security", mobile: false }
+                ].map((badge, idx) => (
                   <motion.div 
-                    key={badgeText}
+                    key={badge.text}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35, delay: 2.0 + (idx * 0.06) }}
-                    className="flex items-center gap-1.5"
+                    className={`items-center gap-1.5 ${badge.mobile ? 'flex' : 'hidden sm:flex'}`}
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] shrink-0" />
-                    <span>{badgeText}</span>
+                    <span>{badge.text}</span>
                   </motion.div>
                 ))}
               </div>
@@ -279,7 +278,7 @@ export function Hero({ onOpenModal }: HeroProps) {
           {/* RIGHT COLUMN: BROWSER PREVIEW */}
           <motion.div 
             style={{ y: mockupScrollY }}
-            className="lg:col-span-5 relative perspective-1000 mt-2 lg:mt-0"
+            className="lg:col-span-5 relative perspective-1000 mt-4 lg:mt-0"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl border border-gray-200/80 bg-white">
               <BrowserMockup rotateX={rotateX} rotateY={rotateY} />
