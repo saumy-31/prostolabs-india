@@ -115,7 +115,7 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-24 sm:pt-28 lg:pt-28 pb-6 sm:pb-8 lg:pb-12 bg-[#FAFAFA] overflow-hidden select-none" 
+      className="relative pt-24 sm:pt-28 lg:pt-28 pb-8 lg:pb-12 bg-[#FAFAFA] overflow-hidden select-none" 
       id="hero"
     >
       {/* CONTINUOUS AMBIENT MOVING BACKLIGHT */}
@@ -249,7 +249,7 @@ export function Hero({ onOpenModal }: HeroProps) {
               </motion.a>
             </div>
 
-            {/* TRUST BADGES (CLEAN 3-BADGE MOBILE STRIP, 5-BADGE DESKTOP) */}
+            {/* TRUST BADGES */}
             <div className="pt-2 sm:pt-3 border-t border-gray-200/60">
               <div className="flex flex-wrap items-center gap-x-3.5 sm:gap-x-5 gap-y-1.5 text-[11px] sm:text-xs font-semibold text-gray-600">
                 {[
@@ -275,12 +275,12 @@ export function Hero({ onOpenModal }: HeroProps) {
 
           </div>
 
-          {/* RIGHT COLUMN: BROWSER PREVIEW */}
+          {/* RIGHT COLUMN: BROWSER PREVIEW (HIDDEN ON MOBILE, VISIBLE ON LAPTOP/DESKTOP) */}
           <motion.div 
             style={{ y: mockupScrollY }}
-            className="lg:col-span-5 relative perspective-1000 mt-4 lg:mt-0"
+            className="hidden lg:block lg:col-span-5 relative perspective-1000 mt-0"
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl border border-gray-200/80 bg-white">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200/80 bg-white">
               <BrowserMockup rotateX={rotateX} rotateY={rotateY} />
             </div>
           </motion.div>
