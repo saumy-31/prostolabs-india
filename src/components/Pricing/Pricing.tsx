@@ -50,31 +50,53 @@ export function Pricing({ onOpenModal }: PricingProps) {
     show: { opacity: 1, x: 0, transition: featureSpring }
   }
 
+  // Care Plan feature lists (Primary 5 shown on mobile, remaining 4 visible on tablet/desktop)
+  const carePlanFeatures = [
+    { text: "Professional Website", primary: true },
+    { text: "Hosting Included*", primary: true },
+    { text: "Maintenance Included", primary: true },
+    { text: "Unlimited Content Updates*", primary: true },
+    { text: "WhatsApp & Tech Support", primary: true },
+    { text: "Security & Monthly Backup", primary: false },
+    { text: "Performance Monitoring", primary: false },
+    { text: "SEO Ready", primary: false },
+  ]
+
+  // Custom Solution feature list
+  const customFeatures = [
+    { text: "E-commerce & Payments", primary: true },
+    { text: "Booking Systems & CRM", primary: true },
+    { text: "AI Solutions & Bots", primary: true },
+    { text: "Dashboards & Custom Apps", primary: true },
+    { text: "Enterprise Portals", primary: false },
+    { text: "API Integrations", primary: false },
+  ]
+
   return (
-    <section ref={containerRef} className="relative py-10 md:py-14 bg-[#FAFAFA] overflow-hidden" id="pricing">
+    <section ref={containerRef} className="relative py-8 sm:py-12 md:py-14 bg-[#FAFAFA] overflow-hidden" id="pricing">
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
-        <div className="max-w-3xl mx-auto text-center mb-8 md:mb-10 flex flex-col items-center">
+        <div className="max-w-3xl mx-auto text-center mb-6 sm:mb-10 flex flex-col items-center">
           
           <motion.div 
             initial={{ opacity: 0, y: 8 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3"
+            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-2.5 sm:mb-3"
           >
-            <span className="text-xs">💙</span>
-            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Simple Pricing</span>
+            <span className="text-[11px] sm:text-xs">💙</span>
+            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Simple Pricing</span>
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl leading-[1.12] font-black text-[#0A0A0A] mb-3 tracking-tight font-sans"
+            className="text-2xl sm:text-4xl lg:text-5xl leading-[1.15] font-black text-[#0A0A0A] mb-2 sm:mb-3 tracking-tight font-sans"
           >
             Find the Right Plan for Your Business
           </motion.h2>
 
           <motion.p 
             initial={{ opacity: 0, y: 8 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto"
+            className="text-xs sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto"
           >
             Transparent pricing with no hidden fees. Choose the option that fits your needs today.
           </motion.p>
@@ -84,37 +106,41 @@ export function Pricing({ onOpenModal }: PricingProps) {
         {/* PRICING CARDS */}
         <motion.div 
           variants={containerVariants} initial="hidden" animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch max-w-6xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8 items-stretch max-w-6xl mx-auto"
         >
           {/* 1. Care Plan (Featured) */}
           <motion.div variants={cardVariants} className="relative h-full">
-            <div className="absolute inset-0 bg-[#2563EB] blur-[50px] opacity-10 rounded-[32px] transform translate-y-6" />
+            <div className="absolute inset-0 bg-[#2563EB] blur-[40px] sm:blur-[50px] opacity-10 rounded-[28px] sm:rounded-[32px] transform translate-y-4" />
             
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.20)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white rounded-[28px] p-6 sm:p-8 border-2 border-[#2563EB] shadow-lg flex flex-col z-10 group transition-all duration-300"
+              className="relative h-full bg-white rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 border-2 border-[#2563EB] shadow-md sm:shadow-lg flex flex-col z-10 group transition-all duration-300"
             >
-              <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#2563EB] text-white px-3.5 py-1 rounded-full text-[11px] font-bold tracking-wide shadow-md flex items-center gap-1">
+              <div className="absolute top-0 right-5 sm:right-8 -translate-y-1/2 bg-[#2563EB] text-white px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wide shadow-md flex items-center gap-1">
                 🔥 Most Popular
               </div>
 
-              <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 font-sans">Care Plan</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#0A0A0A] mb-2 sm:mb-3 font-sans">Care Plan</h3>
               
-              <div className="mb-2 flex items-baseline gap-1">
-                <span className="text-4xl sm:text-[2.75rem] font-black text-[#0A0A0A] tracking-tight leading-none">
+              <div className="mb-1.5 sm:mb-2 flex items-baseline gap-1">
+                <span className="text-3xl sm:text-[2.75rem] font-black text-[#0A0A0A] tracking-tight leading-none">
                   ₹<AnimatedCounter value={499} />
                 </span>
                 <span className="text-xs sm:text-sm font-bold text-[#6B7280]">/month</span>
               </div>
               
-              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-5 leading-relaxed min-h-[36px]">Perfect for businesses that want everything managed.</p>
+              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-4 sm:mb-5 leading-relaxed min-h-0 sm:min-h-[36px]">Perfect for businesses that want everything managed.</p>
 
-              <motion.ul variants={containerVariants} className="space-y-3 mb-6 flex-1">
-                {["Professional Website", "Hosting Included*", "Maintenance Included", "Unlimited Content Updates*", "Security Updates", "Technical Support", "Monthly Backup", "Performance Monitoring", "SEO Ready"].map((feature, i) => (
-                  <motion.li key={i} variants={featureVariants} className="flex items-start gap-2.5">
+              <motion.ul variants={containerVariants} className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6 flex-1">
+                {carePlanFeatures.map((item, i) => (
+                  <motion.li 
+                    key={i} 
+                    variants={featureVariants} 
+                    className={`items-start gap-2.5 ${item.primary ? 'flex' : 'hidden sm:flex'}`}
+                  >
                     <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#2563EB] shrink-0 mt-0.5" />
-                    <span className="text-[#0A0A0A] text-xs sm:text-[13px] font-semibold">{feature}</span>
+                    <span className="text-[#0A0A0A] text-xs sm:text-[13px] font-semibold">{item.text}</span>
                   </motion.li>
                 ))}
               </motion.ul>
@@ -122,7 +148,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('care')}
                 variants={featureVariants}
-                className="w-full relative inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 hover:shadow-[0_8px_25px_rgba(37,99,235,0.35)] overflow-hidden group/btn mt-auto z-10 cursor-pointer"
+                className="w-full relative inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-5 sm:px-6 h-12 sm:h-auto sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-300 hover:shadow-[0_8px_25px_rgba(37,99,235,0.35)] overflow-hidden group/btn mt-auto z-10 cursor-pointer"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Start for ₹499/month
@@ -138,19 +164,20 @@ export function Pricing({ onOpenModal }: PricingProps) {
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-6 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
+              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
             >
-              <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 font-sans">One-Time Plan</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#0A0A0A] mb-2 sm:mb-3 font-sans">One-Time Plan</h3>
               
-              <div className="mb-2 flex items-baseline gap-1">
-                <span className="text-4xl sm:text-[2.75rem] font-black text-[#0A0A0A] tracking-tight leading-none">
+              <div className="mb-1.5 sm:mb-2 flex items-baseline gap-1">
+                <span className="text-3xl sm:text-[2.75rem] font-black text-[#0A0A0A] tracking-tight leading-none">
                   ₹<AnimatedCounter value={4999} />
                 </span>
+                <span className="text-xs sm:text-sm font-bold text-[#6B7280]">one-time</span>
               </div>
               
-              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-5 leading-relaxed min-h-[36px]">Pay once and own your website.</p>
+              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-4 sm:mb-5 leading-relaxed min-h-0 sm:min-h-[36px]">Pay once and own your website.</p>
 
-              <motion.ul variants={containerVariants} className="space-y-3 mb-5">
+              <motion.ul variants={containerVariants} className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-5">
                 {["Professional Website", "Mobile Responsive", "WhatsApp Integration", "Google Maps", "Basic SEO Setup", "Website Ownership"].map((feature, i) => (
                   <motion.li key={i} variants={featureVariants} className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#6B7280] shrink-0 mt-0.5" />
@@ -159,14 +186,14 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 ))}
               </motion.ul>
 
-              <motion.p variants={featureVariants} className="text-[11px] text-[#6B7280] font-medium leading-relaxed mb-6 flex-1 bg-gray-50 p-3.5 rounded-xl border border-gray-200/60">
-                Future content updates, new features, design changes, maintenance, or support can be requested anytime and are charged separately based on the work required.
+              <motion.p variants={featureVariants} className="text-[11px] text-[#6B7280] font-medium leading-relaxed mb-4 sm:mb-6 flex-1 bg-gray-50 p-3 sm:p-3.5 rounded-xl border border-gray-200/60">
+                Future updates or support can be requested anytime and are charged separately based on work required.
               </motion.p>
 
               <motion.button 
                 onClick={() => onOpenModal?.('onetime')}
                 variants={featureVariants}
-                className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#0A0A0A] border border-gray-200 px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#0A0A0A] border border-gray-200 px-5 sm:px-6 h-12 sm:h-auto sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
               >
                 Buy Once
               </motion.button>
@@ -178,23 +205,27 @@ export function Pricing({ onOpenModal }: PricingProps) {
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-6 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
+              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[24px] sm:rounded-[28px] p-5 sm:p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
             >
-              <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 font-sans">Custom Solution</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#0A0A0A] mb-2 sm:mb-3 font-sans">Custom Solution</h3>
               
-              <div className="mb-2 flex items-baseline gap-1">
-                <span className="text-3xl sm:text-[2.25rem] font-black text-[#0A0A0A] tracking-tight leading-none pt-1">
+              <div className="mb-1.5 sm:mb-2 flex items-baseline gap-1">
+                <span className="text-2xl sm:text-[2.25rem] font-black text-[#0A0A0A] tracking-tight leading-none pt-0.5 sm:pt-1">
                   Custom Quote
                 </span>
               </div>
               
-              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-5 leading-relaxed min-h-[36px]">For businesses that need more than a standard website.</p>
+              <p className="text-xs sm:text-[13px] text-[#6B7280] font-medium mb-4 sm:mb-5 leading-relaxed min-h-0 sm:min-h-[36px]">For businesses that need more than a standard website.</p>
 
-              <motion.ul variants={containerVariants} className="space-y-3 mb-6 flex-1">
-                {["E-commerce", "Booking Systems", "CRM", "AI Solutions", "Dashboards", "Custom Web Applications", "Enterprise Portals", "API Integrations"].map((feature, i) => (
-                  <motion.li key={i} variants={featureVariants} className="flex items-start gap-2.5">
+              <motion.ul variants={containerVariants} className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6 flex-1">
+                {customFeatures.map((item, i) => (
+                  <motion.li 
+                    key={i} 
+                    variants={featureVariants} 
+                    className={`items-start gap-2.5 ${item.primary ? 'flex' : 'hidden sm:flex'}`}
+                  >
                     <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-[#6B7280] shrink-0 mt-0.5" />
-                    <span className="text-[#0A0A0A] text-xs sm:text-[13px] font-semibold">{feature}</span>
+                    <span className="text-[#0A0A0A] text-xs sm:text-[13px] font-semibold">{item.text}</span>
                   </motion.li>
                 ))}
               </motion.ul>
@@ -202,7 +233,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('custom')}
                 variants={featureVariants}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-white px-6 py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-800 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-white px-5 sm:px-6 h-12 sm:h-auto sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-gray-800 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
               >
                 Request a Quote
               </motion.button>
