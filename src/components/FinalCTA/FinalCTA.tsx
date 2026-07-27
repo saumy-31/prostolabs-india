@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useInView, type Variants } from 'framer-motion'
 import { 
-  Sparkles, 
+  
   ArrowRight, 
   MessageSquare, 
   Zap, 

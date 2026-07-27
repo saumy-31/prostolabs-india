@@ -2,13 +2,13 @@ import { motion } from 'framer-motion'
 import { 
   Sparkles, 
   Target, 
-  Users, 
+
   Zap, 
   ShieldCheck, 
   CheckCircle2, 
   ArrowRight, 
   ArrowLeft,
-  HeartHandshake
+  
 } from 'lucide-react'
 import type { PlanType } from '../components/Modal/EnquiryModal'
 

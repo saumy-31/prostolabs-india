@@ -4,7 +4,7 @@ import {
   Mail, 
   MapPin, 
   Clock, 
-  Sparkles, 
+   
   ArrowRight, 
   ArrowLeft,
   Headphones,
