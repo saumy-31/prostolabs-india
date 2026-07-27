@@ -8,7 +8,7 @@ import {
   Smartphone, 
   Zap, 
   Search, 
-  ShieldCheck, 
+  
   Send,
   Code,
   MessageSquare

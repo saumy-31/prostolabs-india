@@ -6,12 +6,11 @@ import {
   MessageCircle, 
   Sparkles, 
   ArrowUpRight, 
-  CheckCircle2, 
-  Globe,
+  
+ 
   Bell,
   MousePointer2,
-  Calendar,
-  ShieldCheck,
+  
   Zap
 } from 'lucide-react'
 

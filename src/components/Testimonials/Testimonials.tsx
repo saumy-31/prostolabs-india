@@ -11,10 +11,9 @@ import {
   GraduationCap, 
   CheckCircle2, 
   Heart, 
-  Sparkles,
+  
   MapPin,
-  ArrowRight,
-  ShieldCheck
+  
 } from 'lucide-react'
 
 // --- ANIMATED NUMBER COUNTER ---
