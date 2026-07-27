@@ -60,15 +60,15 @@ const industries = [
       accent: 'from-amber-500 to-orange-600',
       accentColor: '#D97706',
       ctaText: 'Reserve a Table',
-      secondaryCta: 'Explore Dinner Menu',
+      secondaryCta: 'Explore Menu',
       stat1: '4.9 ⭐',
-      stat1Label: '350+ Google Reviews',
+      stat1Label: '350+ Reviews',
       stat2: '15 Mins',
-      stat2Label: 'Average Table Turn',
-      cardTag: 'Chef Signature Dish',
+      stat2Label: 'Avg. Table Turn',
+      cardTag: 'Chef Signature',
       cardTitle: 'Wood-Fired Truffle Pizza',
       cardPrice: '₹649',
-      cardMeta: 'Fresh Mozzarella • Black Truffle Oil • Basil'
+      cardMeta: 'Fresh Mozzarella • Black Truffle'
     }
   },
   {
@@ -85,12 +85,12 @@ const industries = [
       accent: 'from-emerald-500 to-teal-400',
       accentColor: '#10B981',
       ctaText: 'Claim Free 3-Day Pass',
-      secondaryCta: 'View Class Schedule',
+      secondaryCta: 'View Schedule',
       stat1: '1,250+',
       stat1Label: 'Active Members',
       stat2: '24/7',
       stat2Label: 'Facility Access',
-      cardTag: 'Live Fitness Tracker',
+      cardTag: 'Live Tracker',
       cardTitle: 'Strength & Conditioning',
       cardPrice: '780 kcal',
       cardMeta: 'Avg. Burned per 45 min session'
@@ -115,10 +115,10 @@ const industries = [
       stat1Label: '420+ Happy Clients',
       stat2: '100%',
       stat2Label: 'Organic Hair Products',
-      cardTag: 'Most Popular Choice',
+      cardTag: 'Popular Choice',
       cardTitle: 'Keratin & Glow Facial',
       cardPrice: '₹2,499',
-      cardMeta: '90 Mins • Deep Hydration & Styling'
+      cardMeta: '90 Mins • Deep Hydration'
     }
   },
   {
@@ -135,12 +135,12 @@ const industries = [
       accent: 'from-blue-600 to-cyan-500',
       accentColor: '#2563EB',
       ctaText: 'Book OPD Consultation',
-      secondaryCta: 'Find Specialist Doctor',
+      secondaryCta: 'Find Specialist',
       stat1: '15+ Yrs',
       stat1Label: 'Combined Experience',
       stat2: '10k+',
       stat2Label: 'Patients Treated',
-      cardTag: 'Verified Senior Specialist',
+      cardTag: 'Verified Specialist',
       cardTitle: 'Dr. Ananya Sharma',
       cardPrice: 'Cardiologist',
       cardMeta: 'MD • Available Today (4 slots left)'
@@ -154,17 +154,17 @@ const industries = [
     badge: 'Luxury Properties',
     theme: 'architectural-gold',
     preview: {
-      tag: '🏡 New Premium Launch in City Center',
+      tag: '🏡 New Launch in City Center',
       headline: 'Discover Villas & Penthouses Crafted for You',
       description: 'Explore verified luxury properties with 3D virtual walkthroughs and 100% legal clearance.',
       accent: 'from-[#D4AF37] to-amber-600',
       accentColor: '#D4AF37',
       ctaText: 'Schedule Site Visit',
-      secondaryCta: 'Download Brochure',
+      secondaryCta: 'Brochure',
       stat1: '₹50Cr+',
       stat1Label: 'Properties Closed',
       stat2: '0%',
-      stat2Label: 'Brokerage on Select Projects',
+      stat2Label: 'Brokerage',
       cardTag: 'Featured Listing',
       cardTitle: 'Skyline Luxury Villa',
       cardPrice: '₹1.85 Cr',
@@ -173,7 +173,7 @@ const industries = [
   },
   {
     id: 'coaching',
-    name: 'Coaching Institute',
+    name: 'Coaching',
     icon: GraduationCap,
     url: 'apex-academy.in',
     badge: 'Education & Admissions',
@@ -185,15 +185,15 @@ const industries = [
       accent: 'from-indigo-600 to-purple-600',
       accentColor: '#4F46E5',
       ctaText: 'Book Free Demo Class',
-      secondaryCta: 'View Batch Schedule',
+      secondaryCta: 'Batch Schedule',
       stat1: '98.4%',
-      stat1Label: 'Success Rate in 2025',
+      stat1Label: 'Success Rate',
       stat2: 'AIR 14',
       stat2Label: 'Top JEE Ranker',
       cardTag: 'Scholarship Test',
       cardTitle: 'Talent Hunt Exam',
       cardPrice: 'Up to 100%',
-      cardMeta: 'Fee Scholarship • Next Sunday 10 AM'
+      cardMeta: 'Fee Scholarship • Next Sunday'
     }
   }
 ]
@@ -225,7 +225,7 @@ export function Showcase() {
   }
 
   return (
-    <section ref={sectionRef} className="py-10 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="work">
+    <section ref={sectionRef} className="py-8 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="work">
       
       {/* Soft Ambient Radial Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[550px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none" />
@@ -233,22 +233,22 @@ export function Showcase() {
       <div className="max-w-[1350px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
-        <div className="text-center mb-6 md:mb-8 max-w-2xl mx-auto">
+        <div className="text-center mb-5 sm:mb-8 max-w-2xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3"
+            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-2.5 sm:mb-3"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Our Work</span>
+            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Our Work</span>
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15]"
+            className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-2 sm:mb-3 tracking-tight font-sans leading-[1.15]"
           >
             Websites that help businesses grow.
           </motion.h2>
@@ -257,7 +257,7 @@ export function Showcase() {
             initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-base md:text-lg text-[#6B7280] font-medium leading-relaxed"
+            className="text-xs sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed"
           >
             From restaurants and salons to gyms and clinics, every website is designed to look modern, load fast, and convert visitors into customers.
           </motion.p>
@@ -268,30 +268,30 @@ export function Showcase() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex items-center justify-center gap-3 mb-5"
+          className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-5"
         >
           <div className="bg-white border border-gray-200/90 rounded-full p-1 shadow-2xs flex items-center">
             <button
               onClick={() => setIsBeforeView(false)}
-              className={`px-4.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
                 !isBeforeView 
                   ? 'bg-[#2563EB] text-white shadow-xs' 
                   : 'text-gray-600 hover:text-black'
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              ProstoLabs Redesign
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span>ProstoLabs Redesign</span>
             </button>
             <button
               onClick={() => setIsBeforeView(true)}
-              className={`px-4.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 sm:px-4.5 py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
                 isBeforeView 
                   ? 'bg-amber-600 text-white shadow-xs' 
                   : 'text-gray-600 hover:text-black'
               }`}
             >
-              <AlertTriangle className="w-3.5 h-3.5" />
-              Old Dated Website
+              <AlertTriangle className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+              <span>Old Dated Website</span>
             </button>
           </div>
         </motion.div>
@@ -302,7 +302,7 @@ export function Showcase() {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4, delay: 0.25 }}
-            className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 mb-6 no-scrollbar"
+            className="flex items-center justify-start md:justify-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 mb-4 sm:mb-6 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0"
           >
             {industries.map((ind, idx) => {
               const IconComp = ind.icon
@@ -311,7 +311,7 @@ export function Showcase() {
                 <button
                   key={ind.id}
                   onClick={() => handleTabChange(idx)}
-                  className={`px-3.5 py-2 rounded-2xl text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-2 border shrink-0 cursor-pointer ${
+                  className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl sm:rounded-2xl text-[11px] sm:text-xs font-bold whitespace-nowrap transition-all duration-300 flex items-center gap-1.5 sm:gap-2 border shrink-0 cursor-pointer ${
                     isActive 
                       ? 'bg-[#0A0A0A] border-[#0A0A0A] text-white shadow-xs scale-[1.02]' 
                       : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:border-gray-300'
@@ -328,7 +328,7 @@ export function Showcase() {
         {/* BROWSER SHOWCASE DISPLAY STAGE */}
         <div className="relative max-w-5xl mx-auto perspective-[1200px]">
           
-          {/* FLOATING FEATURE CHIPS */}
+          {/* FLOATING FEATURE CHIPS (DESKTOP ONLY) */}
           {!isBeforeView && floatingChips.map((chip, i) => {
             const ChipIcon = chip.icon
             return (
@@ -349,36 +349,36 @@ export function Showcase() {
             initial={{ opacity: 0, scale: 0.97, y: 20 }}
             animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 85 }}
-            className="bg-[#090D16] rounded-[28px] border border-gray-800 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden relative"
+            className="bg-[#090D16] rounded-[20px] sm:rounded-[28px] border border-gray-800 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden relative"
           >
             {/* Ambient Backlight Reflection */}
             <div className="absolute top-0 right-0 w-[450px] h-[250px] bg-blue-600/10 blur-[80px] pointer-events-none" />
 
             {/* TOP BROWSER NAVBAR */}
-            <div className="bg-[#0F172A]/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-gray-800/80 text-gray-400 relative z-20">
+            <div className="bg-[#0F172A]/90 backdrop-blur-md px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between border-b border-gray-800/80 text-gray-400 relative z-20">
               
               <div className="flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-red-500/90 shadow-2xs" />
-                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/90 shadow-2xs" />
-                <div className="w-2.5 h-2.5 rounded-full bg-green-500/90 shadow-2xs" />
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-500/90 shadow-2xs" />
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-yellow-500/90 shadow-2xs" />
+                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500/90 shadow-2xs" />
               </div>
 
               {/* URL Address Bar */}
-              <div className="flex items-center justify-center gap-2 bg-[#1E293B]/80 text-gray-200 px-4 py-1 rounded-xl text-[11px] font-mono w-full max-w-md mx-3 border border-white/10 shadow-inner">
+              <div className="flex items-center justify-center gap-1.5 bg-[#1E293B]/80 text-gray-200 px-3 py-1 rounded-lg sm:rounded-xl text-[10px] sm:text-[11px] font-mono w-full max-w-[220px] xs:max-w-[280px] sm:max-w-md mx-2 border border-white/10 shadow-inner">
                 {isBeforeView ? (
-                  <span className="text-amber-400 flex items-center gap-1.5 font-bold truncate">
-                    ⚠️ http://outdated-business-site-2010.com (Not Secure)
+                  <span className="text-amber-400 flex items-center gap-1 font-bold truncate">
+                    ⚠️ <span className="truncate">outdated-site-2010.com</span>
                   </span>
                 ) : (
                   <>
                     <Lock className="w-3 h-3 text-emerald-400 shrink-0" />
-                    <span className="text-emerald-400 font-semibold">https://</span>
+                    <span className="text-emerald-400 font-semibold hidden xs:inline">https://</span>
                     <span className="truncate">{currentInd.url}</span>
                   </>
                 )}
               </div>
 
-              <div className="w-5 h-5 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
+              <div className="w-5 h-5 rounded-lg bg-white/5 border border-white/10 items-center justify-center hidden xs:flex">
                 <ExternalLink className="w-3 h-3 text-gray-400" />
               </div>
 
@@ -393,7 +393,7 @@ export function Showcase() {
             </div>
 
             {/* INTERIOR WEBSITE SHOWCASE VIEWPORT */}
-            <div className="min-h-[420px] md:min-h-[460px] relative overflow-hidden flex flex-col justify-between">
+            <div className="min-h-[360px] sm:min-h-[420px] md:min-h-[460px] relative overflow-hidden flex flex-col justify-between">
               
               <AnimatePresence mode="wait">
                 {isBeforeView ? (
@@ -404,36 +404,36 @@ export function Showcase() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="p-6 md:p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[420px] flex flex-col justify-between"
+                    className="p-4 sm:p-6 md:p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[360px] sm:min-h-[420px] flex flex-col justify-between"
                   >
-                    <div className="border-b-2 border-red-900 pb-3 flex justify-between items-center">
-                      <div className="text-sm md:text-base font-bold text-red-900 uppercase font-mono tracking-wider">
+                    <div className="border-b-2 border-red-900 pb-2.5 flex justify-between items-center">
+                      <div className="text-xs sm:text-base font-bold text-red-900 uppercase font-mono tracking-wider">
                         *** WELCOME TO OUR HOMEPAGE ***
                       </div>
-                      <div className="text-[10px] text-red-800 bg-red-100 px-2 py-0.5 border border-red-300 font-mono">
+                      <div className="text-[9px] text-red-800 bg-red-100 px-1.5 py-0.5 border border-red-300 font-mono hidden xs:block">
                         Flash Player Needed
                       </div>
                     </div>
 
-                    <div className="my-6 text-center space-y-3 max-w-xl mx-auto">
-                      <div className="text-xl md:text-2xl font-black text-[#800000] underline font-serif">
+                    <div className="my-4 sm:my-6 text-center space-y-2.5 max-w-xl mx-auto">
+                      <div className="text-lg sm:text-2xl font-black text-[#800000] underline font-serif">
                         Old Non-Responsive Legacy Website
                       </div>
-                      <p className="text-xs md:text-sm font-sans text-gray-700 leading-relaxed">
+                      <p className="text-xs sm:text-sm font-sans text-gray-700 leading-relaxed">
                         Hard to read on mobile devices. Takes 8+ seconds to load. Missing WhatsApp integration, Google Maps listing, and SSL security.
                       </p>
                       
-                      <div className="flex flex-wrap justify-center gap-2 text-[10px] font-mono py-1">
-                        <span className="bg-yellow-200 border border-yellow-400 px-2.5 py-0.5 text-yellow-900">
+                      <div className="flex flex-wrap justify-center gap-1.5 text-[9px] font-mono py-1">
+                        <span className="bg-yellow-200 border border-yellow-400 px-2 py-0.5 text-yellow-900">
                           ⚠️ Not Mobile Friendly
                         </span>
-                        <span className="bg-red-200 border border-red-400 px-2.5 py-0.5 text-red-900">
+                        <span className="bg-red-200 border border-red-400 px-2 py-0.5 text-red-900">
                           ❌ No SSL Security
                         </span>
                       </div>
                     </div>
 
-                    <div className="bg-amber-100 p-3 border border-amber-300 rounded-xl text-xs text-center font-mono text-amber-900">
+                    <div className="bg-amber-100 p-2.5 sm:p-3 border border-amber-300 rounded-xl text-[11px] sm:text-xs text-center font-mono text-amber-900">
                       70%+ of potential customers leave within 3 seconds of seeing an outdated website.
                     </div>
                   </motion.div>
@@ -445,16 +445,16 @@ export function Showcase() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.98, y: -10 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="flex-1 flex flex-col justify-between p-5 md:p-8 relative text-white"
+                    className="flex-1 flex flex-col justify-between p-4 sm:p-6 md:p-8 relative text-white"
                   >
 
                     {/* MOCK WEBSITE HEADER NAV */}
-                    <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
+                    <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 relative z-10">
                       <div className="flex items-center gap-2">
-                        <div className={`w-7 h-7 rounded-xl bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-white text-xs shadow-xs`}>
+                        <div className={`w-6 h-6 sm:w-7 sm:h-7 rounded-lg sm:rounded-xl bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-white text-xs shadow-xs`}>
                           ✓
                         </div>
-                        <span className="font-bold text-white text-sm font-sans tracking-tight">{currentInd.name}</span>
+                        <span className="font-bold text-white text-xs sm:text-sm font-sans tracking-tight">{currentInd.name}</span>
                       </div>
 
                       <div className="hidden sm:flex items-center gap-5 text-[11px] font-semibold text-gray-300">
@@ -464,69 +464,69 @@ export function Showcase() {
                         <span>Contact</span>
                       </div>
 
-                      <button className={`px-3.5 py-1.5 rounded-xl text-white font-bold text-[11px] bg-gradient-to-r ${currentInd.preview.accent} shadow-2xs`}>
+                      <button className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg sm:rounded-xl text-white font-bold text-[10px] sm:text-[11px] bg-gradient-to-r ${currentInd.preview.accent} shadow-2xs`}>
                         {currentInd.preview.ctaText}
                       </button>
                     </div>
 
                     {/* HERO FOCUS CONTENT */}
-                    <div className="py-6 md:py-8 relative z-10 max-w-2xl">
+                    <div className="py-4 sm:py-6 md:py-8 relative z-10 max-w-2xl">
                       
                       <motion.div 
                         initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}
-                        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-[11px] font-bold text-white mb-3 shadow-2xs"
+                        className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-[10px] sm:text-[11px] font-bold text-white mb-2 sm:mb-3 shadow-2xs"
                       >
                         <span>{currentInd.preview.tag}</span>
                       </motion.div>
 
                       <motion.h3 
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                        className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight font-sans leading-[1.12] mb-3 text-white"
+                        className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight font-sans leading-[1.15] mb-2 sm:mb-3 text-white"
                       >
                         {currentInd.preview.headline}
                       </motion.h3>
 
                       <motion.p 
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-                        className="text-xs md:text-sm text-gray-300 leading-relaxed mb-6 max-w-xl font-medium"
+                        className="text-[11px] sm:text-sm text-gray-300 leading-relaxed mb-4 sm:mb-6 max-w-xl font-medium"
                       >
                         {currentInd.preview.description}
                       </motion.p>
 
                       <motion.div 
                         initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-                        className="flex flex-wrap items-center gap-2.5"
+                        className="flex items-center gap-2.5"
                       >
-                        <button className={`px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1.5 shadow-md hover:scale-[1.02] transition-transform cursor-pointer`}>
+                        <button className={`px-4 sm:px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1.5 shadow-md cursor-pointer`}>
                           <span>{currentInd.preview.ctaText}</span>
                           <ChevronRight className="w-3.5 h-3.5" />
                         </button>
 
-                        <button className="px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/15 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer">
+                        <button className="hidden sm:inline-flex px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/15 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer">
                           {currentInd.preview.secondaryCta}
                         </button>
                       </motion.div>
                     </div>
 
-                    {/* BOTTOM UI CARD & STATS ROW */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10 relative z-10 items-center">
+                    {/* BOTTOM UI CARD & STATS ROW (COMPACT GRID ON MOBILE) */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-3 sm:pt-4 border-t border-white/10 relative z-10 items-center">
                       
-                      <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md">
-                        <div className="text-sm font-black text-white">{currentInd.preview.stat1}</div>
-                        <div className="text-[10px] text-gray-400 font-medium">{currentInd.preview.stat1Label}</div>
+                      <div className="bg-white/5 border border-white/10 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl backdrop-blur-md">
+                        <div className="text-xs sm:text-sm font-black text-white">{currentInd.preview.stat1}</div>
+                        <div className="text-[9px] sm:text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat1Label}</div>
                       </div>
 
-                      <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md">
-                        <div className="text-sm font-black text-white">{currentInd.preview.stat2}</div>
-                        <div className="text-[10px] text-gray-400 font-medium">{currentInd.preview.stat2Label}</div>
+                      <div className="bg-white/5 border border-white/10 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl backdrop-blur-md">
+                        <div className="text-xs sm:text-sm font-black text-white">{currentInd.preview.stat2}</div>
+                        <div className="text-[9px] sm:text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat2Label}</div>
                       </div>
 
-                      <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/15 p-3 rounded-2xl backdrop-blur-md flex items-center justify-between">
+                      <div className="col-span-2 sm:col-span-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/15 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl backdrop-blur-md flex items-center justify-between">
                         <div>
-                          <div className="text-[9px] font-bold text-blue-400 uppercase tracking-wider">{currentInd.preview.cardTag}</div>
-                          <div className="text-xs font-bold text-white">{currentInd.preview.cardTitle}</div>
+                          <div className="text-[8px] sm:text-[9px] font-bold text-blue-400 uppercase tracking-wider">{currentInd.preview.cardTag}</div>
+                          <div className="text-[11px] sm:text-xs font-bold text-white truncate">{currentInd.preview.cardTitle}</div>
                         </div>
-                        <div className="text-xs font-black text-white bg-white/10 px-2 py-0.5 rounded-lg">
+                        <div className="text-[11px] sm:text-xs font-black text-white bg-white/10 px-2 py-0.5 rounded-lg shrink-0">
                           {currentInd.preview.cardPrice}
                         </div>
                       </div>
@@ -542,39 +542,39 @@ export function Showcase() {
           </motion.div>
         </div>
 
-        {/* TRUST METRICS COUNTERS */}
+        {/* TRUST METRICS COUNTERS (CLEAN 2x2 GRID ON MOBILE) */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto"
+          className="mt-6 sm:mt-10 md:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto"
         >
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
-            <div className="text-2xl md:text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
+          <div className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="text-xl sm:text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
               <MetricCounter value={50} suffix="+" />
             </div>
-            <div className="text-xs font-semibold text-gray-500">Websites Delivered</div>
+            <div className="text-[11px] sm:text-xs font-semibold text-gray-500">Websites Delivered</div>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
-            <div className="text-2xl md:text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
+          <div className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="text-xl sm:text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
               <MetricCounter value={99} suffix="%" />
             </div>
-            <div className="text-xs font-semibold text-gray-500">Client Satisfaction</div>
+            <div className="text-[11px] sm:text-xs font-semibold text-gray-500">Client Satisfaction</div>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
-            <div className="text-2xl md:text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
+          <div className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="text-xl sm:text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
               <MetricCounter value={95} suffix="+" />
             </div>
-            <div className="text-xs font-semibold text-gray-500">Speed Score</div>
+            <div className="text-[11px] sm:text-xs font-semibold text-gray-500">Speed Score</div>
           </div>
 
-          <div className="bg-white p-4 sm:p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
-            <div className="text-2xl md:text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
+          <div className="bg-white p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="text-xl sm:text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
               24/7
             </div>
-            <div className="text-xs font-semibold text-gray-500">Ongoing Support</div>
+            <div className="text-[11px] sm:text-xs font-semibold text-gray-500">Ongoing Support</div>
           </div>
         </motion.div>
 
