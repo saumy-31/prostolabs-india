@@ -115,7 +115,7 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-5 sm:pt-12 md:pt-16 lg:pt-20 pb-3 sm:pb-4 md:pb-6 lg:pb-8 bg-[#FAFAFA] overflow-hidden select-none" 
+      className="relative pt-4 sm:pt-12 md:pt-16 lg:pt-20 pb-4 sm:pb-6 lg:pb-8 bg-[#FAFAFA] overflow-hidden select-none" 
       id="hero"
     >
       {/* CONTINUOUS AMBIENT MOVING BACKLIGHT */}
@@ -128,11 +128,11 @@ export function Hero({ onOpenModal }: HeroProps) {
 
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
-        {/* GRID STRUCTURE: Compact gap on mobile, spacious on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
+        {/* GRID STRUCTURE */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-start">
           
-          {/* LEFT COLUMN: HERO COPY & VALUE PROP (7 COLS) */}
-          <div className="lg:col-span-7 space-y-2.5 sm:space-y-4 lg:space-y-5">
+          {/* LEFT COLUMN: HERO COPY & VALUE PROP */}
+          <div className="lg:col-span-7 space-y-3 sm:space-y-4 lg:space-y-5">
             
             {/* BADGE */}
             <motion.div 
@@ -149,10 +149,10 @@ export function Hero({ onOpenModal }: HeroProps) {
               </div>
             </motion.div>
 
-            {/* HEADLINE MASK REVEAL */}
-            <h1 className="text-[1.85rem] leading-[1.1] sm:text-5xl lg:text-6xl font-black text-[#0A0A0A] font-sans tracking-tight sm:leading-[1.08]">
+            {/* HEADLINE */}
+            <h1 className="text-[2rem] sm:text-5xl lg:text-6xl font-black text-[#0A0A0A] font-sans tracking-tight leading-[1.12] sm:leading-[1.08]">
               {/* Line 1 */}
-              <div className="overflow-hidden pb-0.5 sm:pb-1">
+              <div className="overflow-hidden pb-1">
                 <motion.div
                   initial={{ y: "110%", opacity: 0 }}
                   animate={{ y: "0%", opacity: 1 }}
@@ -162,7 +162,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 </motion.div>
               </div>
 
-              {/* Line 2 & Price Star */}
+              {/* Line 2 & Price Counter */}
               <div className="overflow-hidden flex flex-wrap items-baseline gap-x-2 sm:gap-x-3 pt-0.5">
                 <motion.span
                   initial={{ y: "110%", opacity: 0 }}
@@ -185,7 +185,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                     initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 1.2, ease: "easeOut" }}
-                    className="text-xl sm:text-3xl font-bold text-[#2563EB] ml-0.5"
+                    className="text-2xl sm:text-3xl font-bold text-[#2563EB] ml-0.5"
                   >
                     /month
                   </motion.span>
@@ -198,7 +198,7 @@ export function Hero({ onOpenModal }: HeroProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.4, ease: "easeOut" }}
-              className="text-xs sm:text-base lg:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl"
+              className="text-sm sm:text-base lg:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl"
             >
               Launch a modern, mobile-friendly website for your business without paying agency prices. Hosting, maintenance, security, and support are included.
             </motion.p>
@@ -210,29 +210,30 @@ export function Hero({ onOpenModal }: HeroProps) {
               transition={{ duration: 0.45, delay: 1.55 }}
               className="pt-0.5"
             >
-              <div className="inline-flex flex-wrap items-center gap-1.5 sm:gap-3 p-1.5 sm:p-2 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white border border-gray-200/90 shadow-2xs text-[11px] sm:text-xs font-semibold">
+              <div className="inline-flex items-center gap-2 sm:gap-3 p-1.5 sm:p-2 px-3 sm:px-4 rounded-xl sm:rounded-2xl bg-white border border-gray-200/90 shadow-2xs text-[11px] sm:text-xs font-semibold">
                 <div className="flex items-center gap-1.5 text-gray-500">
-                  <span>Traditional Agencies</span>
-                  <span className="line-through text-gray-400 font-bold">₹20,000+</span>
+                  <span className="hidden xs:inline">Agencies</span>
+                  <span className="xs:hidden">Agencies</span>
+                  <span className="line-through text-gray-400 font-bold">₹20k+</span>
                 </div>
                 <span className="text-gray-300 font-normal">→</span>
                 <div className="flex items-center gap-1.5 text-[#2563EB] font-bold bg-blue-50/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl border border-blue-100">
                   <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0" />
-                  <span>ProstoLabs: From ₹499/month</span>
+                  <span>ProstoLabs: ₹499/mo</span>
                 </div>
               </div>
             </motion.div>
 
-            {/* CTA BUTTONS (COMPACT 54px HEIGHT ON MOBILE) */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 pt-1">
+            {/* CTA ACTIONS */}
+            <div className="pt-1 space-y-2 sm:space-y-0 sm:flex sm:items-center sm:gap-3">
               <motion.button 
                 onClick={() => onOpenModal?.('care')}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.45, delay: 1.7, ...springBouncy }}
-                whileHover={{ scale: 1.03, boxShadow: "0 20px 35px -10px rgba(37,99,235,0.35)" }}
-                whileTap={{ scale: 0.97 }}
-                className="h-[54px] sm:h-auto bg-[#2563EB] text-white font-bold text-sm px-6 sm:px-7 py-3.5 rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group text-center relative overflow-hidden cursor-pointer"
+                whileHover={{ scale: 1.02, boxShadow: "0 20px 35px -10px rgba(37,99,235,0.35)" }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full sm:w-auto h-13 sm:h-auto bg-[#2563EB] text-white font-bold text-sm px-7 py-3.5 rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
               >
                 <span>Start at ₹499/month</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -243,30 +244,28 @@ export function Hero({ onOpenModal }: HeroProps) {
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.45, delay: 1.85 }}
-                whileHover={{ scale: 1.025, backgroundColor: "#F9FAFB" }}
-                whileTap={{ scale: 0.975 }}
-                className="h-[54px] sm:h-auto bg-white text-[#0A0A0A] border border-gray-200/90 font-bold text-sm px-6 py-3.5 rounded-xl transition-all flex items-center justify-center text-center shadow-2xs cursor-pointer"
+                className="hidden sm:inline-flex h-auto bg-white text-[#0A0A0A] border border-gray-200/90 font-bold text-sm px-6 py-3.5 rounded-xl transition-all items-center justify-center text-center shadow-2xs cursor-pointer hover:bg-gray-50"
               >
                 View Pricing
               </motion.a>
             </div>
 
-            {/* TRUST BADGES STAGGER REVEAL */}
+            {/* TRUST BADGES */}
             <div className="pt-2 sm:pt-3 border-t border-gray-200/60">
-              <div className="flex flex-wrap items-center gap-x-3.5 sm:gap-x-5 gap-y-1.5 sm:gap-y-2 text-[11px] sm:text-xs font-semibold text-gray-600">
+              <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-1.5 sm:gap-y-2 text-[11px] sm:text-xs font-semibold text-gray-600">
                 {[
                   "Hosting Included",
                   "Mobile Friendly",
                   "SEO Ready",
-                  "WhatsApp Integration",
-                  "Secure Hosting"
+                  "WhatsApp Support",
+                  "SSL Security"
                 ].map((badgeText, idx) => (
                   <motion.div 
                     key={badgeText}
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35, delay: 2.0 + (idx * 0.06) }}
-                    className="flex items-center gap-1 sm:gap-1.5"
+                    className="flex items-center gap-1.5"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#2563EB] shrink-0" />
                     <span>{badgeText}</span>
@@ -277,19 +276,21 @@ export function Hero({ onOpenModal }: HeroProps) {
 
           </div>
 
-          {/* RIGHT COLUMN: BROWSER PREVIEW (5 COLS, MAX HEIGHT CAPPED ON MOBILE) */}
+          {/* RIGHT COLUMN: BROWSER PREVIEW */}
           <motion.div 
             style={{ y: mockupScrollY }}
-            className="lg:col-span-5 relative perspective-1000 max-h-[390px] lg:max-h-none overflow-hidden lg:overflow-visible rounded-2xl"
+            className="lg:col-span-5 relative perspective-1000 mt-2 lg:mt-0"
           >
-            <BrowserMockup rotateX={rotateX} rotateY={rotateY} />
+            <div className="relative rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl border border-gray-200/80 bg-white">
+              <BrowserMockup rotateX={rotateX} rotateY={rotateY} />
+            </div>
           </motion.div>
 
         </div>
       </div>
 
-      {/* ELEGANT SEAMLESS SECTION SEPARATOR & BLEND */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-b from-transparent via-gray-100/30 to-white/80 pointer-events-none" />
+      {/* SECTION SEPARATOR & BLEND */}
+      <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-b from-transparent via-gray-100/30 to-white/80 pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1300px] px-6">
         <div className="h-px bg-gradient-to-r from-transparent via-gray-200/80 to-transparent" />
       </div>
