@@ -158,7 +158,7 @@ export function Testimonials() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-1.5 sm:mb-4 tracking-tight font-sans leading-[1.18]"
           >
-            Businesses trust ProstoLabs to build their online presence.
+            Businesses trusts ProstoLabs to build their online presence.
           </motion.h2>
 
           <motion.p 
