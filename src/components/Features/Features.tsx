@@ -56,24 +56,23 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 }
   }
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   show: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: 90, damping: 18 } 
+    transition: { type: "spring", stiffness: 95, damping: 18 } 
   }
 }
 
-// --- INTERACTIVE MULTI-DEVICE ILLUSTRATION ---
+// --- INTERACTIVE MULTI-DEVICE ILLUSTRATION (DESKTOP) ---
 function MultiDeviceIllustration() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Smooth Mouse Parallax setup
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
@@ -105,155 +104,89 @@ function MultiDeviceIllustration() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex-1 w-full flex items-center justify-center my-1.5 sm:my-2 py-1 sm:py-4 overflow-visible cursor-pointer group/stage"
+      className="relative flex-1 w-full flex items-center justify-center my-2 py-2 overflow-visible cursor-pointer group/stage"
     >
       {/* SOFT AMBIENT BLUE RADIAL GLOW */}
       <motion.div 
         style={{ x: glowX }}
         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.35, 0.2] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className="absolute w-[180px] sm:w-[380px] h-[120px] sm:h-[250px] bg-gradient-to-tr from-[#2563EB] via-blue-500 to-cyan-400 rounded-full blur-xl sm:blur-3xl pointer-events-none z-0"
+        className="absolute w-[280px] sm:w-[380px] h-[160px] sm:h-[250px] bg-gradient-to-tr from-[#2563EB] via-blue-500 to-cyan-400 rounded-full blur-2xl sm:blur-3xl pointer-events-none z-0"
       />
 
-      {/* ANIMATED SYNC CONNECTION PULSE LINE (HIDDEN ON MOBILE) */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden sm:block">
-        <motion.path 
-          d="M 220 140 C 270 120, 310 150, 350 170" 
-          stroke="url(#blueGrad)" 
-          strokeWidth="2.5" 
-          strokeDasharray="6 6"
-          fill="none"
-          animate={{ strokeDashoffset: [0, -24] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-        />
-        <defs>
-          <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2563EB" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.4" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      {/* FLOATING SYNC BADGE (HIDDEN ON MOBILE) */}
-      <motion.div 
-        animate={{ y: [0, -6, 0] }}
-        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-        className="absolute top-1 right-4 sm:right-10 z-30 bg-white/95 border border-blue-100 shadow-xl backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-bold text-[#2563EB] hidden sm:flex items-center gap-1.5 pointer-events-none"
-      >
-        <RefreshCw className="w-3 h-3 animate-spin [animation-duration:5s]" />
-        <span>100% Fluid Layout</span>
-      </motion.div>
-
-      {/* 1. DESKTOP BROWSER MOCKUP (SCALED DOWN ON MOBILE BY ~30%) */}
+      {/* DESKTOP BROWSER MOCKUP */}
       <motion.div 
         style={{ x: laptopX, y: laptopY }}
         animate={{ y: [0, -6, 0] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className="w-[180px] xs:w-[220px] sm:w-[340px] md:w-[380px] h-[120px] xs:h-[140px] sm:h-[220px] bg-[#090D16] rounded-lg sm:rounded-2xl border border-gray-800 p-1 sm:p-2 shadow-lg sm:shadow-2xl relative z-10 group-hover/stage:border-blue-500/50 transition-colors duration-300"
+        className="w-[200px] sm:w-[340px] md:w-[380px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-xl sm:rounded-2xl border border-gray-800 p-1.5 sm:p-2 shadow-xl relative z-10"
       >
-        <div className="w-full h-full bg-[#0F172A] rounded-md sm:rounded-xl p-1.5 sm:p-3 flex flex-col gap-1 sm:gap-2.5 overflow-hidden border border-white/5 relative">
+        <div className="w-full h-full bg-[#0F172A] rounded-lg sm:rounded-xl p-2 sm:p-3 flex flex-col gap-1 sm:gap-2.5 overflow-hidden border border-white/5 relative">
           
-          {/* Top Browser Bar */}
           <div className="flex items-center justify-between border-b border-white/10 pb-1 sm:pb-2">
-            <div className="flex gap-1 sm:gap-1.5">
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-500/80" />
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-yellow-500/80" />
-              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500/80" />
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
+              <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/80" />
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500/80" />
             </div>
-            <div className="flex items-center gap-1 text-[7px] sm:text-[9px] font-mono text-gray-300 bg-white/5 px-1.5 sm:px-2 py-0.5 rounded border border-white/5">
-              <Lock className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-emerald-400" />
+            <div className="flex items-center gap-1 text-[8px] font-mono text-gray-300 bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
+              <Lock className="w-2 h-2 text-emerald-400" />
               <span>prostolabs.in</span>
             </div>
-            <Globe className="w-2 h-2 sm:w-3 sm:h-3 text-gray-500" />
+            <Globe className="w-2.5 h-2.5 text-gray-500" />
           </div>
 
-          {/* Desktop Content Mockup */}
-          <div className="flex-1 flex flex-col justify-between pt-0.5 sm:pt-1 relative">
+          <div className="flex-1 flex flex-col justify-between pt-0.5 relative">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1 sm:gap-2">
-                <div className="w-3.5 h-3.5 sm:w-5 sm:h-5 rounded bg-[#2563EB] flex items-center justify-center text-[7px] sm:text-[10px] text-white font-bold">P</div>
-                <div className="w-10 sm:w-20 h-1 sm:h-2 bg-white/70 rounded-full" />
+              <div className="flex items-center gap-1.5">
+                <div className="w-4 h-4 rounded bg-[#2563EB] flex items-center justify-center text-[8px] text-white font-bold">P</div>
+                <div className="w-12 sm:w-20 h-1.5 bg-white/70 rounded-full" />
               </div>
-              <div className="w-8 sm:w-14 h-3 sm:h-4 bg-[#2563EB] rounded flex items-center justify-center text-[6px] sm:text-[8px] text-white font-bold">
+              <div className="w-10 sm:w-14 h-3.5 bg-[#2563EB] rounded flex items-center justify-center text-[7px] text-white font-bold">
                 Contact
               </div>
             </div>
 
-            <div className="space-y-0.5 sm:space-y-1 my-auto">
-              <div className="w-20 sm:w-36 h-2 sm:h-3 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full" />
-              <div className="w-28 sm:w-48 h-1 sm:h-2 bg-white/40 rounded-full" />
+            <div className="space-y-1 my-auto">
+              <div className="w-24 sm:w-36 h-2 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full" />
+              <div className="w-32 sm:w-48 h-1.5 bg-white/40 rounded-full" />
             </div>
 
-            {/* Mockup Cards */}
-            <div className="grid grid-cols-3 gap-1 sm:gap-2 pt-0.5 sm:pt-1 border-t border-white/5">
-              <div className="h-4 sm:h-8 bg-white/5 rounded border border-white/5 p-0.5 sm:p-1 flex items-center gap-1">
-                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded bg-blue-500/40" />
-                <div className="w-4 sm:w-8 h-1 bg-white/30 rounded" />
+            <div className="grid grid-cols-3 gap-1 pt-1 border-t border-white/5">
+              <div className="h-5 sm:h-8 bg-white/5 rounded p-1 flex items-center gap-1">
+                <div className="w-2 h-2 rounded bg-blue-500/40" />
+                <div className="w-6 h-1 bg-white/30 rounded" />
               </div>
-              <div className="h-4 sm:h-8 bg-white/5 rounded border border-white/5 p-0.5 sm:p-1 flex items-center gap-1">
-                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded bg-emerald-500/40" />
-                <div className="w-4 sm:w-8 h-1 bg-white/30 rounded" />
+              <div className="h-5 sm:h-8 bg-white/5 rounded p-1 flex items-center gap-1">
+                <div className="w-2 h-2 rounded bg-emerald-500/40" />
+                <div className="w-6 h-1 bg-white/30 rounded" />
               </div>
-              <div className="h-4 sm:h-8 bg-white/5 rounded border border-white/5 p-0.5 sm:p-1 flex items-center gap-1">
-                <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded bg-amber-500/40" />
-                <div className="w-4 sm:w-8 h-1 bg-white/30 rounded" />
+              <div className="h-5 sm:h-8 bg-white/5 rounded p-1 flex items-center gap-1">
+                <div className="w-2 h-2 rounded bg-amber-500/40" />
+                <div className="w-6 h-1 bg-white/30 rounded" />
               </div>
             </div>
-
-            {/* SIMULATED ANIMATED CURSOR (DESKTOP ONLY) */}
-            <motion.div
-              animate={{
-                x: [20, 160, 160, 80, 20],
-                y: [80, 10, 10, 60, 80],
-                scale: [1, 1, 0.85, 1, 1]
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 8,
-                ease: "easeInOut",
-                repeatDelay: 1
-              }}
-              className="absolute top-0 left-0 pointer-events-none z-30 drop-shadow-md text-white hidden md:block"
-            >
-              <MousePointer2 className="w-3.5 h-3.5 fill-white text-[#2563EB]" />
-            </motion.div>
-
           </div>
 
         </div>
       </motion.div>
 
-      {/* 2. MOBILE PHONE MOCKUP (SCALED DOWN BY ~30%) */}
+      {/* MOBILE PHONE MOCKUP */}
       <motion.div 
         style={{ x: phoneX, y: phoneY }}
         animate={{ y: [0, -6, 0] }}
         transition={{ repeat: Infinity, duration: 4.2, delay: 0.2, ease: "easeInOut" }}
-        className="w-[70px] xs:w-[80px] sm:w-[125px] h-[120px] xs:h-[140px] sm:h-[220px] bg-[#090D16] rounded-[14px] sm:rounded-[24px] border sm:border-2 border-gray-800 p-1 sm:p-2 shadow-lg sm:shadow-2xl absolute -right-1 xs:right-0 sm:right-6 z-20 group-hover/stage:border-blue-500 transition-colors duration-300"
+        className="w-[75px] sm:w-[125px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-[16px] sm:rounded-[24px] border border-gray-800 p-1 sm:p-2 shadow-xl absolute -right-1 sm:right-6 z-20"
       >
-        <div className="w-full h-full bg-[#0F172A] rounded-[10px] sm:rounded-[18px] p-1 sm:p-2 flex flex-col justify-between border border-white/10 relative overflow-hidden">
-          
-          {/* Top Notch */}
-          <div className="w-5 sm:w-8 h-0.5 sm:h-1.5 bg-gray-700 rounded-full mx-auto mb-0.5" />
-
-          {/* Phone Screen Content Mockup */}
+        <div className="w-full h-full bg-[#0F172A] rounded-[12px] sm:rounded-[18px] p-1.5 flex flex-col justify-between border border-white/10 relative overflow-hidden">
+          <div className="w-5 h-1 bg-gray-700 rounded-full mx-auto mb-0.5" />
           <div className="space-y-1 my-auto">
-            <div className="flex items-center justify-between">
-              <div className="w-2.5 h-2.5 sm:w-4 sm:h-4 rounded bg-[#2563EB]" />
-              <div className="w-2 h-0.5 bg-white/40 rounded" />
-            </div>
-            <div className="w-full h-1.5 sm:h-2.5 bg-blue-400 rounded-full" />
-            <div className="w-3/4 h-1 sm:h-1.5 bg-white/40 rounded-full" />
-            <div className="w-full h-6 sm:h-10 bg-blue-500/10 rounded-md sm:rounded-xl border border-blue-400/20 p-0.5 sm:p-1 flex flex-col justify-center gap-0.5 sm:gap-1">
-              <div className="w-8 h-0.5 bg-white/60 rounded" />
-              <div className="w-10 h-0.5 bg-white/30 rounded" />
-            </div>
+            <div className="w-full h-2 bg-blue-400 rounded-full" />
+            <div className="w-3/4 h-1 bg-white/40 rounded-full" />
           </div>
-
-          {/* Bottom Mobile Action Button */}
-          <div className="w-full h-4 sm:h-6 bg-[#2563EB] rounded sm:rounded-lg text-[6px] sm:text-[8px] font-bold text-white flex items-center justify-center shadow-xs">
-            Book Now
+          <div className="w-full h-4 bg-[#2563EB] rounded text-[6px] font-bold text-white flex items-center justify-center shadow-xs">
+            Book
           </div>
-
         </div>
       </motion.div>
 
@@ -305,80 +238,190 @@ export function Features() {
           </motion.p>
         </div>
 
-        {/* BENTO GRID (COMPACT MOBILE CARDS WITH REDUCED PADDING) */}
+
+        {/* ========================================================================= */}
+        {/* MOBILE-FIRST DENSE FEATURE GRID (≤768px ONLY) */}
+        {/* ========================================================================= */}
+        <div className="block md:hidden space-y-3">
+          
+          {/* FEATURED CARD 1: MOBILE RESPONSIVE */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-2xl p-4 shadow-2xs flex flex-col justify-between overflow-hidden relative"
+          >
+            <div>
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[#2563EB] mb-1.5">
+                <Smartphone size={12} />
+                <span className="text-[9px] font-bold uppercase tracking-wider">Multi-Device</span>
+              </div>
+              <h3 className="text-base font-bold text-[#0A0A0A] font-sans">Mobile Responsive</h3>
+              <p className="text-[11px] text-[#6B7280] font-medium mt-0.5">Smoothly adapts across desktop, tablet, and mobile screens.</p>
+            </div>
+
+            <div className="h-[135px] flex items-center justify-center my-1 relative">
+              <MultiDeviceIllustration />
+            </div>
+
+            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1"><CheckCircle2 size={12} /> iOS & Android Tested</span>
+              <span className="text-gray-400 font-semibold">100% Fluid</span>
+            </div>
+          </motion.div>
+
+          {/* FEATURED CARD 2: LEAD CAPTURE / WHATSAPP */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-2xl p-4 shadow-2xs flex flex-col justify-between overflow-hidden relative"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-green-50 text-green-600">
+                <MessageSquare size={12} />
+                <span className="text-[9px] font-bold uppercase tracking-wider">Lead Capture</span>
+              </div>
+              <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                Online Chat
+              </span>
+            </div>
+
+            <h3 className="text-base font-bold text-[#0A0A0A] font-sans">WhatsApp Integration</h3>
+            <p className="text-[11px] text-[#6B7280] font-medium mt-0.5">Direct chat button for instant customer inquiries.</p>
+
+            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-xl p-2.5 my-2 space-y-1.5">
+              <div className="bg-white text-[#0A0A0A] p-2 rounded-lg text-[10px] shadow-2xs border border-gray-100 max-w-[85%]">
+                Hi! I want more info about your services.
+              </div>
+              <div className="bg-[#2563EB] text-white p-2 rounded-lg text-[10px] shadow-2xs ml-auto max-w-[85%]">
+                Hello! 👋 We'd love to build your website!
+              </div>
+            </div>
+          </motion.div>
+
+          {/* COMPACT 2-COLUMN GRID FOR REMAINING 4 FEATURES */}
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="grid grid-cols-2 gap-2.5"
+          >
+            {/* 1. SPEED SCORE */}
+            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
+              <div className="flex items-center gap-1.5 text-emerald-600">
+                <Zap size={14} className="fill-emerald-600" />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Speed</span>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-[#0A0A0A]">99/100 Score</h4>
+                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Instant load time</p>
+              </div>
+            </motion.div>
+
+            {/* 2. SEO READY */}
+            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
+              <div className="flex items-center gap-1.5 text-orange-500">
+                <Search size={14} />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">SEO</span>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-[#0A0A0A]">Google Indexed</h4>
+                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Rank ready setup</p>
+              </div>
+            </motion.div>
+
+            {/* 3. GOOGLE MAPS */}
+            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
+              <div className="flex items-center gap-1.5 text-red-500">
+                <MapPin size={14} />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Maps</span>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-[#0A0A0A]">Local Search</h4>
+                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Map pin & directions</p>
+              </div>
+            </motion.div>
+
+            {/* 4. SSL SECURITY */}
+            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
+              <div className="flex items-center gap-1.5 text-blue-600">
+                <ShieldCheck size={14} />
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Security</span>
+              </div>
+              <div>
+                <h4 className="text-xs font-extrabold text-[#0A0A0A]">256-bit SSL</h4>
+                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">99.9% Uptime host</p>
+              </div>
+            </motion.div>
+          </motion.div>
+
+        </div>
+
+
+        {/* ========================================================================= */}
+        {/* DESKTOP BENTO GRID (UNTOUCHED FOR DESKTOP ≥768px) */}
+        {/* ========================================================================= */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-4 gap-3.5 sm:gap-5 auto-rows-auto md:auto-rows-[270px]"
+          className="hidden md:grid grid-cols-4 gap-5 auto-rows-[270px]"
         >
 
           {/* 1. MOBILE RESPONSIVE CARD */}
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)", borderColor: "rgba(37,99,235,0.35)" }}
-            className="md:col-span-2 md:row-span-2 bg-white border border-gray-200/90 rounded-[22px] sm:rounded-[32px] p-4 sm:p-8 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-2 md:row-span-2 bg-white border border-gray-200/90 rounded-[32px] p-8 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
             <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
             <div className="relative z-20">
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg bg-blue-50 text-[#2563EB] mb-1.5 sm:mb-2.5">
-                <Smartphone size={13} />
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Multi-Device</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 text-[#2563EB] mb-2.5">
+                <Smartphone size={15} />
+                <span className="text-xs font-bold uppercase tracking-wider">Multi-Device</span>
               </div>
-              <h3 className="text-lg sm:text-2xl font-bold text-[#0A0A0A] font-sans tracking-tight">Mobile Responsive</h3>
-              <p className="text-xs sm:text-sm text-[#6B7280] mt-0.5 font-medium">Smoothly adapts across desktop, tablet, and mobile screens.</p>
+              <h3 className="text-2xl font-bold text-[#0A0A0A] font-sans tracking-tight">Mobile Responsive</h3>
+              <p className="text-sm text-[#6B7280] mt-0.5 font-medium">Smoothly adapts across desktop, tablet, and mobile screens.</p>
             </div>
 
             <MultiDeviceIllustration />
 
-            <div className="relative z-20 pt-1.5 border-t border-gray-100 flex items-center justify-between text-[10px] sm:text-xs text-gray-500 font-semibold mt-1 sm:mt-0">
-              <span className="flex items-center gap-1 text-[#2563EB]">
-                <CheckCircle2 size={13} /> Tested on iOS & Android
+            <div className="relative z-20 pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500 font-semibold">
+              <span className="flex items-center gap-1.5 text-[#2563EB]">
+                <CheckCircle2 size={15} /> Tested on iOS & Android
               </span>
-              <span className="text-gray-400 hidden xs:inline">100% Mobile Ready</span>
+              <span className="text-gray-400">100% Mobile Ready</span>
             </div>
           </motion.div>
 
 
-          {/* 2. FAST PERFORMANCE CARD (SCALED SVG GAUGE BY ~30%) */}
+          {/* 2. FAST PERFORMANCE CARD */}
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(16,185,129,0.18)", borderColor: "rgba(16,185,129,0.35)" }}
-            className="md:col-span-1 md:row-span-2 bg-gradient-to-b from-emerald-50/40 via-white to-white border border-emerald-100 rounded-[22px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 bg-gradient-to-b from-emerald-50/40 via-white to-white border border-emerald-100 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg bg-emerald-100/80 text-emerald-700 mb-1.5 sm:mb-3">
-                <Zap size={13} className="fill-emerald-600 animate-pulse" />
-                <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Fast Load</span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-100/80 text-emerald-700 mb-3">
+                <Zap size={15} className="fill-emerald-600 animate-pulse" />
+                <span className="text-xs font-bold uppercase tracking-wider">Fast Load</span>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-[#0A0A0A] font-sans">Speed Score</h3>
-              <p className="text-xs text-[#6B7280] mt-0.5 font-medium">Instant load times for higher conversion.</p>
+              <h3 className="text-xl font-bold text-[#0A0A0A] font-sans">Speed Score</h3>
+              <p className="text-xs text-[#6B7280] mt-1 font-medium">Instant load times for higher conversion.</p>
             </div>
 
-            {/* Circular Gauge (Scaled to 22x22 on mobile) */}
-            <div className="flex-1 flex flex-col items-center justify-center my-2 sm:my-3 relative min-h-[100px] sm:min-h-0">
+            {/* Circular Gauge */}
+            <div className="flex-1 flex flex-col items-center justify-center my-3 relative">
               <motion.div 
                 animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                className="absolute w-20 sm:w-28 h-20 sm:h-28 bg-emerald-400/20 rounded-full blur-xl pointer-events-none"
+                className="absolute w-28 h-28 bg-emerald-400/20 rounded-full blur-xl pointer-events-none"
               />
 
-              <svg className="w-22 h-22 sm:w-36 sm:h-36 transform -rotate-90 relative z-10">
-                <circle cx="44" cy="44" r="35" stroke="currentColor" strokeWidth="7" fill="transparent" className="text-emerald-100 sm:hidden" />
-                <circle cx="72" cy="72" r="56" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-emerald-100 hidden sm:block" />
-                <motion.circle 
-                  initial={{ strokeDashoffset: 351 }}
-                  animate={isInView ? { strokeDashoffset: 8 } : {}}
-                  transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-                  cx="44" cy="44" r="35" 
-                  stroke="currentColor" 
-                  strokeWidth="7" 
-                  fill="transparent" 
-                  strokeDasharray="220" 
-                  className="text-emerald-500 sm:hidden" 
-                  strokeLinecap="round"
-                />
+              <svg className="w-36 h-36 transform -rotate-90 relative z-10">
+                <circle cx="72" cy="72" r="56" stroke="currentColor" strokeWidth="10" fill="transparent" className="text-emerald-100" />
                 <motion.circle 
                   initial={{ strokeDashoffset: 351 }}
                   animate={isInView ? { strokeDashoffset: 10 } : {}}
@@ -388,7 +431,7 @@ export function Features() {
                   strokeWidth="10" 
                   fill="transparent" 
                   strokeDasharray="351" 
-                  className="text-emerald-500 hidden sm:block" 
+                  className="text-emerald-500" 
                   strokeLinecap="round"
                 />
               </svg>
@@ -397,16 +440,16 @@ export function Features() {
                 <motion.div 
                   animate={{ scale: [1, 1.06, 1] }} 
                   transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-                  className="text-2xl sm:text-4xl font-black text-emerald-600 tracking-tight font-sans drop-shadow-2xs"
+                  className="text-4xl font-black text-emerald-600 tracking-tight font-sans drop-shadow-2xs"
                 >
                   <LiveCounter value={99} />
                 </motion.div>
-                <span className="text-[8px] sm:text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-0.5">Mobile Score</span>
+                <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mt-0.5">Mobile Score</span>
               </div>
             </div>
 
             {/* Technical Metrics Pill */}
-            <div className="bg-emerald-50/80 border border-emerald-100 rounded-lg p-2 sm:p-3 flex justify-between items-center text-[10px] sm:text-[11px] font-medium text-emerald-900 shadow-2xs">
+            <div className="bg-emerald-50/80 border border-emerald-100 rounded-xl p-3 flex justify-between items-center text-[11px] font-medium text-emerald-900 shadow-2xs">
               <span>LCP: <strong className="text-emerald-600">0.4s</strong></span>
               <span>FID: <strong className="text-emerald-600">2ms</strong></span>
               <span>CLS: <strong className="text-emerald-600">0.0</strong></span>
@@ -418,60 +461,60 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(34,197,94,0.18)", borderColor: "rgba(34,197,94,0.35)" }}
-            className="md:col-span-1 md:row-span-2 bg-white border border-gray-200/90 rounded-[22px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
             <div>
-              <div className="flex items-center justify-between mb-1.5 sm:mb-3">
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg bg-green-50 text-green-600">
-                  <MessageSquare size={13} />
-                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">WhatsApp</span>
+              <div className="flex items-center justify-between mb-3">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-green-50 text-green-600">
+                  <MessageSquare size={15} />
+                  <span className="text-xs font-bold uppercase tracking-wider">WhatsApp</span>
                 </div>
-                <div className="flex items-center gap-1 px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-200">
-                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                  <span className="text-[9px] sm:text-[10px] font-bold text-emerald-700">Online</span>
+                <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-200">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+                  <span className="text-[10px] font-bold text-emerald-700">Online</span>
                 </div>
               </div>
-              <h3 className="text-base sm:text-xl font-bold text-[#0A0A0A] font-sans">Lead Capture</h3>
-              <p className="text-xs text-[#6B7280] mt-0.5 font-medium">Connect directly with customers.</p>
+              <h3 className="text-xl font-bold text-[#0A0A0A] font-sans">Lead Capture</h3>
+              <p className="text-xs text-[#6B7280] mt-1 font-medium">Connect directly with customers.</p>
             </div>
 
-            {/* Chat Screen Simulation (Compact Spacing on Mobile) */}
-            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-xl p-2.5 sm:p-3.5 space-y-2 my-2 sm:my-3 flex-1 flex flex-col justify-end">
+            {/* Chat Screen Simulation */}
+            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-3.5 space-y-3 my-3 flex-1 flex flex-col justify-end">
               
               <motion.div 
                 initial={{ opacity: 0, x: -15 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-white text-[#0A0A0A] p-2 sm:p-3 rounded-xl rounded-bl-xs text-[10px] sm:text-xs shadow-2xs max-w-[90%] sm:max-w-[85%] border border-gray-100"
+                className="bg-white text-[#0A0A0A] p-3 rounded-2xl rounded-bl-xs text-xs shadow-2xs max-w-[85%] border border-gray-100"
               >
                 Hi, I want more information about your services!
-                <div className="text-[8px] sm:text-[9px] text-gray-400 text-right mt-0.5">10:42 AM</div>
+                <div className="text-[9px] text-gray-400 text-right mt-1">10:42 AM</div>
               </motion.div>
 
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: [0, 1, 0] } : {}}
                 transition={{ repeat: Infinity, duration: 1.8, delay: 0.9 }}
-                className="bg-emerald-100 text-emerald-800 px-2 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-semibold w-fit flex items-center gap-1"
+                className="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full text-[10px] font-semibold w-fit flex items-center gap-1"
               >
-                <span className="w-1 h-1 bg-emerald-600 rounded-full animate-bounce" />
-                <span className="w-1 h-1 bg-emerald-600 rounded-full animate-bounce [animation-delay:0.2s]" />
-                <span className="w-1 h-1 bg-emerald-600 rounded-full animate-bounce [animation-delay:0.4s]" />
+                <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full animate-bounce" />
+                <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full animate-bounce [animation-delay:0.2s]" />
+                <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full animate-bounce [animation-delay:0.4s]" />
               </motion.div>
 
               <motion.div 
                 initial={{ opacity: 0, x: 15, scale: 0.95 }}
                 animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
                 transition={{ duration: 0.5, delay: 1.4, type: "spring" }}
-                className="bg-[#2563EB] text-white p-2 sm:p-3 rounded-xl rounded-br-xs text-[10px] sm:text-xs shadow-md ml-auto max-w-[90%] sm:max-w-[85%]"
+                className="bg-[#2563EB] text-white p-3 rounded-2xl rounded-br-xs text-xs shadow-md ml-auto max-w-[85%]"
               >
                 Hello! 👋 We would love to help you build your website.
-                <div className="text-[8px] sm:text-[9px] text-blue-200 text-right mt-0.5">10:43 AM ✓✓</div>
+                <div className="text-[9px] text-blue-200 text-right mt-1">10:43 AM ✓✓</div>
               </motion.div>
 
             </div>
 
-            <div className="text-[10px] sm:text-[11px] text-center font-semibold text-[#2563EB] bg-blue-50 py-1.5 rounded-lg sm:rounded-xl border border-blue-100">
+            <div className="text-[11px] text-center font-semibold text-[#2563EB] bg-blue-50 py-2 rounded-xl border border-blue-100">
               Direct WhatsApp Button Included
             </div>
           </motion.div>
@@ -481,45 +524,44 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(249,115,22,0.18)", borderColor: "rgba(249,115,22,0.35)" }}
-            className="md:col-span-2 md:row-span-1 bg-white border border-gray-200/90 rounded-[22px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-2 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
             <div className="flex items-center justify-between">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg bg-orange-50 text-orange-600 mb-1">
-                  <Search size={13} />
-                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider">Search Engine</span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-orange-50 text-orange-600 mb-1.5">
+                  <Search size={15} />
+                  <span className="text-xs font-bold uppercase tracking-wider">Search Engine</span>
                 </div>
-                <h3 className="text-base sm:text-xl font-bold text-[#0A0A0A] font-sans">SEO Ready & Google Indexing</h3>
+                <h3 className="text-xl font-bold text-[#0A0A0A] font-sans">SEO Ready & Google Indexing</h3>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl border border-emerald-200 shadow-2xs">
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 font-bold text-xs rounded-xl border border-emerald-200 shadow-2xs">
                 <TrendingUp size={14} /> Rank #1 Target
               </div>
             </div>
 
-            {/* Google Result Snippet Showcase */}
             <motion.div 
               initial={{ y: 10, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-2 bg-gray-50 border border-gray-200/80 rounded-xl p-2 sm:p-3 flex items-center justify-between gap-2.5 sm:gap-4 group-hover:border-orange-200 transition-colors"
+              className="mt-2 bg-gray-50 border border-gray-200/80 rounded-2xl p-3 flex items-center justify-between gap-4 group-hover:border-orange-200 transition-colors"
             >
-              <div className="flex items-center gap-2 sm:gap-3 overflow-hidden">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-extrabold text-[10px] sm:text-sm shrink-0 shadow-2xs">
+              <div className="flex items-center gap-3 overflow-hidden">
+                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-extrabold text-sm shrink-0 shadow-2xs">
                   G
                 </div>
                 <div className="truncate">
-                  <div className="text-[9px] sm:text-[11px] text-gray-500 flex items-center gap-1">
+                  <div className="text-[11px] text-gray-500 flex items-center gap-1">
                     https://yourbusiness.in <span className="text-emerald-600 font-bold">• Indexed ✓</span>
                   </div>
-                  <div className="text-[10px] sm:text-xs font-bold text-[#2563EB] truncate">
+                  <div className="text-xs font-bold text-[#2563EB] truncate">
                     Your Business Name — #1 Best Service
                   </div>
                 </div>
               </div>
 
-              <div className="shrink-0 bg-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-lg sm:rounded-xl border border-gray-200 shadow-2xs text-center">
-                <div className="text-[10px] sm:text-xs font-extrabold text-emerald-600">100/100</div>
-                <div className="text-[8px] sm:text-[9px] text-gray-400 font-semibold uppercase">SEO</div>
+              <div className="shrink-0 bg-white px-3 py-1 rounded-xl border border-gray-200 shadow-2xs text-center">
+                <div className="text-xs font-extrabold text-emerald-600">100 / 100</div>
+                <div className="text-[9px] text-gray-400 font-semibold uppercase">SEO Score</div>
               </div>
             </motion.div>
           </motion.div>
@@ -529,22 +571,21 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(239,68,68,0.18)", borderColor: "rgba(239,68,68,0.35)" }}
-            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[22px] sm:rounded-[32px] p-4 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
-            <div className="flex items-center justify-between mb-1">
-              <div className="p-1 bg-red-50 text-red-600 rounded-lg sm:rounded-xl">
-                <MapPin size={15} />
+            <div className="flex items-center justify-between">
+              <div className="p-2 bg-red-50 text-red-600 rounded-xl">
+                <MapPin size={18} />
               </div>
-              <span className="text-[9px] sm:text-[11px] font-bold text-gray-400 uppercase tracking-wider">Local Search</span>
+              <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Local Search</span>
             </div>
 
-            <div className="mb-1">
-              <h3 className="text-sm sm:text-base font-bold text-[#0A0A0A] font-sans">Google Maps</h3>
-              <p className="text-[11px] text-[#6B7280]">Interactive pin & directions.</p>
+            <div>
+              <h3 className="text-base font-bold text-[#0A0A0A] font-sans">Google Maps</h3>
+              <p className="text-xs text-[#6B7280]">Interactive pin & directions.</p>
             </div>
 
-            {/* Animated Pin Drop Preview (Scaled Height for Mobile) */}
-            <div className="h-11 sm:h-16 bg-slate-100 rounded-xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
+            <div className="h-16 bg-slate-100 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:8px_8px]" />
               
               <motion.div 
@@ -554,8 +595,7 @@ export function Features() {
                 className="relative z-10 flex flex-col items-center"
               >
                 <div className="relative">
-                  <MapPin size={18} className="text-red-600 fill-red-500 drop-shadow-md sm:hidden" />
-                  <MapPin size={24} className="text-red-600 fill-red-500 drop-shadow-md hidden sm:block" />
+                  <MapPin size={24} className="text-red-600 fill-red-500 drop-shadow-md" />
                   <span className="absolute -inset-1 bg-red-500/30 rounded-full animate-ping pointer-events-none" />
                 </div>
               </motion.div>
@@ -567,29 +607,29 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)", borderColor: "rgba(37,99,235,0.35)" }}
-            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[22px] sm:rounded-[32px] p-4 flex flex-col justify-between overflow-hidden relative shadow-2xs sm:shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
-            <div className="flex items-center justify-between mb-1">
-              <div className="p-1 bg-blue-50 text-[#2563EB] rounded-lg sm:rounded-xl relative">
-                <ShieldCheck size={15} />
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
+            <div className="flex items-center justify-between">
+              <div className="p-2 bg-blue-50 text-[#2563EB] rounded-xl relative">
+                <ShieldCheck size={18} />
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full animate-ping" />
               </div>
-              <span className="text-[9px] sm:text-[11px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full border border-emerald-200">
+              <span className="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                 Active
               </span>
             </div>
 
-            <div className="mb-1">
-              <h3 className="text-sm sm:text-base font-bold text-[#0A0A0A] font-sans">Secure Hosting</h3>
-              <p className="text-[11px] text-[#6B7280]">SSL Certificate & 99.9% Uptime.</p>
+            <div>
+              <h3 className="text-base font-bold text-[#0A0A0A] font-sans">Secure Hosting</h3>
+              <p className="text-xs text-[#6B7280]">SSL Certificate & 99.9% Uptime.</p>
             </div>
 
-            <div className="bg-blue-50/60 border border-blue-100 rounded-xl p-2 sm:p-2.5 flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <Lock size={12} className="text-[#2563EB]" />
-                <span className="text-[11px] sm:text-xs font-bold text-[#0A0A0A]">256-bit SSL</span>
+            <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-2.5 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Lock size={14} className="text-[#2563EB]" />
+                <span className="text-xs font-bold text-[#0A0A0A]">256-bit SSL</span>
               </div>
-              <span className="text-[11px] sm:text-xs font-bold text-emerald-600">
+              <span className="text-xs font-bold text-emerald-600">
                 <LiveCounter value={99.9} decimals={1} suffix="%" />
               </span>
             </div>
@@ -600,18 +640,11 @@ export function Features() {
 
         {/* CTA BOTTOM CONVERSION STRIP */}
         <motion.div 
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="mt-6 sm:mt-12 bg-[#2563EB] rounded-[22px] sm:rounded-[32px] p-5 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 shadow-xl relative overflow-hidden group"
         >
-          {/* Ambient Floating Glow Orb */}
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.25, 0.1] }}
-            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-            className="absolute -right-10 -bottom-10 w-72 h-72 bg-white rounded-full blur-3xl pointer-events-none" 
-          />
-
           <div className="text-center md:text-left text-white relative z-10">
             <h3 className="text-lg sm:text-2xl font-bold font-sans mb-1">Ready to launch your business online?</h3>
             <p className="text-blue-100 text-xs sm:text-base font-medium">Everything above is included with every ProstoLabs plan.</p>
