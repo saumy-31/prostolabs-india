@@ -209,7 +209,7 @@ const floatingChips = [
 export function Showcase() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isBeforeView, setIsBeforeView] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" })
 
@@ -217,10 +217,10 @@ export function Showcase() {
 
   const handleTabChange = (index: number) => {
     if (index === activeIndex) return
-    setIsLoading(true)
+    
     setActiveIndex(index)
     setTimeout(() => {
-      setIsLoading(false)
+      
     }, 300)
   }
 

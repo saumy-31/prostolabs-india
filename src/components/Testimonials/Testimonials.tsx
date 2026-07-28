@@ -12,8 +12,6 @@ import {
   CheckCircle2, 
   Heart, 
   MapPin,
-  ChevronLeft,
-  ChevronRight
 } from 'lucide-react'
 
 // --- TESTIMONIAL DATA ---
@@ -204,7 +202,7 @@ export function Testimonials() {
 
           {/* Swipeable Snap Scroll Track */}
           <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6">
-            {testimonials.map((item, idx) => {
+            {testimonials.map((item) => {
               const IconComp = item.icon
               return (
                 <div 

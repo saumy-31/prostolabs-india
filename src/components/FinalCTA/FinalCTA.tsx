@@ -34,14 +34,7 @@ const itemVariants: Variants = {
   }
 }
 
-const trustBadgeVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.9 },
-  show: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { type: "spring", stiffness: 110, damping: 15 } 
-  }
-}
+
 
 // --- TRUST BADGES DATA ---
 const trustBadges = [
