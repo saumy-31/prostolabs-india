@@ -63,10 +63,7 @@ const rightCardVariant: Variants = {
   }
 }
 
-const rowVariant: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 95, damping: 18 } }
-}
+
 
 export function WhyUs({ onOpenModal }: WhyUsProps) {
   const agencySectionRef = useRef<HTMLDivElement>(null)
