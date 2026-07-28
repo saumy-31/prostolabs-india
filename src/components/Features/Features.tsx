@@ -18,10 +18,8 @@ import {
   Lock, 
   Sparkles, 
   TrendingUp,
-  RefreshCw,
   Globe,
   CheckCircle2,
-  MousePointer2,
   ArrowRight
 } from 'lucide-react'
 
