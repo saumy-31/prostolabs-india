@@ -1,5 +1,12 @@
 import { useRef } from 'react'
-import { motion, useInView, type Variants } from 'framer-motion'
+import { 
+  motion, 
+  useInView, 
+  useScroll, 
+  useSpring, 
+  useReducedMotion,
+  type Variants 
+} from 'framer-motion'
 import { 
   Rocket, 
   Clock, 
@@ -13,17 +20,19 @@ import {
   MessageSquare
 } from 'lucide-react'
 
-// --- ANIMATION VARIANTS ---
+// --- SAAS-GRADE EASING CURVES & VARIANTS ---
+const easeSaaS = [0.16, 1, 0.3, 1] as const
+
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 }
   }
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 0.96 },
+  hidden: { opacity: 0, y: 20, scale: 0.98 },
   show: { 
     opacity: 1, 
     y: 0, 
@@ -42,23 +51,45 @@ const outerFloatingChips = [
 
 export function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: "-60px" })
+  const mobileContainerRef = useRef<HTMLDivElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  const isInView = useInView(sectionRef, { once: true, margin: "-40px" })
+
+  // --- MOBILE STEP INDIVIDUAL VIEWPORT OBSERVERS ---
+  const step1Ref = useRef<HTMLDivElement>(null)
+  const step2Ref = useRef<HTMLDivElement>(null)
+  const step3Ref = useRef<HTMLDivElement>(null)
+  const step4Ref = useRef<HTMLDivElement>(null)
+
+  const isStep1InView = useInView(step1Ref, { once: true, amount: 0.35 })
+  const isStep2InView = useInView(step2Ref, { once: true, amount: 0.35 })
+  const isStep3InView = useInView(step3Ref, { once: true, amount: 0.35 })
+  const isStep4InView = useInView(step4Ref, { once: true, amount: 0.35 })
+
+  // --- SCROLL PROGRESS LINE FOR MOBILE TIMELINE ---
+  const { scrollYProgress } = useScroll({
+    target: mobileContainerRef,
+    offset: ["start 70%", "end 60%"]
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 20 })
 
   return (
     <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" id="how-it-works">
       
       {/* Background Soft Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.05)_0%,_transparent_75%)] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.05)_0%,_transparent_75%)] pointer-events-none transform-gpu" />
 
       <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3"
+            transition={{ duration: 0.4, ease: easeSaaS }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 transform-gpu"
           >
             <Rocket className="w-3.5 h-3.5 text-[#2563EB]" />
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">How It Works</span>
@@ -67,8 +98,8 @@ export function HowItWorks() {
           <motion.h2 
             initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15]"
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15] transform-gpu"
           >
             From idea to live website in simple steps.
           </motion.h2>
@@ -76,8 +107,8 @@ export function HowItWorks() {
           <motion.p 
             initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto transform-gpu"
           >
             We've simplified the entire process so you can focus on your business while we build your website.
           </motion.p>
@@ -85,34 +116,40 @@ export function HowItWorks() {
 
 
         {/* ========================================================================= */}
-        {/* 1. MOBILE-ONLY VERTICAL ONBOARDING TIMELINE (≤1023px) */}
+        {/* 1. MOBILE-ONLY VERTICAL PROGRESS TIMELINE (≤1023px) */}
         {/* ========================================================================= */}
-        <div className="block lg:hidden relative mb-10 max-w-md mx-auto">
+        <div ref={mobileContainerRef} className="block lg:hidden relative mb-10 max-w-md mx-auto">
           
-          {/* VERTICAL CONNECTING PROGRESS LINE */}
-          <div className="absolute top-6 bottom-8 left-6 w-1 bg-gray-200 z-0 rounded-full">
+          {/* VERTICAL CONNECTING TRACK (GRAY BASE + ANIMATED BLUE PROGRESS FILL) */}
+          <div className="absolute top-6 bottom-8 left-6 w-1 bg-gray-200/90 z-0 rounded-full transform-gpu">
             <motion.div 
-              initial={{ scaleY: 0 }}
-              animate={isInView ? { scaleY: 1 } : {}}
-              transition={{ duration: 1.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full bg-gradient-to-b from-[#2563EB] via-blue-500 to-[#2563EB] origin-top rounded-full shadow-2xs"
+              style={{ scaleY: shouldReduceMotion ? 1 : smoothProgress }}
+              className="w-full h-full bg-[#2563EB] origin-top rounded-full shadow-xs transform-gpu"
             />
           </div>
 
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="space-y-8 relative z-10"
-          >
+          <div className="space-y-8 relative z-10">
 
             {/* STEP 1 */}
-            <motion.div variants={cardVariants} className="flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563EB] text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-500/30 shrink-0 z-10">
+            <div ref={step1Ref} className="flex gap-4 items-start transform-gpu">
+              <motion.div 
+                animate={isStep1InView ? { scale: [1, 1.06, 1] } : {}}
+                transition={{ duration: 0.4, ease: easeSaaS }}
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 z-10 transition-all duration-300 transform-gpu ${
+                  isStep1InView 
+                    ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-100' 
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
                 01
-              </div>
+              </motion.div>
 
-              <div className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3">
+              <motion.div 
+                variants={cardVariants}
+                initial="hidden"
+                animate={isStep1InView ? "show" : "hidden"}
+                className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3 transform-gpu"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 01
@@ -139,16 +176,29 @@ export function HowItWorks() {
                     <Send className="w-3.5 h-3.5 text-blue-200 shrink-0" />
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             {/* STEP 2 */}
-            <motion.div variants={cardVariants} className="flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563EB] text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-500/30 shrink-0 z-10">
+            <div ref={step2Ref} className="flex gap-4 items-start transform-gpu">
+              <motion.div 
+                animate={isStep2InView ? { scale: [1, 1.06, 1] } : {}}
+                transition={{ duration: 0.4, ease: easeSaaS }}
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 z-10 transition-all duration-300 transform-gpu ${
+                  isStep2InView 
+                    ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-100' 
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
                 02
-              </div>
+              </motion.div>
 
-              <div className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3">
+              <motion.div 
+                variants={cardVariants}
+                initial="hidden"
+                animate={isStep2InView ? "show" : "hidden"}
+                className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3 transform-gpu"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 02
@@ -172,22 +222,35 @@ export function HowItWorks() {
                   <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden p-0.5">
                     <motion.div 
                       initial={{ width: "0%" }}
-                      animate={isInView ? { width: "100%" } : {}}
-                      transition={{ duration: 1.8, delay: 0.5, ease: "easeInOut" }}
-                      className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full"
+                      animate={isStep2InView ? { width: "100%" } : {}}
+                      transition={{ duration: 1.8, delay: 0.3, ease: easeSaaS }}
+                      className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transform-gpu"
                     />
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             {/* STEP 3 */}
-            <motion.div variants={cardVariants} className="flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563EB] text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-500/30 shrink-0 z-10">
+            <div ref={step3Ref} className="flex gap-4 items-start transform-gpu">
+              <motion.div 
+                animate={isStep3InView ? { scale: [1, 1.06, 1] } : {}}
+                transition={{ duration: 0.4, ease: easeSaaS }}
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 z-10 transition-all duration-300 transform-gpu ${
+                  isStep3InView 
+                    ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-100' 
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
                 03
-              </div>
+              </motion.div>
 
-              <div className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3">
+              <motion.div 
+                variants={cardVariants}
+                initial="hidden"
+                animate={isStep3InView ? "show" : "hidden"}
+                className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex-1 space-y-3 transform-gpu"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 03
@@ -211,16 +274,29 @@ export function HowItWorks() {
                     </div>
                   ))}
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             {/* STEP 4 */}
-            <motion.div variants={cardVariants} className="flex gap-4 items-start">
-              <div className="w-12 h-12 rounded-2xl bg-[#2563EB] text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-500/30 shrink-0 z-10">
+            <div ref={step4Ref} className="flex gap-4 items-start transform-gpu">
+              <motion.div 
+                animate={isStep4InView ? { scale: [1, 1.06, 1] } : {}}
+                transition={{ duration: 0.4, ease: easeSaaS }}
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black text-sm shrink-0 z-10 transition-all duration-300 transform-gpu ${
+                  isStep4InView 
+                    ? 'bg-[#2563EB] text-white shadow-lg shadow-blue-500/30 ring-4 ring-blue-100' 
+                    : 'bg-gray-200 text-gray-500'
+                }`}
+              >
                 04
-              </div>
+              </motion.div>
 
-              <div className="bg-white border-2 border-[#2563EB] rounded-[24px] p-6 shadow-md flex-1 space-y-3">
+              <motion.div 
+                variants={cardVariants}
+                initial="hidden"
+                animate={isStep4InView ? "show" : "hidden"}
+                className="bg-white border-2 border-[#2563EB] rounded-[24px] p-6 shadow-md flex-1 space-y-3 transform-gpu"
+              >
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-[#2563EB] px-2.5 py-1 rounded-full">
                     Step 04
@@ -245,10 +321,10 @@ export function HowItWorks() {
                     https://yourbusiness.in
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
-          </motion.div>
+          </div>
         </div>
 
 
@@ -261,17 +337,17 @@ export function HowItWorks() {
             <motion.div 
               initial={{ scaleX: 0 }}
               animate={isInView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="h-full bg-gradient-to-r from-[#2563EB] via-blue-500 to-[#2563EB] origin-left rounded-full shadow-2xs"
+              transition={{ duration: 1.5, delay: 0.3, ease: easeSaaS }}
+              className="h-full bg-gradient-to-r from-[#2563EB] via-blue-500 to-[#2563EB] origin-left rounded-full shadow-2xs transform-gpu"
             />
           </div>
 
           {outerFloatingChips.map((chip, i) => (
             <motion.div
               key={chip.text}
-              animate={{ y: [0, -5, 0], rotate: [0, i % 2 === 0 ? 1 : -1, 0] }}
+              animate={shouldReduceMotion ? {} : { y: [0, -5, 0], rotate: [0, i % 2 === 0 ? 1 : -1, 0] }}
               transition={{ repeat: Infinity, duration: 5 + i, ease: "easeInOut", delay: i * 0.4 }}
-              className={`${chip.xlOnly ? 'hidden xl:flex' : 'flex'} absolute z-30 items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 border border-gray-200/90 shadow-md backdrop-blur-md text-xs font-bold text-gray-700 pointer-events-none ${chip.pos}`}
+              className={`${chip.xlOnly ? 'hidden xl:flex' : 'flex'} absolute z-30 items-center gap-2 px-3.5 py-2 rounded-2xl bg-white/95 border border-gray-200/90 shadow-md backdrop-blur-md text-xs font-bold text-gray-700 pointer-events-none transform-gpu ${chip.pos}`}
             >
               <span>{chip.text}</span>
             </motion.div>
@@ -287,7 +363,7 @@ export function HowItWorks() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4, boxShadow: "0 20px 30px -10px rgba(0,0,0,0.08)" }}
-              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300"
+              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300 transform-gpu"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -325,7 +401,7 @@ export function HowItWorks() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4, boxShadow: "0 20px 30px -10px rgba(0,0,0,0.08)" }}
-              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300"
+              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300 transform-gpu"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -357,7 +433,7 @@ export function HowItWorks() {
                     initial={{ width: "0%" }}
                     animate={isInView ? { width: "100%" } : {}}
                     transition={{ duration: 1.8, delay: 0.5, ease: "easeInOut" }}
-                    className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full"
+                    className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transform-gpu"
                   />
                 </div>
               </div>
@@ -367,7 +443,7 @@ export function HowItWorks() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4, boxShadow: "0 20px 30px -10px rgba(0,0,0,0.08)" }}
-              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300"
+              className="bg-white border border-gray-200/90 rounded-[24px] p-5 flex flex-col justify-between shadow-sm relative group transition-all duration-300 transform-gpu"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -402,7 +478,7 @@ export function HowItWorks() {
             <motion.div 
               variants={cardVariants}
               whileHover={{ y: -4, boxShadow: "0 20px 30px -10px rgba(37,99,235,0.15)" }}
-              className="bg-white border-2 border-[#2563EB] rounded-[24px] p-5 flex flex-col justify-between shadow-md relative group transition-all duration-300"
+              className="bg-white border-2 border-[#2563EB] rounded-[24px] p-5 flex flex-col justify-between shadow-md relative group transition-all duration-300 transform-gpu"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -442,8 +518,8 @@ export function HowItWorks() {
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="bg-white border border-gray-200/90 rounded-2xl p-4 max-w-xl mx-auto shadow-2xs flex items-center justify-center gap-3 text-center"
+          transition={{ duration: 0.5, delay: 0.5, ease: easeSaaS }}
+          className="bg-white border border-gray-200/90 rounded-2xl p-4 max-w-xl mx-auto shadow-2xs flex items-center justify-center gap-3 text-center transform-gpu"
         >
           <div className="p-2 bg-blue-50 text-[#2563EB] rounded-xl shrink-0">
             <Clock size={18} className="animate-spin [animation-duration:8s]" />

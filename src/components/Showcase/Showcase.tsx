@@ -18,6 +18,9 @@ import {
   Stethoscope
 } from 'lucide-react'
 
+// --- EASING CURVES ---
+const easeSaaS = [0.16, 1, 0.3, 1] as const
+
 // --- ANIMATED LIVE COUNTER ---
 function MetricCounter({ value, suffix = "", decimals = 0 }: { value: number; suffix?: string; decimals?: number }) {
   const count = useMotionValue(0)
@@ -25,19 +28,20 @@ function MetricCounter({ value, suffix = "", decimals = 0 }: { value: number; su
     decimals > 0 ? latest.toFixed(decimals) : Math.round(latest).toString()
   )
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const isInView = useInView(ref, { once: true, margin: "-40px" })
 
   useEffect(() => {
     if (isInView) {
-      animate(count, value, {
-        duration: 2,
-        ease: [0.16, 1, 0.3, 1],
+      const controls = animate(count, value, {
+        duration: 1.8,
+        ease: easeSaaS,
       })
+      return controls.stop
     }
   }, [isInView, value, count])
 
   return (
-    <span>
+    <span className="inline-block transform-gpu">
       <motion.span ref={ref}>{rounded}</motion.span>
       {suffix}
     </span>
@@ -211,17 +215,13 @@ export function Showcase() {
   const [isBeforeView, setIsBeforeView] = useState(false)
   
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: "-60px" })
+  const isInView = useInView(sectionRef, { once: true, margin: "-40px" })
 
   const currentInd = industries[activeIndex]
 
   const handleTabChange = (index: number) => {
     if (index === activeIndex) return
-    
     setActiveIndex(index)
-    setTimeout(() => {
-      
-    }, 300)
   }
 
   return (
@@ -237,8 +237,8 @@ export function Showcase() {
           <motion.div 
             initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3"
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 transform-gpu"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Our Work</span>
@@ -247,8 +247,8 @@ export function Showcase() {
           <motion.h2 
             initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15]"
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15] transform-gpu"
           >
             Websites that help businesses grow.
           </motion.h2>
@@ -256,8 +256,8 @@ export function Showcase() {
           <motion.p 
             initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto transform-gpu"
           >
             From restaurants and salons to gyms and clinics, every website is designed to look modern, load fast, and convert visitors.
           </motion.p>
@@ -268,12 +268,12 @@ export function Showcase() {
           initial={{ opacity: 0, y: 8 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex items-center justify-center gap-3 mb-6"
+          className="flex items-center justify-center gap-3 mb-6 transform-gpu"
         >
           <div className="bg-white border border-gray-200/90 rounded-full p-1 shadow-2xs flex items-center">
             <button
               onClick={() => setIsBeforeView(false)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer transform-gpu ${
                 !isBeforeView 
                   ? 'bg-[#2563EB] text-white shadow-xs' 
                   : 'text-gray-600 hover:text-black'
@@ -284,7 +284,7 @@ export function Showcase() {
             </button>
             <button
               onClick={() => setIsBeforeView(true)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer ${
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer transform-gpu ${
                 isBeforeView 
                   ? 'bg-amber-600 text-white shadow-xs' 
                   : 'text-gray-600 hover:text-black'
@@ -304,7 +304,7 @@ export function Showcase() {
           
           {/* SWIPEABLE CATEGORY SELECTOR BADGES */}
           {!isBeforeView && (
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar -mx-6 px-6">
+            <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-2 no-scrollbar -mx-6 px-6 transform-gpu">
               {industries.map((ind, idx) => {
                 const IconComp = ind.icon
                 const isActive = activeIndex === idx
@@ -312,7 +312,7 @@ export function Showcase() {
                   <button
                     key={ind.id}
                     onClick={() => handleTabChange(idx)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 border shrink-0 cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 border shrink-0 cursor-pointer transform-gpu active:scale-95 ${
                       isActive 
                         ? 'bg-[#0A0A0A] border-[#0A0A0A] text-white shadow-xs' 
                         : 'bg-white border-gray-200 text-gray-600'
@@ -327,14 +327,14 @@ export function Showcase() {
           )}
 
           {/* PHONE MOCKUP STAGE */}
-          <div className="relative max-w-[280px] mx-auto">
+          <div className="relative max-w-[280px] mx-auto transform-gpu">
             <div className="absolute inset-0 bg-[#2563EB]/15 blur-2xl rounded-full scale-90 pointer-events-none" />
 
             {/* Smartphone Outer Box */}
-            <div className="relative bg-[#090D16] rounded-[36px] border-4 border-gray-800 p-2.5 shadow-2xl overflow-hidden min-h-[460px] flex flex-col justify-between">
+            <div className="relative bg-[#090D16] rounded-[36px] border-4 border-gray-800 p-2.5 shadow-2xl overflow-hidden min-h-[460px] flex flex-col justify-between transform-gpu">
               
               {/* Phone Speaker Notch */}
-              <div className="w-16 h-3 bg-gray-800 rounded-full mx-auto mb-2" />
+              <div className="w-16 h-3 bg-gray-800 rounded-full mx-auto mb-2 shrink-0 z-20" />
 
               {/* Phone Screen Display */}
               <div className="w-full bg-[#0F172A] rounded-[26px] p-3.5 flex-1 flex flex-col justify-between border border-white/10 text-white relative overflow-hidden">
@@ -343,10 +343,11 @@ export function Showcase() {
                   {isBeforeView ? (
                     <motion.div 
                       key="mobile-before"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex-1 flex flex-col justify-between p-2 text-center text-gray-900 bg-[#F5F2EB] rounded-2xl"
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.35, ease: easeSaaS }}
+                      className="flex-1 flex flex-col justify-between p-2 text-center text-gray-900 bg-[#F5F2EB] rounded-2xl transform-gpu"
                     >
                       <div className="text-[9px] font-mono text-red-900 uppercase font-bold">⚠️ Outdated 2010 Site</div>
                       <div className="my-auto space-y-2">
@@ -358,11 +359,11 @@ export function Showcase() {
                   ) : (
                     <motion.div
                       key={currentInd.id}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                      className="flex-1 flex flex-col justify-between space-y-4"
+                      initial={{ opacity: 0, scale: 0.98, y: 12 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.98, y: -12 }}
+                      transition={{ duration: 0.4, ease: easeSaaS }}
+                      className="flex-1 flex flex-col justify-between space-y-4 transform-gpu"
                     >
                       {/* Top Bar */}
                       <div className="flex items-center justify-between border-b border-white/10 pb-2">
@@ -391,7 +392,7 @@ export function Showcase() {
                       </div>
 
                       {/* Phone CTA */}
-                      <button className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1`}>
+                      <button className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1 transform-gpu active:scale-95 transition-transform`}>
                         <span>{currentInd.preview.ctaText}</span>
                         <ChevronRight size={14} />
                       </button>
@@ -404,29 +405,29 @@ export function Showcase() {
           </div>
 
           {/* SWIPEABLE METRICS ROW FOR MOBILE */}
-          <div className="mt-8 flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar -mx-6 px-6">
-            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+          <div className="mt-8 flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 no-scrollbar -mx-6 px-6 transform-gpu">
+            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-xl font-black text-[#0A0A0A] font-sans">
                 <MetricCounter value={50} suffix="+" />
               </div>
               <div className="text-[10px] font-semibold text-gray-500">Websites Live</div>
             </div>
 
-            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-xl font-black text-[#2563EB] font-sans">
                 <MetricCounter value={99} suffix="%" />
               </div>
               <div className="text-[10px] font-semibold text-gray-500">Satisfaction</div>
             </div>
 
-            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-xl font-black text-[#0A0A0A] font-sans">
                 <MetricCounter value={95} suffix="+" />
               </div>
               <div className="text-[10px] font-semibold text-gray-500">Speed Score</div>
             </div>
 
-            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="snap-center shrink-0 w-[140px] bg-white p-3.5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-xl font-black text-[#2563EB] font-sans">24/7</div>
               <div className="text-[10px] font-semibold text-gray-500">Tech Support</div>
             </div>
@@ -446,7 +447,7 @@ export function Showcase() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="flex items-center justify-center gap-2 mb-6"
+              className="flex items-center justify-center gap-2 mb-6 transform-gpu"
             >
               {industries.map((ind, idx) => {
                 const IconComp = ind.icon
@@ -455,7 +456,7 @@ export function Showcase() {
                   <button
                     key={ind.id}
                     onClick={() => handleTabChange(idx)}
-                    className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer ${
+                    className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer transform-gpu ${
                       isActive 
                         ? 'bg-[#0A0A0A] border-[#0A0A0A] text-white shadow-xs scale-[1.02]' 
                         : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
@@ -479,7 +480,7 @@ export function Showcase() {
                   key={chip.text}
                   animate={{ y: [0, -6, 0], rotate: [0, i % 2 === 0 ? 1 : -1, 0] }}
                   transition={{ repeat: Infinity, duration: 4.5 + i, ease: "easeInOut", delay: i * 0.4 }}
-                  className={`hidden lg:flex absolute z-30 items-center gap-2 px-3.5 py-2 rounded-2xl border shadow-lg backdrop-blur-md text-xs font-bold ${chip.bg} ${chip.pos}`}
+                  className={`hidden lg:flex absolute z-30 items-center gap-2 px-3.5 py-2 rounded-2xl border shadow-lg backdrop-blur-md text-xs font-bold transform-gpu ${chip.bg} ${chip.pos}`}
                 >
                   <ChipIcon className="w-3.5 h-3.5 shrink-0" />
                   <span>{chip.text}</span>
@@ -491,9 +492,9 @@ export function Showcase() {
               initial={{ opacity: 0, scale: 0.97, y: 20 }}
               animate={isInView ? { opacity: 1, scale: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3, type: "spring", stiffness: 85 }}
-              className="bg-[#090D16] rounded-[28px] border border-gray-800 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden relative"
+              className="bg-[#090D16] rounded-[28px] border border-gray-800 shadow-[0_25px_80px_-15px_rgba(0,0,0,0.3)] overflow-hidden relative transform-gpu"
             >
-              <div className="absolute top-0 right-0 w-[450px] h-[250px] bg-blue-600/10 blur-[80px] pointer-events-none" />
+              <div className="absolute top-0 right-0 w-[450px] h-[250px] bg-blue-600/10 blur-[80px] pointer-events-none transform-gpu" />
 
               {/* Top Browser Bar */}
               <div className="bg-[#0F172A]/90 backdrop-blur-md px-4 py-3 flex items-center justify-between border-b border-gray-800/80 text-gray-400 relative z-20">
@@ -532,7 +533,7 @@ export function Showcase() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[460px] flex flex-col justify-between"
+                      className="p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[460px] flex flex-col justify-between transform-gpu"
                     >
                       <div className="border-b border-red-900/40 pb-2 flex justify-between items-center">
                         <div className="text-base font-bold text-red-900 uppercase font-mono tracking-wider">
@@ -562,8 +563,8 @@ export function Showcase() {
                       initial={{ opacity: 0, scale: 0.98, y: 10 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.98, y: -10 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                      className="flex-1 flex flex-col justify-between p-8 relative text-white"
+                      transition={{ duration: 0.35, ease: easeSaaS }}
+                      className="flex-1 flex flex-col justify-between p-8 relative text-white transform-gpu"
                     >
                       {/* Nav */}
                       <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
@@ -581,7 +582,7 @@ export function Showcase() {
                           <span>Contact</span>
                         </div>
 
-                        <button className={`px-3.5 py-1.5 rounded-xl text-white font-bold text-[11px] bg-gradient-to-r ${currentInd.preview.accent} shadow-2xs`}>
+                        <button className={`px-3.5 py-1.5 rounded-xl text-white font-bold text-[11px] bg-gradient-to-r ${currentInd.preview.accent} shadow-2xs transform-gpu hover:opacity-90 active:scale-95 transition-all`}>
                           {currentInd.preview.ctaText}
                         </button>
                       </div>
@@ -601,12 +602,12 @@ export function Showcase() {
                         </p>
 
                         <div className="flex items-center gap-3">
-                          <button className={`px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1 shadow-md cursor-pointer`}>
+                          <button className={`px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1 shadow-md cursor-pointer transform-gpu hover:opacity-90 active:scale-95 transition-all`}>
                             <span>{currentInd.preview.ctaText}</span>
                             <ChevronRight className="w-3.5 h-3.5" />
                           </button>
 
-                          <button className="px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/15 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer">
+                          <button className="px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/15 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer transform-gpu active:scale-95">
                             {currentInd.preview.secondaryCta}
                           </button>
                         </div>
@@ -614,17 +615,17 @@ export function Showcase() {
 
                       {/* Stats */}
                       <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 relative z-10 items-center">
-                        <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md">
+                        <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md transform-gpu">
                           <div className="text-sm font-black text-white">{currentInd.preview.stat1}</div>
                           <div className="text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat1Label}</div>
                         </div>
 
-                        <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md">
+                        <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md transform-gpu">
                           <div className="text-sm font-black text-white">{currentInd.preview.stat2}</div>
                           <div className="text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat2Label}</div>
                         </div>
 
-                        <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/15 p-3 rounded-2xl backdrop-blur-md flex items-center justify-between">
+                        <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/15 p-3 rounded-2xl backdrop-blur-md flex items-center justify-between transform-gpu">
                           <div>
                             <div className="text-[9px] font-bold text-blue-400 uppercase tracking-wider">{currentInd.preview.cardTag}</div>
                             <div className="text-xs font-bold text-white truncate">{currentInd.preview.cardTitle}</div>
@@ -648,30 +649,30 @@ export function Showcase() {
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="mt-12 grid grid-cols-4 gap-4 max-w-4xl mx-auto"
+            className="mt-12 grid grid-cols-4 gap-4 max-w-4xl mx-auto transform-gpu"
           >
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
                 <MetricCounter value={50} suffix="+" />
               </div>
               <div className="text-xs font-semibold text-gray-500">Websites Delivered</div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
                 <MetricCounter value={99} suffix="%" />
               </div>
               <div className="text-xs font-semibold text-gray-500">Client Satisfaction</div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-0.5">
                 <MetricCounter value={95} suffix="+" />
               </div>
               <div className="text-xs font-semibold text-gray-500">Speed Score</div>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center">
+            <div className="bg-white p-5 rounded-2xl border border-gray-200/80 shadow-2xs text-center transform-gpu">
               <div className="text-3xl font-black text-[#2563EB] font-sans tracking-tight mb-0.5">
                 24/7
               </div>

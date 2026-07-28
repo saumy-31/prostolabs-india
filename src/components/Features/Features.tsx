@@ -23,6 +23,9 @@ import {
   ArrowRight
 } from 'lucide-react'
 
+// --- EASING CURVES ---
+const easeSaaS = [0.16, 1, 0.3, 1] as const
+
 // --- ANIMATED NUMBER COUNTER ---
 function LiveCounter({ value, suffix = "", decimals = 0 }: { value: number; suffix?: string; decimals?: number }) {
   const count = useMotionValue(0)
@@ -30,19 +33,20 @@ function LiveCounter({ value, suffix = "", decimals = 0 }: { value: number; suff
     decimals > 0 ? latest.toFixed(decimals) : Math.round(latest).toString()
   )
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const isInView = useInView(ref, { once: true, margin: "-40px" })
 
   useEffect(() => {
     if (isInView) {
-      animate(count, value, {
-        duration: 2,
-        ease: [0.16, 1, 0.3, 1],
+      const controls = animate(count, value, {
+        duration: 1.8,
+        ease: easeSaaS,
       })
+      return controls.stop
     }
   }, [isInView, value, count])
 
   return (
-    <span>
+    <span className="inline-block transform-gpu">
       <motion.span ref={ref}>{rounded}</motion.span>
       {suffix}
     </span>
@@ -54,16 +58,16 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 }
   }
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 18 },
   show: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: 90, damping: 20 } 
+    transition: { type: "spring", stiffness: 85, damping: 18 } 
   }
 }
 
@@ -102,20 +106,20 @@ function MultiDeviceIllustration() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative flex-1 w-full flex items-center justify-center my-2 py-2 overflow-visible cursor-pointer group/stage"
+      className="relative flex-1 w-full flex items-center justify-center my-2 py-2 overflow-visible cursor-pointer group/stage transform-gpu"
     >
       <motion.div 
         style={{ x: glowX }}
         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.35, 0.2] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className="absolute w-[280px] sm:w-[380px] h-[160px] sm:h-[250px] bg-gradient-to-tr from-[#2563EB] via-blue-500 to-cyan-400 rounded-full blur-2xl sm:blur-3xl pointer-events-none z-0"
+        className="absolute w-[280px] sm:w-[380px] h-[160px] sm:h-[250px] bg-gradient-to-tr from-[#2563EB] via-blue-500 to-cyan-400 rounded-full blur-2xl sm:blur-3xl pointer-events-none z-0 transform-gpu"
       />
 
       <motion.div 
         style={{ x: laptopX, y: laptopY }}
         animate={{ y: [0, -6, 0] }}
         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-        className="w-[200px] sm:w-[340px] md:w-[380px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-xl sm:rounded-2xl border border-gray-800 p-1.5 sm:p-2 shadow-xl relative z-10"
+        className="w-[200px] sm:w-[340px] md:w-[380px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-xl sm:rounded-2xl border border-gray-800 p-1.5 sm:p-2 shadow-xl relative z-10 transform-gpu"
       >
         <div className="w-full h-full bg-[#0F172A] rounded-lg sm:rounded-xl p-2 sm:p-3 flex flex-col gap-1 sm:gap-2.5 overflow-hidden border border-white/5 relative">
           <div className="flex items-center justify-between border-b border-white/10 pb-1 sm:pb-2">
@@ -169,7 +173,7 @@ function MultiDeviceIllustration() {
         style={{ x: phoneX, y: phoneY }}
         animate={{ y: [0, -6, 0] }}
         transition={{ repeat: Infinity, duration: 4.2, delay: 0.2, ease: "easeInOut" }}
-        className="w-[75px] sm:w-[125px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-[16px] sm:rounded-[24px] border border-gray-800 p-1 sm:p-2 shadow-xl absolute -right-1 sm:right-6 z-20"
+        className="w-[75px] sm:w-[125px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-[16px] sm:rounded-[24px] border border-gray-800 p-1 sm:p-2 shadow-xl absolute -right-1 sm:right-6 z-20 transform-gpu"
       >
         <div className="w-full h-full bg-[#0F172A] rounded-[12px] sm:rounded-[18px] p-1.5 flex flex-col justify-between border border-white/10 relative overflow-hidden">
           <div className="w-5 h-1 bg-gray-700 rounded-full mx-auto mb-0.5" />
@@ -188,7 +192,7 @@ function MultiDeviceIllustration() {
 
 export function Features() {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: "-80px" })
+  const isInView = useInView(sectionRef, { once: true, margin: "-50px" })
 
   return (
     <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" id="features">
@@ -203,27 +207,27 @@ export function Features() {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4"
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4 transform-gpu"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Everything Included</span>
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15]"
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15] transform-gpu"
           >
             Everything you need to launch and grow.
           </motion.h2>
 
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed font-medium max-w-lg mx-auto"
+            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed font-medium max-w-lg mx-auto transform-gpu"
           >
             Every website is built with essential tools modern businesses need. No hidden add-ons. No confusing packages.
           </motion.p>
@@ -233,14 +237,17 @@ export function Features() {
         {/* ========================================================================= */}
         {/* 1. MOBILE-ONLY STACKED PREMIUM CARDS (≤768px) */}
         {/* ========================================================================= */}
-        <div className="block md:hidden space-y-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
+          className="block md:hidden space-y-6"
+        >
           
           {/* CARD 1: MOBILE RESPONSIVE */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
@@ -273,9 +280,7 @@ export function Features() {
           {/* CARD 2: SPEED SCORE */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-700">
@@ -308,9 +313,7 @@ export function Features() {
           {/* CARD 3: WHATSAPP INTEGRATION */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-600">
@@ -336,9 +339,7 @@ export function Features() {
           {/* CARD 4: SEO READY */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600">
@@ -365,9 +366,7 @@ export function Features() {
           {/* CARD 5: GOOGLE MAPS */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600">
@@ -389,9 +388,7 @@ export function Features() {
           {/* CARD 6: SSL & HOSTING */}
           <motion.div 
             variants={cardVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
           >
             <div className="space-y-2 mb-4">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
@@ -413,7 +410,7 @@ export function Features() {
             </div>
           </motion.div>
 
-        </div>
+        </motion.div>
 
 
         {/* ========================================================================= */}
@@ -429,7 +426,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)", borderColor: "rgba(37,99,235,0.35)" }}
-            className="md:col-span-2 md:row-span-2 bg-white border border-gray-200/90 rounded-[32px] p-8 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-2 md:row-span-2 bg-white border border-gray-200/90 rounded-[32px] p-8 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div className="absolute inset-0 opacity-[0.025] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '16px 16px' }} />
 
@@ -456,7 +453,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(16,185,129,0.18)", borderColor: "rgba(16,185,129,0.35)" }}
-            className="md:col-span-1 md:row-span-2 bg-gradient-to-b from-emerald-50/40 via-white to-white border border-emerald-100 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 bg-gradient-to-b from-emerald-50/40 via-white to-white border border-emerald-100 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-100/80 text-emerald-700 mb-3">
@@ -471,7 +468,7 @@ export function Features() {
               <motion.div 
                 animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
                 transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                className="absolute w-28 h-28 bg-emerald-400/20 rounded-full blur-xl pointer-events-none"
+                className="absolute w-28 h-28 bg-emerald-400/20 rounded-full blur-xl pointer-events-none transform-gpu"
               />
 
               <svg className="w-36 h-36 transform -rotate-90 relative z-10">
@@ -479,13 +476,13 @@ export function Features() {
                 <motion.circle 
                   initial={{ strokeDashoffset: 351 }}
                   animate={isInView ? { strokeDashoffset: 10 } : {}}
-                  transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 1.8, ease: easeSaaS }}
                   cx="72" cy="72" r="56" 
                   stroke="currentColor" 
                   strokeWidth="10" 
                   fill="transparent" 
                   strokeDasharray="351" 
-                  className="text-emerald-500" 
+                  className="text-emerald-500 transform-gpu" 
                   strokeLinecap="round"
                 />
               </svg>
@@ -494,7 +491,7 @@ export function Features() {
                 <motion.div 
                   animate={{ scale: [1, 1.06, 1] }} 
                   transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-                  className="text-4xl font-black text-emerald-600 tracking-tight font-sans drop-shadow-2xs"
+                  className="text-4xl font-black text-emerald-600 tracking-tight font-sans drop-shadow-2xs transform-gpu"
                 >
                   <LiveCounter value={99} />
                 </motion.div>
@@ -513,7 +510,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(34,197,94,0.18)", borderColor: "rgba(34,197,94,0.35)" }}
-            className="md:col-span-1 md:row-span-2 bg-[#2563EB]/0 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 bg-[#2563EB]/0 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
@@ -535,7 +532,7 @@ export function Features() {
                 initial={{ opacity: 0, x: -15 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="bg-white text-[#0A0A0A] p-3 rounded-2xl rounded-bl-xs text-xs shadow-2xs max-w-[85%] border border-gray-100"
+                className="bg-white text-[#0A0A0A] p-3 rounded-2xl rounded-bl-xs text-xs shadow-2xs max-w-[85%] border border-gray-100 transform-gpu"
               >
                 Hi, I want more information about your services!
                 <div className="text-[9px] text-gray-400 text-right mt-1">10:42 AM</div>
@@ -545,7 +542,7 @@ export function Features() {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: [0, 1, 0] } : {}}
                 transition={{ repeat: Infinity, duration: 1.8, delay: 0.9 }}
-                className="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full text-[10px] font-semibold w-fit flex items-center gap-1"
+                className="bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-full text-[10px] font-semibold w-fit flex items-center gap-1 transform-gpu"
               >
                 <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full animate-bounce" />
                 <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full animate-bounce [animation-delay:0.2s]" />
@@ -555,8 +552,8 @@ export function Features() {
               <motion.div 
                 initial={{ opacity: 0, x: 15, scale: 0.95 }}
                 animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 1.4, type: "spring" }}
-                className="bg-[#2563EB] text-white p-3 rounded-2xl rounded-br-xs text-xs shadow-md ml-auto max-w-[85%]"
+                transition={{ duration: 0.5, delay: 1.2, type: "spring" }}
+                className="bg-[#2563EB] text-white p-3 rounded-2xl rounded-br-xs text-xs shadow-md ml-auto max-w-[85%] transform-gpu"
               >
                 Hello! 👋 We would love to help you build your website.
                 <div className="text-[9px] text-blue-200 text-right mt-1">10:43 AM ✓✓</div>
@@ -572,7 +569,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(249,115,22,0.18)", borderColor: "rgba(249,115,22,0.35)" }}
-            className="md:col-span-2 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-2 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div className="flex items-center justify-between">
               <div>
@@ -590,8 +587,8 @@ export function Features() {
             <motion.div 
               initial={{ y: 10, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-2 bg-gray-50 border border-gray-200/80 rounded-2xl p-3 flex items-center justify-between gap-4 group-hover:border-orange-200 transition-colors"
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="mt-2 bg-gray-50 border border-gray-200/80 rounded-2xl p-3 flex items-center justify-between gap-4 group-hover:border-orange-200 transition-colors transform-gpu"
             >
               <div className="flex items-center gap-3 overflow-hidden">
                 <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-extrabold text-sm shrink-0 shadow-2xs">
@@ -618,7 +615,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(239,68,68,0.18)", borderColor: "rgba(239,68,68,0.35)" }}
-            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div className="flex items-center justify-between">
               <div className="p-2 bg-red-50 text-red-600 rounded-xl">
@@ -642,7 +639,7 @@ export function Features() {
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)", borderColor: "rgba(37,99,235,0.35)" }}
-            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-1 bg-white border border-gray-200/90 rounded-[32px] p-5 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300 transform-gpu"
           >
             <div className="flex items-center justify-between">
               <div className="p-2 bg-blue-50 text-[#2563EB] rounded-xl relative">
@@ -675,13 +672,13 @@ export function Features() {
         {/* 3. CTA BOTTOM BANNER (MOBILE SPECIFIC STACK VS DESKTOP HORIZONTAL STRIP) */}
         {/* ========================================================================= */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-8 sm:mt-12 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1E3A8A] rounded-[24px] sm:rounded-[32px] p-7 sm:p-10 shadow-xl relative overflow-hidden group"
+          transition={{ duration: 0.5, delay: 0.45, ease: easeSaaS }}
+          className="mt-8 sm:mt-12 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1E3A8A] rounded-[24px] sm:rounded-[32px] p-7 sm:p-10 shadow-xl relative overflow-hidden group transform-gpu"
         >
           {/* Ambient Glow Orb */}
-          <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-blue-400/20 rounded-full blur-3xl pointer-events-none transform-gpu" />
 
           {/* Mobile Stack Layout (block md:hidden) */}
           <div className="block md:hidden text-center text-white relative z-10 space-y-5">
@@ -697,7 +694,7 @@ export function Features() {
             <motion.a 
               href="#pricing" 
               whileTap={{ scale: 0.97 }}
-              className="w-full h-[52px] bg-white text-[#2563EB] px-6 rounded-2xl font-black text-sm shadow-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full h-[52px] bg-white text-[#2563EB] px-6 rounded-2xl font-black text-sm shadow-lg hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 cursor-pointer transform-gpu"
             >
               <span>Start for ₹499/month</span>
               <ArrowRight size={16} />
@@ -715,7 +712,7 @@ export function Features() {
               href="#pricing" 
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="bg-white text-[#2563EB] h-auto px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all duration-300 shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer"
+              className="bg-white text-[#2563EB] h-auto px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all duration-300 shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer transform-gpu"
             >
               <span>Start for ₹499/month</span>
               <ArrowRight size={15} />

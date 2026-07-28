@@ -7,46 +7,48 @@ interface PricingProps {
   onOpenModal?: (plan?: PlanType) => void
 }
 
-// --- CONSTANTS ---
-const springConfig = { type: "spring" as const, stiffness: 80, damping: 20 }
-const featureSpring = { type: "spring" as const, stiffness: 100 }
+// --- CONSTANTS & EASING ---
+const springConfig = { type: "spring" as const, stiffness: 85, damping: 18 }
+const featureSpring = { type: "spring" as const, stiffness: 100, damping: 15 }
+const easeSaaS = [0.16, 1, 0.3, 1] as const
 
 // --- BULLETPROOF NUMBER COUNTER ---
 function AnimatedCounter({ value }: { value: number }) {
   const count = useMotionValue(0)
   const rounded = useTransform(count, (latest) => Math.round(latest).toLocaleString('en-IN'))
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const isInView = useInView(ref, { once: true, margin: "-30px" })
 
   useEffect(() => {
     if (isInView) {
-      animate(count, value, {
-        duration: 2,
-        ease: [0.16, 1, 0.3, 1],
+      const controls = animate(count, value, {
+        duration: 1.8,
+        ease: easeSaaS,
       })
+      return controls.stop
     }
   }, [isInView, value, count])
 
-  return <motion.span ref={ref}>{rounded}</motion.span>
+  return <motion.span ref={ref} className="transform-gpu inline-block">{rounded}</motion.span>
 }
 
 export function Pricing({ onOpenModal }: PricingProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, margin: "-60px" })
+  const isInView = useInView(containerRef, { once: true, margin: "-40px" })
 
   // --- VARIANTS ---
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } }
+    show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
   }
 
   const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 25 },
+    hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: springConfig }
   }
 
   const featureVariants: Variants = {
-    hidden: { opacity: 0, x: -8 },
+    hidden: { opacity: 0, x: -6 },
     show: { opacity: 1, x: 0, transition: featureSpring }
   }
 
@@ -77,23 +79,29 @@ export function Pricing({ onOpenModal }: PricingProps) {
         {/* SECTION HEADER */}
         <div className="max-w-3xl mx-auto text-center mb-8 sm:mb-12 flex flex-col items-center">
           <motion.div 
-            initial={{ opacity: 0, y: 8 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3"
+            initial={{ opacity: 0, y: 8 }} 
+            animate={isInView ? { opacity: 1, y: 0 } : {}} 
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 transform-gpu"
           >
             <span className="text-xs">💙</span>
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Simple Pricing</span>
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 12 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl leading-[1.12] font-black text-[#0A0A0A] mb-3 tracking-tight font-sans"
+            initial={{ opacity: 0, y: 12 }} 
+            animate={isInView ? { opacity: 1, y: 0 } : {}} 
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-3xl sm:text-4xl lg:text-5xl leading-[1.12] font-black text-[#0A0A0A] mb-3 tracking-tight font-sans transform-gpu"
           >
             Find the Right Plan for Your Business
           </motion.h2>
 
           <motion.p 
-            initial={{ opacity: 0, y: 8 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto"
+            initial={{ opacity: 0, y: 8 }} 
+            animate={isInView ? { opacity: 1, y: 0 } : {}} 
+            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-xl mx-auto transform-gpu"
           >
             Transparent pricing with no hidden fees. Choose the option that fits your needs today.
           </motion.p>
@@ -105,21 +113,32 @@ export function Pricing({ onOpenModal }: PricingProps) {
         <div className="block lg:hidden">
           
           {/* Swipe Indicator Pill */}
-          <div className="flex items-center justify-center gap-2 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="flex items-center justify-center gap-2 mb-2 text-xs font-bold text-gray-400 uppercase tracking-widest transform-gpu"
+          >
             <span>← Swipe to compare plans →</span>
-          </div>
+          </motion.div>
 
-          {/* Horizontally Scrollable Cards Container */}
-          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 px-2 -mx-4 px-6 no-scrollbar">
+          {/* Horizontally Scrollable Cards Container (pt-4 guarantees no badge clipping) */}
+          <motion.div 
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.25, ease: easeSaaS }}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pt-4 pb-6 px-6 -mx-4 sm:-mx-6 no-scrollbar transform-gpu"
+          >
             
             {/* CARD 1: CARE PLAN (RECOMMENDED & FIRST) */}
-            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border-2 border-[#2563EB] shadow-xl relative flex flex-col justify-between">
-              <div className="absolute -top-3.5 right-6 bg-[#2563EB] text-white px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wide shadow-md">
+            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border-2 border-[#2563EB] shadow-xl relative flex flex-col justify-between transform-gpu">
+              {/* Floating Top Badge with Proper Elevation & Padding */}
+              <div className="absolute -top-3.5 right-5 z-20 bg-[#2563EB] text-white px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wide shadow-md whitespace-nowrap">
                 🔥 Most Popular
               </div>
 
               <div>
-                <span className="inline-block text-xs font-bold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
+                <span className="inline-block text-[10px] font-extrabold text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
                   Recommended
                 </span>
                 <h3 className="text-2xl font-black text-[#0A0A0A] mb-1 font-sans">Care Plan</h3>
@@ -143,19 +162,20 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 </ul>
               </div>
 
-              <button 
+              <motion.button 
                 onClick={() => onOpenModal?.('care')}
-                className="w-full h-[52px] bg-[#2563EB] text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer"
+                whileTap={{ scale: 0.98 }}
+                className="w-full h-[52px] bg-[#2563EB] text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors transform-gpu"
               >
                 <span>Start for ₹499/month</span>
                 <ArrowRight className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
 
             {/* CARD 2: ONE-TIME PLAN */}
-            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border border-gray-200 shadow-md relative flex flex-col justify-between">
+            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border border-gray-200 shadow-md relative flex flex-col justify-between transform-gpu">
               <div>
-                <span className="inline-block text-xs font-bold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
+                <span className="inline-block text-[10px] font-extrabold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
                   Full Ownership
                 </span>
                 <h3 className="text-2xl font-black text-[#0A0A0A] mb-1 font-sans">One-Time Plan</h3>
@@ -179,19 +199,20 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 </ul>
               </div>
 
-              <button 
+              <motion.button 
                 onClick={() => onOpenModal?.('onetime')}
-                className="w-full h-[52px] bg-white text-[#0A0A0A] border border-gray-300 font-bold text-sm rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50"
+                whileTap={{ scale: 0.98 }}
+                className="w-full h-[52px] bg-white text-[#0A0A0A] border border-gray-300 font-bold text-sm rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors transform-gpu"
               >
                 Buy One-Time
-              </button>
+              </motion.button>
             </div>
 
             {/* CARD 3: CUSTOM SOLUTION */}
-            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border border-gray-200 shadow-md relative flex flex-col justify-between">
+            <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border border-gray-200 shadow-md relative flex flex-col justify-between transform-gpu">
               <div>
-                <span className="inline-block text-xs font-bold text-gray-500 bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
-                  Enterprise
+                <span className="inline-block text-[10px] font-extrabold text-gray-600 bg-gray-100 px-2.5 py-1 rounded-lg uppercase tracking-wider mb-2">
+                  Custom Build
                 </span>
                 <h3 className="text-2xl font-black text-[#0A0A0A] mb-1 font-sans">Custom Solution</h3>
                 
@@ -213,32 +234,35 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 </ul>
               </div>
 
-              <button 
+              <motion.button 
                 onClick={() => onOpenModal?.('custom')}
-                className="w-full h-[52px] bg-[#0A0A0A] text-white font-bold text-sm rounded-2xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-800"
+                whileTap={{ scale: 0.98 }}
+                className="w-full h-[52px] bg-[#0A0A0A] text-white font-bold text-sm rounded-2xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-800 active:bg-gray-900 transition-colors transform-gpu"
               >
                 Request Quote
-              </button>
+              </motion.button>
             </div>
 
-          </div>
+          </motion.div>
         </div>
 
         {/* ========================================================================= */}
         {/* 2. UNTOUCHED DESKTOP PRICING GRID (≥1024px) */}
         {/* ========================================================================= */}
         <motion.div 
-          variants={containerVariants} initial="hidden" animate={isInView ? "show" : "hidden"}
+          variants={containerVariants} 
+          initial="hidden" 
+          animate={isInView ? "show" : "hidden"}
           className="hidden lg:grid grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto"
         >
           {/* 1. CARE PLAN (FEATURED) */}
-          <motion.div variants={cardVariants} className="relative h-full">
+          <motion.div variants={cardVariants} className="relative h-full transform-gpu">
             <div className="absolute inset-0 bg-[#2563EB] blur-[50px] opacity-10 rounded-[32px] transform translate-y-6" />
             
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.20)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white rounded-[28px] p-8 border-2 border-[#2563EB] shadow-lg flex flex-col z-10 group transition-all duration-300"
+              className="relative h-full bg-white rounded-[28px] p-8 border-2 border-[#2563EB] shadow-lg flex flex-col z-10 group transition-all duration-300 transform-gpu"
             >
               <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#2563EB] text-white px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wide shadow-md flex items-center gap-1">
                 🔥 Most Popular
@@ -260,7 +284,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
                   <motion.li 
                     key={i} 
                     variants={featureVariants} 
-                    className="flex items-center gap-2.5"
+                    className="flex items-center gap-2.5 transform-gpu"
                   >
                     <CheckCircle2 className="w-5 h-5 text-[#2563EB] shrink-0" />
                     <span className="text-[#0A0A0A] text-[13px] font-semibold">{item.text}</span>
@@ -271,7 +295,9 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('care')}
                 variants={featureVariants}
-                className="w-full relative inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 hover:shadow-[0_8px_25px_rgba(37,99,235,0.35)] overflow-hidden group/btn mt-auto z-10 cursor-pointer"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full relative inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 hover:shadow-[0_8px_25px_rgba(37,99,235,0.35)] overflow-hidden group/btn mt-auto z-10 cursor-pointer transform-gpu"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   Start for ₹499/month
@@ -283,11 +309,11 @@ export function Pricing({ onOpenModal }: PricingProps) {
           </motion.div>
 
           {/* 2. ONE-TIME PLAN */}
-          <motion.div variants={cardVariants} className="relative h-full">
+          <motion.div variants={cardVariants} className="relative h-full transform-gpu">
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
+              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300 transform-gpu"
             >
               <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 font-sans">One-Time Plan</h3>
               
@@ -302,21 +328,23 @@ export function Pricing({ onOpenModal }: PricingProps) {
 
               <motion.ul variants={containerVariants} className="space-y-3 mb-5">
                 {["Professional Website", "Mobile Responsive", "WhatsApp Integration", "Google Maps", "Basic SEO Setup", "Website Ownership"].map((feature, i) => (
-                  <motion.li key={i} variants={featureVariants} className="flex items-center gap-2.5">
+                  <motion.li key={i} variants={featureVariants} className="flex items-center gap-2.5 transform-gpu">
                     <CheckCircle2 className="w-5 h-5 text-[#6B7280] shrink-0" />
                     <span className="text-[#0A0A0A] text-[13px] font-semibold">{feature}</span>
                   </motion.li>
                 ))}
               </motion.ul>
 
-              <motion.p variants={featureVariants} className="text-[11px] text-[#6B7280] font-medium leading-normal mb-6 flex-1 bg-gray-50 p-3.5 rounded-xl border border-gray-200/60">
+              <motion.p variants={featureVariants} className="text-[11px] text-[#6B7280] font-medium leading-normal mb-6 flex-1 bg-gray-50 p-3.5 rounded-xl border border-gray-200/60 transform-gpu">
                 Future updates or support can be requested anytime and are charged separately based on work required.
               </motion.p>
 
               <motion.button 
                 onClick={() => onOpenModal?.('onetime')}
                 variants={featureVariants}
-                className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#0A0A0A] border border-gray-200 px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#0A0A0A] border border-gray-200 px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer transform-gpu"
               >
                 Buy Once
               </motion.button>
@@ -324,11 +352,11 @@ export function Pricing({ onOpenModal }: PricingProps) {
           </motion.div>
 
           {/* 3. CUSTOM SOLUTION */}
-          <motion.div variants={cardVariants} className="relative h-full">
+          <motion.div variants={cardVariants} className="relative h-full transform-gpu">
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 20px 40px -15px rgba(0,0,0,0.08)" }} 
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300"
+              className="relative h-full bg-white/80 backdrop-blur-xl rounded-[28px] p-8 border border-gray-200/90 shadow-sm flex flex-col z-10 transition-all duration-300 transform-gpu"
             >
               <h3 className="text-xl font-bold text-[#0A0A0A] mb-3 font-sans">Custom Solution</h3>
               
@@ -342,7 +370,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
 
               <motion.ul variants={containerVariants} className="space-y-3 mb-6 flex-1">
                 {customFeatures.map((item, i) => (
-                  <motion.li key={i} variants={featureVariants} className="flex items-center gap-2.5">
+                  <motion.li key={i} variants={featureVariants} className="flex items-center gap-2.5 transform-gpu">
                     <CheckCircle2 className="w-5 h-5 text-[#6B7280] shrink-0" />
                     <span className="text-[#0A0A0A] text-[13px] font-semibold">{item.text}</span>
                   </motion.li>
@@ -352,7 +380,9 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('custom')}
                 variants={featureVariants}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-white px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-800 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-white px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-800 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer transform-gpu"
               >
                 Request a Quote
               </motion.button>

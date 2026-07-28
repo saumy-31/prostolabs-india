@@ -11,6 +11,7 @@ import { Testimonials } from './components/Testimonials/Testimonials'
 import { FAQ } from './components/FAQ/FAQ'
 import { FinalCTA } from './components/FinalCTA/FinalCTA'
 import { Footer } from './components/Footer/Footer'
+import { FloatingCTA } from './components/FloatingCTA'
 import { EnquiryModal, type PlanType } from './components/Modal/EnquiryModal'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
 import { TermsConditions } from './pages/TermsConditions'
@@ -111,6 +112,12 @@ export default function App() {
 
       {/* FOOTER */}
       <Footer />
+
+      {/* GLOBAL FLOATING CTA */}
+      <FloatingCTA 
+        onOpenModal={handleOpenModal} 
+        isModalOpen={isModalOpen} 
+      />
 
       {/* SINGLE UNIVERSAL ENQUIRY MODAL */}
       <EnquiryModal 
