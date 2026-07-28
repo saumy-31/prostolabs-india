@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView, type Variants } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useReducedMotion, type Variants } from 'framer-motion'
 import { 
   ChevronDown, 
   MessageSquare, 
@@ -14,17 +14,19 @@ interface FAQProps {
   onOpenModal?: (plan?: PlanType) => void
 }
 
-// --- ANIMATION VARIANTS ---
+// --- SAAS EASING CURVES & VARIANTS ---
+const easeSaaS = [0.16, 1, 0.3, 1] as const
+
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.2 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 }
   }
 }
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 25 },
+  hidden: { opacity: 0, y: 18 },
   show: { 
     opacity: 1, 
     y: 0, 
@@ -180,9 +182,10 @@ const faqList = [
 ]
 
 export function FAQ({ onOpenModal }: FAQProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const shouldReduceMotion = useReducedMotion()
+  const isInView = useInView(sectionRef, { once: true, margin: "-40px" })
 
   const toggleAccordion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -193,14 +196,14 @@ export function FAQ({ onOpenModal }: FAQProps) {
       
       {/* AMBIENT FLOATING GRADIENT BACKGROUND ORBS */}
       <motion.div 
-        animate={{ y: [0, -25, 0], scale: [1, 1.06, 1] }}
+        animate={shouldReduceMotion ? {} : { y: [0, -25, 0], scale: [1, 1.06, 1] }}
         transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
-        className="absolute top-1/3 -left-20 w-[550px] h-[550px] bg-blue-500/5 rounded-full blur-[110px] pointer-events-none" 
+        className="absolute top-1/3 -left-20 w-[550px] h-[550px] bg-blue-500/5 rounded-full blur-[110px] pointer-events-none transform-gpu" 
       />
       <motion.div 
-        animate={{ y: [0, 25, 0], scale: [1, 1.08, 1] }}
+        animate={shouldReduceMotion ? {} : { y: [0, 25, 0], scale: [1, 1.08, 1] }}
         transition={{ repeat: Infinity, duration: 11, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-1/3 -right-20 w-[550px] h-[550px] bg-indigo-500/5 rounded-full blur-[110px] pointer-events-none" 
+        className="absolute bottom-1/3 -right-20 w-[550px] h-[550px] bg-indigo-500/5 rounded-full blur-[110px] pointer-events-none transform-gpu" 
       />
 
       <div className="max-w-[1300px] mx-auto px-6 sm:px-6 md:px-12 relative z-10 w-full overflow-x-hidden">
@@ -210,28 +213,28 @@ export function FAQ({ onOpenModal }: FAQProps) {
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 sm:mb-6"
+            transition={{ duration: 0.45, ease: easeSaaS }}
+            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 sm:mb-6 transform-gpu"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#2563EB]" />
             <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">❓ FAQ</span>
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-2 sm:mb-4 tracking-tight font-sans leading-[1.18]"
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-2 sm:mb-4 tracking-tight font-sans leading-[1.18] transform-gpu"
           >
             Questions people ask <br className="hidden sm:block" />
             before getting a website.
           </motion.h2>
 
           <motion.p 
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            className="text-xs sm:text-base md:text-lg text-[#6B7280] leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
+            className="text-xs sm:text-base md:text-lg text-[#6B7280] leading-relaxed transform-gpu"
           >
             Everything you need to know before choosing ProstoLabs.
           </motion.p>
@@ -255,7 +258,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                   key={idx}
                   variants={itemVariants}
                   whileHover={{ y: -2, boxShadow: "0 20px 40px -15px rgba(37,99,235,0.12)" }}
-                  className={`border rounded-[20px] sm:rounded-2xl overflow-hidden relative transition-colors duration-300 w-full ${
+                  className={`border rounded-[20px] sm:rounded-2xl overflow-hidden relative transition-colors duration-300 w-full transform-gpu ${
                     isOpen 
                       ? 'bg-blue-50/30 border-[#2563EB] shadow-md ring-2 ring-blue-100' 
                       : 'bg-white border-gray-200/90 hover:border-blue-400/60 shadow-2xs'
@@ -268,7 +271,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                       initial={{ scaleY: 0 }}
                       animate={{ scaleY: 1 }}
                       exit={{ scaleY: 0 }}
-                      className="absolute left-0 top-0 bottom-0 w-1 sm:w-1.5 bg-[#2563EB] rounded-l-[20px] sm:rounded-l-2xl z-20"
+                      className="absolute left-0 top-0 bottom-0 w-1 sm:w-1.5 bg-[#2563EB] rounded-l-[20px] sm:rounded-l-2xl z-20 transform-gpu"
                     />
                   )}
 
@@ -284,8 +287,8 @@ export function FAQ({ onOpenModal }: FAQProps) {
 
                     <motion.div 
                       animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className={`p-2 rounded-xl shrink-0 transition-colors ${
+                      transition={{ duration: 0.3, ease: easeSaaS }}
+                      className={`p-2 rounded-xl shrink-0 transition-colors transform-gpu ${
                         isOpen ? 'bg-[#2563EB] text-white shadow-xs' : 'bg-gray-100 text-gray-500'
                       }`}
                     >
@@ -299,22 +302,22 @@ export function FAQ({ onOpenModal }: FAQProps) {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.32, ease: easeSaaS }}
                       >
                         <div className="px-5 pb-5 sm:px-6 sm:pb-6 relative z-10">
                           
                           <motion.div 
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="h-px bg-blue-100 origin-left mb-3.5 sm:mb-4"
+                            transition={{ duration: 0.35, ease: "easeOut" }}
+                            className="h-px bg-blue-100 origin-left mb-3.5 sm:mb-4 transform-gpu"
                           />
 
                           <motion.div 
-                            initial={{ opacity: 0, y: 8 }}
+                            initial={{ opacity: 0, y: 6 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: 0.1 }}
-                            className="text-xs sm:text-sm text-[#6B7280] leading-relaxed break-words"
+                            transition={{ duration: 0.25, delay: 0.08 }}
+                            className="text-xs sm:text-sm text-[#6B7280] leading-relaxed break-words transform-gpu"
                           >
                             {item.answer}
                           </motion.div>
@@ -329,16 +332,16 @@ export function FAQ({ onOpenModal }: FAQProps) {
 
           {/* SUPPORT CARD (4 COLS ON DESKTOP, SECOND ON MOBILE) */}
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 order-2 lg:order-1 lg:sticky lg:top-28 mt-4 lg:mt-0 w-full"
+            transition={{ duration: 0.6, delay: 0.25, ease: easeSaaS }}
+            className="lg:col-span-4 order-2 lg:order-1 lg:sticky lg:top-28 mt-4 lg:mt-0 w-full transform-gpu"
           >
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)" }}
-              className="bg-white border-2 border-[#2563EB] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 shadow-lg sm:shadow-xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 w-full"
+              className="bg-white border-2 border-[#2563EB] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 shadow-lg sm:shadow-xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 w-full transform-gpu"
             >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl pointer-events-none transform-gpu" />
 
               <div>
                 <div className="flex items-center justify-between mb-5 sm:mb-6">
@@ -388,7 +391,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                 onClick={() => onOpenModal?.('care')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#2563EB] text-white font-bold text-sm h-[52px] sm:h-auto sm:py-3.5 rounded-2xl sm:rounded-xl shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full bg-[#2563EB] text-white font-bold text-sm h-[52px] sm:h-auto sm:py-3.5 rounded-2xl sm:rounded-xl shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 cursor-pointer transform-gpu active:bg-blue-700"
               >
                 <span>Talk to ProstoLabs</span>
                 <ArrowRight size={15} />

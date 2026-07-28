@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView } from 'framer-motion'
+import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
 import { 
   Star, 
   Quote, 
@@ -14,7 +14,10 @@ import {
   MapPin,
 } from 'lucide-react'
 
-// --- TESTIMONIAL DATA ---
+// --- SAAS EASING CURVES ---
+const easeSaaS = [0.16, 1, 0.3, 1] as const
+
+// --- TESTIMONIAL DATA WITH REALISTIC INDIAN BUSINESS OWNER PORTRAITS ---
 const testimonials = [
   {
     id: 'restaurant',
@@ -23,7 +26,7 @@ const testimonials = [
     business: 'Spice Route Bistro',
     industry: 'Restaurant & Dining',
     location: 'Bengaluru, KA',
-    avatar: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "Our new website has completely changed how customers discover us online. Table reservations and direct WhatsApp orders doubled in our very first month.",
     projectType: 'Fine Dining Portal & Menu',
@@ -39,7 +42,7 @@ const testimonials = [
     business: 'FitPulse Fitness Arena',
     industry: 'Gym & Fitness',
     location: 'Mumbai, MH',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "The process was incredibly simple, and the website looks amazing on mobile. Members love checking class schedules and booking trial passes directly online.",
     projectType: 'High-Energy Fitness Site',
@@ -55,7 +58,7 @@ const testimonials = [
     business: 'Lumière Spa & Salon',
     industry: 'Beauty & Wellness',
     location: 'Delhi, NCR',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "Customers can now contact us instantly through WhatsApp. Appointment management has never been easier, and our brand finally looks luxury.",
     projectType: 'Luxury Booking Showcase',
@@ -71,7 +74,7 @@ const testimonials = [
     business: 'CarePlus Multi-Specialty Clinic',
     industry: 'Healthcare & Clinic',
     location: 'Hyderabad, TS',
-    avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "Professional, fast, and exactly what our medical practice needed. Patients regularly compliment how clean and easy it is to find doctor slots.",
     projectType: 'Medical Clinic & OPD Portal',
@@ -87,7 +90,7 @@ const testimonials = [
     business: 'Apex Realty Group',
     industry: 'Real Estate',
     location: 'Pune, MH',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "Our luxury property listings finally look premium online. We closed two major villa deals directly from inquiries that came through our ProstoLabs site.",
     projectType: 'Property Showcase Site',
@@ -103,7 +106,7 @@ const testimonials = [
     business: 'Mindspace Academy',
     industry: 'Coaching & Education',
     location: 'Jaipur, RJ',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80&crop=faces',
     rating: 5,
     quote: "Batch admissions grew noticeably after launching our website. Parents appreciate seeing transparent course schedules and faculty achievements.",
     projectType: 'Academy Enrollment Site',
@@ -127,7 +130,8 @@ const businessLogos = [
 export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0)
   const sectionRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" })
+  const shouldReduceMotion = useReducedMotion()
+  const isInView = useInView(sectionRef, { once: true, margin: "-40px" })
 
   const current = testimonials[activeIndex]
 
@@ -135,36 +139,36 @@ export function Testimonials() {
     <section ref={sectionRef} className="py-12 sm:py-20 md:py-28 bg-[#FAFAFA] relative overflow-hidden" id="testimonials">
       
       {/* Background Radial Blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none transform-gpu" />
 
       <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4"
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4 transform-gpu"
           >
             <Heart className="w-3.5 h-3.5 text-[#2563EB] fill-[#2563EB]" />
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Loved by Businesses</span>
           </motion.div>
 
           <motion.h2 
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.18]"
+            transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.18] transform-gpu"
           >
             Businesses trust ProstoLabs to build their online presence.
           </motion.h2>
 
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed max-w-xl mx-auto"
+            transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed max-w-xl mx-auto transform-gpu"
           >
             From restaurants and gyms to clinics and real estate businesses, we help local brands launch modern websites that perform.
           </motion.p>
@@ -172,12 +176,12 @@ export function Testimonials() {
 
         {/* GOOGLE REVIEW STYLE RATING BADGE */}
         <motion.div 
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex justify-center mb-8"
+          transition={{ duration: 0.45, delay: 0.2 }}
+          className="flex justify-center mb-8 transform-gpu"
         >
-          <div className="bg-white border border-gray-200/90 rounded-2xl px-5 py-2.5 shadow-2xs flex items-center justify-center gap-3">
+          <div className="bg-white border border-gray-200/90 rounded-2xl px-5 py-2.5 shadow-2xs flex items-center justify-center gap-3 transform-gpu">
             <div className="flex items-center gap-1 text-amber-400">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={15} className="fill-amber-400" />
@@ -196,21 +200,21 @@ export function Testimonials() {
         <div className="block lg:hidden mb-12">
           
           {/* Swipe Indicator Header */}
-          <div className="flex items-center justify-center gap-2 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+          <div className="flex items-center justify-center gap-2 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest transform-gpu">
             <span>← Swipe stories →</span>
           </div>
 
           {/* Swipeable Snap Scroll Track */}
-          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6">
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6 transform-gpu">
             {testimonials.map((item) => {
               const IconComp = item.icon
               return (
                 <div 
                   key={item.id}
-                  className="snap-center shrink-0 w-[90%] max-w-[340px] bg-white border-2 border-[#2563EB]/80 rounded-[28px] p-6 shadow-lg relative flex flex-col justify-between"
+                  className="snap-center shrink-0 w-[90%] max-w-[340px] bg-white border-2 border-[#2563EB]/80 rounded-[28px] p-6 shadow-lg relative flex flex-col justify-between transform-gpu"
                 >
                   {/* Background Soft Glow */}
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none transform-gpu" />
 
                   <div className="space-y-4">
                     {/* Top Industry Pill & Stars */}
@@ -242,7 +246,7 @@ export function Testimonials() {
                       <img 
                         src={item.avatar} 
                         alt={item.name} 
-                        className="w-12 h-12 rounded-full object-cover border-2 border-[#2563EB]/30 shadow-xs shrink-0" 
+                        className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs shrink-0 transform-gpu" 
                       />
                       <div>
                         <h4 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
@@ -280,13 +284,13 @@ export function Testimonials() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.id}
-                initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -12, scale: 0.98 }}
-                transition={{ duration: 0.3, ease: "easeOut" }}
-                className="bg-white border-2 border-[#2563EB]/80 rounded-[32px] p-10 shadow-xl relative overflow-hidden flex flex-col justify-between min-h-[440px]"
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.35, ease: easeSaaS }}
+                className="bg-white border-2 border-[#2563EB]/80 rounded-[32px] p-10 shadow-xl relative overflow-hidden flex flex-col justify-between min-h-[440px] transform-gpu"
               >
-                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none transform-gpu" />
 
                 <div>
                   <div className="flex items-center justify-between mb-8">
@@ -315,7 +319,7 @@ export function Testimonials() {
                     <img 
                       src={current.avatar} 
                       alt={current.name} 
-                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-2xs shrink-0" 
+                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-2xs shrink-0 transform-gpu" 
                     />
                     <div>
                       <h4 className="font-bold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
@@ -349,15 +353,16 @@ export function Testimonials() {
                 <motion.button
                   key={item.id}
                   onClick={() => setActiveIndex(idx)}
-                  whileHover={{ x: 4 }}
-                  className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer ${
+                  whileHover={shouldReduceMotion ? {} : { x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer transform-gpu ${
                     isActive 
                       ? 'bg-white border-[#2563EB] shadow-md ring-2 ring-blue-100' 
                       : 'bg-white/80 border-gray-200/80 hover:bg-white'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <div className={`p-2.5 rounded-xl shrink-0 ${isActive ? 'bg-[#2563EB] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                    <div className={`p-2.5 rounded-xl shrink-0 transition-colors ${isActive ? 'bg-[#2563EB] text-white' : 'bg-gray-100 text-gray-600'}`}>
                       <IconComp size={18} />
                     </div>
                     <div className="truncate">
@@ -385,8 +390,8 @@ export function Testimonials() {
         <motion.div 
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="pt-10 border-t border-gray-200/80"
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="pt-10 border-t border-gray-200/80 transform-gpu"
         >
           <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">
             Trusted across Indian local business industries
@@ -398,8 +403,8 @@ export function Testimonials() {
               return (
                 <motion.div
                   key={idx}
-                  whileHover={{ y: -3, borderColor: "rgba(37,99,235,0.3)" }}
-                  className="bg-white border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center gap-1 shadow-2xs transition-all duration-200"
+                  whileHover={shouldReduceMotion ? {} : { y: -3, borderColor: "rgba(37,99,235,0.3)" }}
+                  className="bg-white border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center gap-1 shadow-2xs transition-all duration-200 transform-gpu"
                 >
                   <LogoIcon className="w-5 h-5 text-[#2563EB]" />
                   <span className="text-xs font-bold text-[#0A0A0A] font-sans text-center truncate w-full">{logo.name}</span>

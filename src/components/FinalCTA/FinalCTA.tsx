@@ -34,8 +34,6 @@ const itemVariants: Variants = {
   }
 }
 
-
-
 // --- TRUST BADGES DATA ---
 const trustBadges = [
   { icon: Zap, label: "⚡ Fast Delivery" },
@@ -80,7 +78,8 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" })
 
   return (
-    <section ref={sectionRef} className="py-8 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="get-started">
+    /* Added "hidden lg:block" so the entire section renders ONLY on Desktop (≥1024px) */
+    <section ref={sectionRef} className="hidden lg:block py-8 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="get-started">
       <div className="max-w-[1350px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* FULL-WIDTH PREMIUM CANVAS CARD */}
@@ -140,55 +139,13 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
           </div>
 
           {/* ========================================================================= */}
-          {/* 1. MOBILE FEATURED SINGLE PRICING CARD (≤1023px) */}
-          {/* ========================================================================= */}
-          <div className="block lg:hidden mb-8 relative z-10 max-w-sm mx-auto">
-            <div className="bg-white text-[#0A0A0A] rounded-[24px] p-6 shadow-2xl relative border-2 border-white">
-              <div className="absolute -top-3.5 right-6 bg-[#2563EB] text-white px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
-                🔥 Most Popular
-              </div>
-
-              <div className="inline-block px-3 py-1 bg-blue-50 text-[#2563EB] rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-3">
-                Fully Managed Care
-              </div>
-
-              <div className="text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-1">
-                ₹499 <span className="text-xs font-semibold text-gray-500">/ month</span>
-              </div>
-
-              <p className="text-xs text-gray-600 mb-4 font-medium leading-relaxed">
-                All-inclusive managed site with hosting & updates included.
-              </p>
-
-              <hr className="border-gray-100 mb-4" />
-
-              <ul className="space-y-2 mb-6">
-                {["Modern Custom Website", "High-Speed Hosting Included", "SSL & Security Managed", "WhatsApp Support Channel"].map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2 text-xs font-bold text-[#0A0A0A]">
-                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <button 
-                onClick={() => onOpenModal?.('care')}
-                className="w-full h-[52px] bg-[#2563EB] text-white font-bold text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Get Started for ₹499/mo</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* ========================================================================= */}
-          {/* 2. UNTOUCHED DESKTOP 3-CARD GRID (≥1024px) */}
+          {/* DESKTOP 3-CARD GRID */}
           {/* ========================================================================= */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="hidden lg:grid grid-cols-3 gap-6 mb-10 md:mb-12 relative z-10 items-stretch"
+            className="grid grid-cols-3 gap-6 mb-10 md:mb-12 relative z-10 items-stretch"
           >
             {/* CARD 1: ₹499 / MONTH */}
             <motion.div 
@@ -324,9 +281,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
           </motion.div>
 
 
-          {/* TRUST STRIP BADGES (HORIZONTALLY SCROLLABLE ON MOBILE) */}
+          {/* TRUST STRIP BADGES */}
           <div className="mb-6 sm:mb-10 relative z-10">
-            <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-2 sm:pb-0 -mx-6 px-6 sm:mx-0 sm:px-0">
+            <div className="flex items-center justify-center gap-2 overflow-x-auto no-scrollbar pb-2 sm:pb-0">
               {trustBadges.map((badge, idx) => (
                 <div
                   key={idx}
@@ -344,7 +301,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3 mb-6 sm:mb-8 relative z-10 text-center"
+            className="flex flex-row items-center justify-center gap-3 mb-8 relative z-10 text-center"
           >
             <div className="flex -space-x-2 overflow-hidden p-0.5">
               {clientAvatars.map((person, i) => (
@@ -354,22 +311,23 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                   alt={person.name} 
                   title={`${person.name} (${person.role})`}
                   whileHover={{ scale: 1.15, zIndex: 30 }}
-                  className="inline-block h-8 w-8 sm:h-9 sm:w-9 rounded-full ring-2 ring-white/90 object-cover shadow-md transition-transform" 
+                  className="inline-block h-9 w-9 rounded-full ring-2 ring-white/90 object-cover shadow-md transition-transform" 
                 />
               ))}
             </div>
-            <p className="text-xs sm:text-sm font-semibold text-blue-100">
+            <p className="text-sm font-semibold text-blue-100">
               Helping businesses across India build modern websites.
             </p>
           </motion.div>
 
 
-          {/* PRIMARY & SECONDARY FULL-WIDTH ACTION BUTTONS */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-md mx-auto relative z-10">
+          {/* PRIMARY & SECONDARY ACTION BUTTONS */}
+          <div className="flex flex-row items-center justify-center gap-3.5 max-w-md mx-auto relative z-10">
             <motion.button 
               onClick={() => onOpenModal?.('care')}
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="w-full sm:w-auto h-[52px] sm:h-auto bg-white text-[#2563EB] px-6 sm:px-7 py-3.5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
+              className="bg-white text-[#2563EB] px-7 py-3.5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
             >
               <span>Start Your Website Today</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -379,8 +337,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               href="https://wa.me/916392577105" 
               target="_blank" 
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="w-full sm:w-auto h-[52px] sm:h-auto bg-emerald-500 text-white border border-emerald-400/30 px-6 sm:px-7 py-3.5 rounded-2xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
+              className="bg-emerald-500 text-white border border-emerald-400/30 px-7 py-3.5 rounded-2xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 fill-white" />
               <span>Talk on WhatsApp</span>

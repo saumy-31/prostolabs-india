@@ -76,8 +76,9 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
   const isAgencyInView = useInView(agencySectionRef, { once: true, margin: "-30px" })
   const isDiyInView = useInView(diySectionRef, { once: true, margin: "-30px" })
 
-  // --- MOBILE EXPAND STATE FOR COMPARISON TABLE ---
+  // --- EXPAND STATES FOR COMPARISON TABLE ---
   const [showAllMobileRows, setShowAllMobileRows] = useState(false)
+  const [showAllDesktopRows, setShowAllDesktopRows] = useState(false)
 
   // --- DATA: AGENCY COMPARISON ---
   const agencyItems = [
@@ -116,6 +117,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
   ]
 
   const visibleMobileRows = showAllMobileRows ? diyComparisonData : diyComparisonData.slice(0, 5)
+  const visibleDesktopRows = showAllDesktopRows ? diyComparisonData : diyComparisonData.slice(0, 5)
 
   return (
     <div className="bg-[#FAFAFA] text-[#0A0A0A]" id="why-us">
@@ -519,94 +521,118 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
           </div>
 
           {/* ========================================================================= */}
-          {/* DESKTOP TABLE (≥1024px UNTOUCHED) */}
+          {/* DESKTOP TABLE WITH EXPAND/COLLAPSE (≥1024px) */}
           {/* ========================================================================= */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate={isDiyInView ? "show" : "hidden"}
-            className="hidden lg:block rounded-3xl border border-gray-200/90 bg-white shadow-xl overflow-hidden relative transform-gpu"
-          >
-            <div className="grid grid-cols-12 bg-gray-50/90 border-b border-gray-200/80 text-xs font-bold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
-              <div className="col-span-4 px-6 py-4 text-gray-900 font-extrabold flex items-center">
-                Features
-              </div>
-              <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
-                Wix
-              </div>
-              <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
-                GoDaddy
-              </div>
-              <div className="col-span-4 px-6 py-4 text-center bg-blue-50/90 border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative">
-                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-extrabold shadow-2xs mb-0.5">
-                  ⭐ Best Value
+          <div className="hidden lg:block relative">
+            <motion.div 
+              variants={containerVariants}
+              initial="hidden"
+              animate={isDiyInView ? "show" : "hidden"}
+              className="rounded-3xl border border-gray-200/90 bg-white shadow-xl overflow-hidden relative transform-gpu"
+            >
+              <div className="grid grid-cols-12 bg-gray-50/90 border-b border-gray-200/80 text-xs font-bold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
+                <div className="col-span-4 px-6 py-4 text-gray-900 font-extrabold flex items-center">
+                  Features
                 </div>
-                <div className="text-base font-black text-[#2563EB] tracking-tight">ProstoLabs</div>
+                <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                  Wix
+                </div>
+                <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                  GoDaddy
+                </div>
+                <div className="col-span-4 px-6 py-4 text-center bg-blue-50/90 border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative">
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-extrabold shadow-2xs mb-0.5">
+                    ⭐ Best Value
+                  </div>
+                  <div className="text-base font-black text-[#2563EB] tracking-tight">ProstoLabs</div>
+                </div>
               </div>
-            </div>
 
-            <div className="divide-y divide-gray-100">
-              {diyComparisonData.map((row, idx) => {
-                const IconComp = row.icon
-                return (
-                  <motion.div 
-                    key={idx}
-                    variants={rowVariant}
-                    className="grid grid-cols-12 items-stretch hover:bg-gray-50/40 transition-colors group transform-gpu"
-                  >
-                    <div className="col-span-4 px-6 py-4 min-h-[88px] flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-gray-100/80 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-all">
-                        <IconComp size={16} />
-                      </div>
-                      <span className="text-sm font-bold text-[#0A0A0A] leading-tight">{row.feature}</span>
-                    </div>
-
-                    <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
-                      {row.isTimeField ? (
-                        <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.wix}</span>
-                      ) : (
-                        <span>{row.wix}</span>
-                      )}
-                    </div>
-
-                    <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
-                      {row.isTimeField ? (
-                        <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.godaddy}</span>
-                      ) : (
-                        <span>{row.godaddy}</span>
-                      )}
-                    </div>
-
-                    <div className="col-span-4 px-6 py-4 min-h-[88px] bg-blue-50/40 border-l-2 border-[#2563EB] flex items-center">
-                      <div className="grid grid-cols-[24px_1fr] gap-4 items-center w-full">
-                        <motion.div 
-                          initial={{ scale: 0.7, opacity: 0 }}
-                          animate={isDiyInView ? { scale: 1, opacity: 1 } : {}}
-                          transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.12 + (idx * 0.02) }}
-                          className="w-6 h-6 min-w-[24px] min-h-[24px] rounded-full bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] text-white flex items-center justify-center shrink-0 shadow-2xs transform-gpu"
-                        >
-                          <Check size={13} strokeWidth={3} className="text-white" />
-                        </motion.div>
-
-                        {row.isTimeField ? (
-                          <div>
-                            <span className="inline-block bg-[#2563EB] text-white px-3 py-1 rounded-lg text-xs font-black shadow-2xs">
-                              {row.prosto}
-                            </span>
+              <div className="divide-y divide-gray-100">
+                <AnimatePresence initial={false}>
+                  {visibleDesktopRows.map((row, idx) => {
+                    const IconComp = row.icon
+                    return (
+                      <motion.div 
+                        key={idx}
+                        layout
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3, ease: easeSaaS }}
+                        className="grid grid-cols-12 items-stretch hover:bg-gray-50/40 transition-colors group transform-gpu"
+                      >
+                        <div className="col-span-4 px-6 py-4 min-h-[88px] flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-gray-100/80 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-all">
+                            <IconComp size={16} />
                           </div>
-                        ) : (
-                          <span className="text-sm font-bold text-[#0A0A0A] leading-tight tracking-tight">
-                            {row.prosto}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
+                          <span className="text-sm font-bold text-[#0A0A0A] leading-tight">{row.feature}</span>
+                        </div>
 
-          </motion.div>
+                        <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
+                          {row.isTimeField ? (
+                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.wix}</span>
+                          ) : (
+                            <span>{row.wix}</span>
+                          )}
+                        </div>
+
+                        <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
+                          {row.isTimeField ? (
+                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.godaddy}</span>
+                          ) : (
+                            <span>{row.godaddy}</span>
+                          )}
+                        </div>
+
+                        <div className="col-span-4 px-6 py-4 min-h-[88px] bg-blue-50/40 border-l-2 border-[#2563EB] flex items-center">
+                          <div className="grid grid-cols-[24px_1fr] gap-4 items-center w-full">
+                            <motion.div 
+                              initial={{ scale: 0.7, opacity: 0 }}
+                              animate={isDiyInView ? { scale: 1, opacity: 1 } : {}}
+                              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.08 + (idx * 0.02) }}
+                              className="w-6 h-6 min-w-[24px] min-h-[24px] rounded-full bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] text-white flex items-center justify-center shrink-0 shadow-2xs transform-gpu"
+                            >
+                              <Check size={13} strokeWidth={3} className="text-white" />
+                            </motion.div>
+
+                            {row.isTimeField ? (
+                              <div>
+                                <span className="inline-block bg-[#2563EB] text-white px-3 py-1 rounded-lg text-xs font-black shadow-2xs">
+                                  {row.prosto}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="text-sm font-bold text-[#0A0A0A] leading-tight tracking-tight">
+                                {row.prosto}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </AnimatePresence>
+              </div>
+
+              {/* Subtle Fade Gradient overlay when collapsed on desktop */}
+              {!showAllDesktopRows && (
+                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none transform-gpu z-10" />
+              )}
+            </motion.div>
+
+            {/* VIEW MORE / SHOW LESS BUTTON FOR DESKTOP */}
+            <div className="mt-6 text-center">
+              <motion.button
+                onClick={() => setShowAllDesktopRows(!showAllDesktopRows)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] hover:bg-blue-50 transition-colors cursor-pointer transform-gpu"
+              >
+                <span>{showAllDesktopRows ? "Show Less ↑" : "View More Features ↓"}</span>
+              </motion.button>
+            </div>
+          </div>
 
           <div className="mt-6 text-center text-xs text-gray-500 font-medium">
             Note: Wix and GoDaddy require you to build, maintain, and troubleshoot your website yourself. ProstoLabs is a complete "Done-For-You" service.

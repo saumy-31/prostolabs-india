@@ -39,20 +39,38 @@ export function Footer() {
   const footerRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(footerRef, { once: true, margin: "-50px" })
 
+  // --- CROSS-PAGE SECTION NAVIGATION HANDLER ---
+  const handleSectionClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault()
+
+    if (window.location.pathname === '/') {
+      // 1. On Home page -> Direct smooth scroll
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+        window.history.pushState(null, '', `/#${sectionId}`)
+      }
+    } else {
+      // 2. On other page -> Push Home route with hash & dispatch state update
+      window.history.pushState(null, '', `/#${sectionId}`)
+      window.dispatchEvent(new PopStateEvent('popstate'))
+    }
+  }
+
   const solutionsLinks = [
-    { label: "Website Plans", href: "#pricing" },
-    { label: "Everything Included", href: "#features" },
-    { label: "Custom Solutions", href: "#get-started" },
-    { label: "Industries", href: "#work" },
-    { label: "How It Works", href: "#how-it-works" }
+    { label: "Website Plans", target: "pricing" },
+    { label: "Everything Included", target: "features" },
+    
+    { label: "Industries", target: "work" },
+    { label: "How It Works", target: "how-it-works" }
   ]
 
   const companyLinks = [
-    { label: "About Us", href: "/about" },
-    { label: "Why ProstoLabs", href: "#why-us" },
-    { label: "Testimonials", href: "#testimonials" },
-    { label: "FAQ", href: "#faq" },
-    { label: "Contact", href: "/contact" }
+    { label: "About Us", href: "/about", isRoute: true },
+    { label: "Why ProstoLabs", target: "why-us" },
+    
+    { label: "FAQ", target: "faq" },
+    { label: "Contact", href: "/contact", isRoute: true }
   ]
 
   const socialLinks = [
@@ -68,7 +86,7 @@ export function Footer() {
       <motion.div 
         animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" 
+        className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu" 
       />
 
       <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
@@ -82,7 +100,7 @@ export function Footer() {
         >
 
           {/* COLUMN 1: BRAND & LOGO */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-4 transform-gpu">
             <a href="/" className="inline-flex items-center gap-2 cursor-pointer group">
               <div className="w-9 h-9 rounded-xl bg-[#2563EB] text-white flex items-center justify-center font-extrabold text-lg shadow-md group-hover:shadow-blue-500/25 transition-all">
                 P
@@ -112,7 +130,7 @@ export function Footer() {
           </motion.div>
 
           {/* COLUMN 2: SOLUTIONS */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-4 transform-gpu">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#0A0A0A] font-sans">
               Solutions
             </h4>
@@ -120,8 +138,9 @@ export function Footer() {
               {solutionsLinks.map((link, idx) => (
                 <li key={idx}>
                   <a 
-                    href={link.href} 
-                    className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5"
+                    href={`/#${link.target}`} 
+                    onClick={(e) => handleSectionClick(e, link.target)}
+                    className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
                   >
                     <span>{link.label}</span>
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
@@ -132,27 +151,38 @@ export function Footer() {
           </motion.div>
 
           {/* COLUMN 3: COMPANY */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-4 transform-gpu">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#0A0A0A] font-sans">
               Company
             </h4>
             <ul className="space-y-2.5">
               {companyLinks.map((link, idx) => (
                 <li key={idx}>
-                  <a 
-                    href={link.href} 
-                    className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5"
-                  >
-                    <span>{link.label}</span>
-                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
-                  </a>
+                  {link.isRoute ? (
+                    <a 
+                      href={link.href} 
+                      className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
+                    >
+                      <span>{link.label}</span>
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  ) : (
+                    <a 
+                      href={`/#${link.target}`} 
+                      onClick={(e) => handleSectionClick(e, link.target!)}
+                      className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
+                    >
+                      <span>{link.label}</span>
+                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
           </motion.div>
 
           {/* COLUMN 4: CONNECT */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} className="space-y-4 transform-gpu">
             <h4 className="text-xs font-bold uppercase tracking-widest text-[#0A0A0A] font-sans">
               Connect
             </h4>
@@ -171,7 +201,7 @@ export function Footer() {
                     rel="noopener noreferrer"
                     whileHover={{ y: -3, scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`p-2.5 bg-gray-100/80 border border-gray-200/80 text-gray-700 rounded-xl transition-all duration-300 flex items-center justify-center ${social.color}`}
+                    className={`p-2.5 bg-gray-100/80 border border-gray-200/80 text-gray-700 rounded-xl transition-all duration-300 flex items-center justify-center transform-gpu ${social.color}`}
                     aria-label={social.name}
                   >
                     <IconComp size={18} />
@@ -189,7 +219,7 @@ export function Footer() {
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent origin-left"
+            className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent origin-left transform-gpu"
           />
         </div>
 
@@ -198,7 +228,7 @@ export function Footer() {
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280] font-medium pt-2 mb-8"
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280] font-medium pt-2 mb-8 transform-gpu"
         >
           <div>
             © 2026 ProstoLabs. All rights reserved.
@@ -221,7 +251,7 @@ export function Footer() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.8 }}
-          className="text-center pt-4 border-t border-gray-100"
+          className="text-center pt-4 border-t border-gray-100 transform-gpu"
         >
           <span className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">
             Helping Indian businesses build a better online presence.

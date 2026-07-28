@@ -24,15 +24,33 @@ export default function App() {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>('care')
   const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
-  // Listen for browser URL / back button changes
+  // Listen for browser URL, back button, and hash-based navigation changes
   useEffect(() => {
-    const handleLocationChange = () => {
+    const handleLocationAndHash = () => {
       setCurrentPath(window.location.pathname)
-      window.scrollTo(0, 0)
+
+      // Handle smooth scrolling to target section ID when on or navigating to home page
+      if (window.location.pathname === '/' && window.location.hash) {
+        const targetId = window.location.hash.replace('#', '')
+        
+        // Brief timeout ensures DOM elements finish rendering before scroll triggers
+        setTimeout(() => {
+          const element = document.getElementById(targetId)
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
+      } else if (!window.location.hash) {
+        window.scrollTo(0, 0)
+      }
     }
 
-    window.addEventListener('popstate', handleLocationChange)
-    return () => window.removeEventListener('popstate', handleLocationChange)
+    window.addEventListener('popstate', handleLocationAndHash)
+    
+    // Trigger on initial page load as well
+    handleLocationAndHash()
+
+    return () => window.removeEventListener('popstate', handleLocationAndHash)
   }, [])
 
   const handleOpenModal = (plan: PlanType = 'care') => {
