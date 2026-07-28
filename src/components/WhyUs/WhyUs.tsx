@@ -152,7 +152,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
             </motion.p>
           </div>
 
-          {/* Cards */}
+          {/* Cards: Compact Gap on Mobile */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
@@ -220,6 +220,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               className="bg-white rounded-2xl sm:rounded-3xl border-2 border-[#2563EB] p-4.5 sm:p-8 shadow-md sm:shadow-xl shadow-blue-500/10 flex flex-col justify-between relative overflow-hidden"
             >
               <div>
+                {/* DECORATIVE BADGE: HIDDEN ON MOBILE TO PREVENT HEIGHT BLOAT */}
                 <motion.div 
                   animate={{ scale: [1, 1.02, 1] }}
                   transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
@@ -289,17 +290,16 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
 
 
       {/* ========================================================================= */}
-      {/* SECTION 2: MANAGED SERVICE VS DIY (PROSTOLABS VS OTHERS) */}
+      {/* SECTION 2: DIY WEBSITE BUILDERS VS PROSTOLABS TABLE */}
       {/* ========================================================================= */}
-      <section ref={diySectionRef} className="py-6 sm:py-12 md:py-14 bg-white border-t border-gray-200/80 relative overflow-hidden">
+      <section ref={diySectionRef} className="py-8 sm:py-12 md:py-14 bg-white border-t border-gray-200/80 relative overflow-hidden">
         {/* Ambient Glow */}
         <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* GUARANTEED 20-24PX MARGINS ON MOBILE */}
         <div className="max-w-[1280px] mx-auto px-5 sm:px-6 md:px-12 relative z-10">
           
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-8 space-y-1.5 sm:space-y-3">
+          <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-8 space-y-2 sm:space-y-3">
             <motion.div 
               initial={{ opacity: 0, y: -8 }}
               animate={isDiyInView ? { opacity: 1, y: 0 } : {}}
@@ -332,166 +332,105 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
             </motion.p>
           </div>
 
-          {/* ========================================================================= */}
-          {/* MOBILE-ONLY DEDICATED FEATURE-BY-FEATURE STACKED CARDS (≤1023px) */}
-          {/* ========================================================================= */}
+          {/* Touch-Friendly Comparison Table Container */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             animate={isDiyInView ? "show" : "hidden"}
-            className="block lg:hidden space-y-3"
+            className="rounded-2xl sm:rounded-3xl border border-gray-200/90 bg-white shadow-lg overflow-x-auto relative no-scrollbar"
           >
-            {diyComparisonData.map((item, idx) => {
-              const IconComp = item.icon
-              return (
-                <motion.div 
-                  key={idx}
-                  variants={rowVariant}
-                  className="bg-white border border-gray-200/90 rounded-2xl p-4 shadow-2xs relative overflow-hidden"
-                >
-                  {/* Feature Title Header */}
-                  <div className="flex items-center gap-2.5 mb-3 pb-2.5 border-b border-gray-100">
-                    <div className="w-7 h-7 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
-                      <IconComp size={15} />
-                    </div>
-                    <span className="text-xs font-extrabold text-[#0A0A0A] font-sans">
-                      {item.feature}
-                    </span>
-                  </div>
-
-                  {/* ProstoLabs Highlight Status Box */}
-                  <div className="bg-blue-50/80 border border-blue-200/90 rounded-xl p-3 mb-2.5 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-full bg-[#2563EB] text-white flex items-center justify-center shrink-0 shadow-2xs">
-                        <Check size={11} strokeWidth={3} />
-                      </div>
-                      <span className="text-[11px] font-black text-[#2563EB] tracking-tight">
-                        ProstoLabs
-                      </span>
-                    </div>
-
-                    <span className={`text-[11px] font-bold ${item.isTimeField ? 'bg-[#2563EB] text-white px-2 py-0.5 rounded-md text-[10px]' : 'text-[#0A0A0A]'}`}>
-                      {item.prosto}
-                    </span>
-                  </div>
-
-                  {/* Competitor Side-by-Side Status Row */}
-                  <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-500 font-medium bg-gray-50/80 p-2.5 rounded-xl border border-gray-100">
-                    {/* Wix */}
-                    <div className="flex items-center justify-between border-r border-gray-200/60 pr-2">
-                      <span className="text-gray-400 font-bold">Wix:</span>
-                      <span className="text-gray-700 font-semibold truncate ml-1">{item.wix}</span>
-                    </div>
-
-                    {/* GoDaddy */}
-                    <div className="flex items-center justify-between pl-1">
-                      <span className="text-gray-400 font-bold">GoDaddy:</span>
-                      <span className="text-gray-700 font-semibold truncate ml-1">{item.godaddy}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </motion.div>
-
-          {/* ========================================================================= */}
-          {/* DESKTOP COMPARISON TABLE (UNTOUCHED FOR LARGE SCREENS ≥1024px) */}
-          {/* ========================================================================= */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate={isDiyInView ? "show" : "hidden"}
-            className="hidden lg:block rounded-3xl border border-gray-200/90 bg-white shadow-xl overflow-hidden relative"
-          >
-            {/* Table Header */}
-            <div className="grid grid-cols-12 bg-gray-50/90 border-b border-gray-200/80 text-xs font-bold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
-              <div className="col-span-4 px-6 py-4 text-gray-900 font-extrabold flex items-center">
-                Features
-              </div>
-              <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
-                Wix
-              </div>
-              <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
-                GoDaddy
-              </div>
-              <div className="col-span-4 px-6 py-4 text-center bg-blue-50/90 border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative">
-                <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-extrabold shadow-2xs mb-0.5">
-                  ⭐ Best Value
+            <div className="min-w-[640px] md:min-w-0">
+              
+              {/* Table Header */}
+              <div className="grid grid-cols-12 bg-gray-50/90 border-b border-gray-200/80 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
+                <div className="col-span-4 px-3 sm:px-6 py-3.5 text-gray-900 font-extrabold flex items-center">
+                  Features
                 </div>
-                <div className="text-base font-black text-[#2563EB] tracking-tight">ProstoLabs</div>
+                <div className="col-span-2 px-2 sm:px-4 py-3.5 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                  Wix
+                </div>
+                <div className="col-span-2 px-2 sm:px-4 py-3.5 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                  GoDaddy
+                </div>
+                <div className="col-span-4 px-3 sm:px-6 py-3.5 text-center bg-blue-50/90 border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative">
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#2563EB] text-white text-[8px] sm:text-[10px] font-extrabold shadow-2xs mb-0.5">
+                    ⭐ Best Value
+                  </div>
+                  <div className="text-xs sm:text-base font-black text-[#2563EB] tracking-tight">ProstoLabs</div>
+                </div>
               </div>
-            </div>
 
-            {/* Table Rows */}
-            <div className="divide-y divide-gray-100">
-              {diyComparisonData.map((row, idx) => {
-                const IconComp = row.icon
-                return (
-                  <motion.div 
-                    key={idx}
-                    variants={rowVariant}
-                    className="grid grid-cols-12 items-stretch hover:bg-gray-50/40 transition-colors group"
-                  >
-                    {/* Column 1: Feature */}
-                    <div className="col-span-4 px-6 py-4 min-h-[88px] flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-xl bg-gray-100/80 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-all">
-                        <IconComp size={16} />
+              {/* Table Rows */}
+              <div className="divide-y divide-gray-100">
+                {diyComparisonData.map((row, idx) => {
+                  const IconComp = row.icon
+                  return (
+                    <motion.div 
+                      key={idx}
+                      variants={rowVariant}
+                      className="grid grid-cols-12 items-stretch hover:bg-gray-50/40 transition-colors group"
+                    >
+                      {/* Column 1: Feature */}
+                      <div className="col-span-4 px-3 sm:px-6 py-3.5 min-h-[64px] sm:min-h-[88px] flex items-center gap-2 sm:gap-3">
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-gray-100/80 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-all">
+                          <IconComp size={14} />
+                        </div>
+                        <span className="text-[11px] sm:text-sm font-bold text-[#0A0A0A] leading-tight">{row.feature}</span>
                       </div>
-                      <span className="text-sm font-bold text-[#0A0A0A] leading-tight">{row.feature}</span>
-                    </div>
 
-                    {/* Column 2: Wix */}
-                    <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
-                      {row.isTimeField ? (
-                        <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.wix}</span>
-                      ) : (
-                        <span>{row.wix}</span>
-                      )}
-                    </div>
-
-                    {/* Column 3: GoDaddy */}
-                    <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
-                      {row.isTimeField ? (
-                        <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.godaddy}</span>
-                      ) : (
-                        <span>{row.godaddy}</span>
-                      )}
-                    </div>
-
-                    {/* Column 4: ProstoLabs */}
-                    <div className="col-span-4 px-6 py-4 min-h-[88px] bg-blue-50/40 border-l-2 border-[#2563EB] flex items-center">
-                      <div className="grid grid-cols-[24px_1fr] gap-4 items-center w-full">
-                        
-                        {/* Badge */}
-                        <motion.div 
-                          initial={{ scale: 0.7, opacity: 0 }}
-                          animate={isDiyInView ? { scale: 1, opacity: 1 } : {}}
-                          transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.12 + (idx * 0.02) }}
-                          className="w-6 h-6 min-w-[24px] min-h-[24px] rounded-full bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] text-white flex items-center justify-center shrink-0 shadow-2xs"
-                        >
-                          <Check size={13} strokeWidth={3} className="text-white" />
-                        </motion.div>
-
-                        {/* Text */}
+                      {/* Column 2: Wix */}
+                      <div className="col-span-2 px-2 sm:px-4 py-3.5 min-h-[64px] sm:min-h-[88px] flex items-center justify-center text-center text-[10px] sm:text-xs font-medium text-gray-500 border-l border-gray-100">
                         {row.isTimeField ? (
-                          <div>
-                            <span className="inline-block bg-[#2563EB] text-white px-3 py-1 rounded-lg text-xs font-black shadow-2xs">
+                          <span className="text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded border border-amber-200/60 text-[9px] sm:text-xs">{row.wix}</span>
+                        ) : (
+                          <span>{row.wix}</span>
+                        )}
+                      </div>
+
+                      {/* Column 3: GoDaddy */}
+                      <div className="col-span-2 px-2 sm:px-4 py-3.5 min-h-[64px] sm:min-h-[88px] flex items-center justify-center text-center text-[10px] sm:text-xs font-medium text-gray-500 border-l border-gray-100">
+                        {row.isTimeField ? (
+                          <span className="text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded border border-amber-200/60 text-[9px] sm:text-xs">{row.godaddy}</span>
+                        ) : (
+                          <span>{row.godaddy}</span>
+                        )}
+                      </div>
+
+                      {/* Column 4: ProstoLabs */}
+                      <div className="col-span-4 px-3 sm:px-6 py-3.5 min-h-[64px] sm:min-h-[88px] bg-blue-50/40 border-l-2 border-[#2563EB] flex items-center">
+                        <div className="grid grid-cols-[20px_1fr] sm:grid-cols-[24px_1fr] gap-2.5 sm:gap-4 items-center w-full">
+                          
+                          {/* Badge */}
+                          <motion.div 
+                            initial={{ scale: 0.7, opacity: 0 }}
+                            animate={isDiyInView ? { scale: 1, opacity: 1 } : {}}
+                            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.12 + (idx * 0.02) }}
+                            className="w-5 h-5 sm:w-6 sm:h-6 min-w-[20px] min-h-[20px] sm:min-w-[24px] sm:min-h-[24px] rounded-full bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] text-white flex items-center justify-center shrink-0 shadow-2xs"
+                          >
+                            <Check size={12} strokeWidth={3} className="text-white" />
+                          </motion.div>
+
+                          {/* Text */}
+                          {row.isTimeField ? (
+                            <div>
+                              <span className="inline-block bg-[#2563EB] text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-black shadow-2xs">
+                                {row.prosto}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-[11px] sm:text-sm font-bold text-[#0A0A0A] leading-tight tracking-tight">
                               {row.prosto}
                             </span>
-                          </div>
-                        ) : (
-                          <span className="text-sm font-bold text-[#0A0A0A] leading-tight tracking-tight">
-                            {row.prosto}
-                          </span>
-                        )}
+                          )}
 
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
 
+            </div>
           </motion.div>
 
           <div className="mt-4 sm:mt-6 text-center text-[11px] sm:text-xs text-gray-500 font-medium">
