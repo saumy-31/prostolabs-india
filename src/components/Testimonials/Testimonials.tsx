@@ -12,6 +12,8 @@ import {
   CheckCircle2, 
   Heart, 
   MapPin,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react'
 
 // --- TESTIMONIAL DATA ---
@@ -132,69 +134,151 @@ export function Testimonials() {
   const current = testimonials[activeIndex]
 
   return (
-    <section ref={sectionRef} className="py-6 sm:py-20 md:py-32 bg-[#FAFAFA] relative overflow-hidden" id="testimonials">
+    <section ref={sectionRef} className="py-12 sm:py-20 md:py-28 bg-[#FAFAFA] relative overflow-hidden" id="testimonials">
       
-      {/* Subtle Radial Blue Gradient Background */}
+      {/* Background Radial Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none" />
 
-      {/* GUARANTEED 20-24PX MARGINS ON MOBILE */}
-      <div className="max-w-[1300px] mx-auto px-5 sm:px-6 md:px-12 relative z-10">
+      <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
-        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-12 md:mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-2 sm:mb-6"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4"
           >
             <Heart className="w-3.5 h-3.5 text-[#2563EB] fill-[#2563EB]" />
-            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Loved by Businesses</span>
+            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Loved by Businesses</span>
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-1.5 sm:mb-4 tracking-tight font-sans leading-[1.18]"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.18]"
           >
-            Businesses trusts ProstoLabs to build their online presence.
+            Businesses trust ProstoLabs to build their online presence.
           </motion.h2>
 
           <motion.p 
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-base md:text-lg text-[#6B7280] leading-relaxed max-w-xl mx-auto"
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed max-w-xl mx-auto"
           >
             From restaurants and gyms to clinics and real estate businesses, we help local brands launch modern websites that perform.
           </motion.p>
         </div>
 
-        {/* GOOGLE REVIEW STYLE SUMMARY BADGE */}
+        {/* GOOGLE REVIEW STYLE RATING BADGE */}
         <motion.div 
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.25 }}
-          className="flex justify-center mb-4 sm:mb-8"
+          className="flex justify-center mb-8"
         >
-          <div className="bg-white border border-gray-200/90 rounded-xl sm:rounded-2xl px-3 sm:px-5 py-1.5 sm:py-3 shadow-2xs flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-0.5 sm:gap-1 text-amber-400">
+          <div className="bg-white border border-gray-200/90 rounded-2xl px-5 py-2.5 shadow-2xs flex items-center justify-center gap-3">
+            <div className="flex items-center gap-1 text-amber-400">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={13} className="fill-amber-400 sm:w-[15px] sm:h-[15px]" />
+                <Star key={i} size={15} className="fill-amber-400" />
               ))}
             </div>
-            <span className="font-extrabold text-xs sm:text-sm text-[#0A0A0A]">4.9 / 5.0 Average Rating</span>
-            <span className="hidden sm:inline text-gray-300">•</span>
-            <span className="text-[10px] sm:text-xs text-gray-500 font-medium hidden xs:inline">Verified Local Reviews</span>
+            <span className="font-extrabold text-xs text-[#0A0A0A]">4.9 / 5.0 Average Rating</span>
+            <span className="text-gray-300">•</span>
+            <span className="text-xs text-gray-500 font-medium">Verified Local Reviews</span>
           </div>
         </motion.div>
 
-        {/* INTERACTIVE SHOWCASE STAGE */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-8 items-start mb-8 sm:mb-20">
+
+        {/* ========================================================================= */}
+        {/* 1. MOBILE-ONLY HORIZONTAL SWIPEABLE CAROUSEL (≤1023px) */}
+        {/* ========================================================================= */}
+        <div className="block lg:hidden mb-12">
           
-          {/* LEFT SIDE: FEATURED TESTIMONIAL CARD (7 COLS ON DESKTOP, COMPACT ON MOBILE) */}
-          <div className="lg:col-span-7">
+          {/* Swipe Indicator Header */}
+          <div className="flex items-center justify-center gap-2 mb-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+            <span>← Swipe stories →</span>
+          </div>
+
+          {/* Swipeable Snap Scroll Track */}
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6">
+            {testimonials.map((item, idx) => {
+              const IconComp = item.icon
+              return (
+                <div 
+                  key={item.id}
+                  className="snap-center shrink-0 w-[90%] max-w-[340px] bg-white border-2 border-[#2563EB]/80 rounded-[28px] p-6 shadow-lg relative flex flex-col justify-between"
+                >
+                  {/* Background Soft Glow */}
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+
+                  <div className="space-y-4">
+                    {/* Top Industry Pill & Stars */}
+                    <div className="flex items-center justify-between">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100 text-[11px] font-bold uppercase tracking-wider">
+                        <IconComp size={13} />
+                        <span>{item.industry}</span>
+                      </div>
+
+                      <div className="flex items-center gap-0.5 text-amber-400">
+                        {[...Array(item.rating)].map((_, i) => (
+                          <Star key={i} size={14} className="fill-amber-400" />
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Large Quote */}
+                    <div className="relative pt-2">
+                      <Quote className="text-blue-100/90 w-8 h-8 absolute -top-2 -left-2 -z-10" />
+                      <p className="text-base font-bold text-[#0A0A0A] font-sans leading-relaxed">
+                        "{item.quote}"
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Customer Avatar & Bio Footer */}
+                  <div className="pt-5 mt-6 border-t border-gray-100 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <img 
+                        src={item.avatar} 
+                        alt={item.name} 
+                        className="w-12 h-12 rounded-full object-cover border-2 border-[#2563EB]/30 shadow-xs shrink-0" 
+                      />
+                      <div>
+                        <h4 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
+                          {item.name}
+                          <CheckCircle2 size={14} className="text-[#2563EB]" />
+                        </h4>
+                        <p className="text-xs text-gray-500 font-medium truncate max-w-[140px]">{item.business}</p>
+                        <p className="text-[10px] text-gray-400 flex items-center gap-0.5 mt-0.5">
+                          <MapPin size={10} /> {item.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl px-2.5 py-1.5 text-right shrink-0">
+                      <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Plan</div>
+                      <div className="text-[11px] font-bold text-[#2563EB]">{item.packageSelected}</div>
+                    </div>
+                  </div>
+
+                </div>
+              )
+            })}
+          </div>
+
+        </div>
+
+
+        {/* ========================================================================= */}
+        {/* 2. UNTOUCHED DESKTOP SHOWCASE (≥1024px) */}
+        {/* ========================================================================= */}
+        <div className="hidden lg:grid grid-cols-12 gap-8 items-start mb-20">
+          
+          {/* LEFT SIDE: FEATURED TESTIMONIAL CARD */}
+          <div className="col-span-7">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current.id}
@@ -202,69 +286,63 @@ export function Testimonials() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -12, scale: 0.98 }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="bg-white border-2 border-[#2563EB]/80 rounded-2xl sm:rounded-[32px] p-4.5 sm:p-8 md:p-10 shadow-md sm:shadow-xl relative overflow-hidden flex flex-col justify-between min-h-0 sm:min-h-[440px]"
+                className="bg-white border-2 border-[#2563EB]/80 rounded-[32px] p-10 shadow-xl relative overflow-hidden flex flex-col justify-between min-h-[440px]"
               >
-                {/* Background Accent Glow */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div>
-                  {/* Top Bar: Industry & Rating */}
-                  <div className="flex items-center justify-between mb-3 sm:mb-8">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100 text-[10px] sm:text-xs font-bold uppercase tracking-wider">
-                      <current.icon size={12} className="sm:w-[15px] sm:h-[15px]" />
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100 text-xs font-bold uppercase tracking-wider">
+                      <current.icon size={15} />
                       <span>{current.industry}</span>
                     </div>
 
-                    <div className="flex items-center gap-0.5 sm:gap-1 text-amber-400">
+                    <div className="flex items-center gap-1 text-amber-400">
                       {[...Array(current.rating)].map((_, i) => (
-                        <Star key={i} size={12} className="fill-amber-400 sm:w-[16px] sm:h-[16px]" />
+                        <Star key={i} size={16} className="fill-amber-400" />
                       ))}
                     </div>
                   </div>
 
-                  {/* Quote Body */}
-                  <div className="relative mb-3.5 sm:mb-8">
-                    <Quote className="text-blue-100/80 w-7 h-7 sm:w-12 sm:h-12 absolute -top-2.5 -left-1 sm:-top-4 sm:-left-2 -z-10" />
-                    <p className="text-sm sm:text-xl md:text-2xl font-bold text-[#0A0A0A] leading-snug font-sans tracking-tight">
+                  <div className="relative mb-8">
+                    <Quote className="text-blue-100/80 w-12 h-12 absolute -top-4 -left-2 -z-10" />
+                    <p className="text-2xl font-bold text-[#0A0A0A] leading-snug font-sans tracking-tight">
                       "{current.quote}"
                     </p>
                   </div>
                 </div>
 
-                {/* Footer: Client Info & Selected Package */}
-                <div className="pt-3 sm:pt-6 border-t border-gray-100 flex flex-row items-center justify-between gap-2.5">
-                  
-                  <div className="flex items-center gap-2 sm:gap-3.5">
+                <div className="pt-6 border-t border-gray-100 flex items-center justify-between">
+                  <div className="flex items-center gap-3.5">
                     <img 
                       src={current.avatar} 
                       alt={current.name} 
-                      className="w-9 h-9 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-white shadow-2xs shrink-0" 
+                      className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-2xs shrink-0" 
                     />
                     <div>
-                      <h4 className="font-bold text-xs sm:text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
+                      <h4 className="font-bold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
                         {current.name}
-                        <CheckCircle2 size={12} className="text-[#2563EB] sm:w-[14px] sm:h-[14px]" />
+                        <CheckCircle2 size={14} className="text-[#2563EB]" />
                       </h4>
-                      <p className="text-[10px] sm:text-xs text-gray-500 font-medium truncate max-w-[130px] xs:max-w-[180px] sm:max-w-none">{current.role}, {current.business}</p>
-                      <p className="text-[9px] sm:text-[11px] text-gray-400 flex items-center gap-0.5 mt-0.5">
+                      <p className="text-xs text-gray-500 font-medium">{current.role}, {current.business}</p>
+                      <p className="text-[11px] text-gray-400 flex items-center gap-0.5 mt-0.5">
                         <MapPin size={10} /> {current.location}
                       </p>
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 border border-gray-200/80 rounded-lg sm:rounded-xl px-2 py-1 sm:px-3.5 sm:py-2 text-right shrink-0">
-                    <div className="text-[8px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wider">Plan</div>
-                    <div className="text-[10px] sm:text-xs font-bold text-[#2563EB]">{current.packageSelected}</div>
+                  <div className="bg-gray-50 border border-gray-200/80 rounded-xl px-3.5 py-2 text-right">
+                    <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Plan</div>
+                    <div className="text-xs font-bold text-[#2563EB]">{current.packageSelected}</div>
                   </div>
-
                 </div>
 
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* RIGHT SIDE: VERTICAL STACK SELECTOR (TOUCH SWIPEABLE HORIZONTAL STRIP ON MOBILE) */}
-          <div className="lg:col-span-5 flex lg:flex-col gap-2 sm:gap-3 overflow-x-auto lg:overflow-visible pb-1 sm:pb-2 lg:pb-0 no-scrollbar -mx-5 px-5 sm:mx-0 sm:px-0">
+          {/* RIGHT SIDE: VERTICAL SELECTOR STACK */}
+          <div className="col-span-5 space-y-3">
             {testimonials.map((item, idx) => {
               const isActive = activeIndex === idx
               const IconComp = item.icon
@@ -274,29 +352,29 @@ export function Testimonials() {
                   key={item.id}
                   onClick={() => setActiveIndex(idx)}
                   whileHover={{ x: 4 }}
-                  className={`text-left p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 flex items-center justify-between gap-2.5 sm:gap-4 shrink-0 min-w-[200px] sm:min-w-[280px] lg:min-w-0 cursor-pointer ${
+                  className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer ${
                     isActive 
-                      ? 'bg-white border-[#2563EB] shadow-sm sm:shadow-md ring-2 ring-blue-100' 
+                      ? 'bg-white border-[#2563EB] shadow-md ring-2 ring-blue-100' 
                       : 'bg-white/80 border-gray-200/80 hover:bg-white'
                   }`}
                 >
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className={`p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl shrink-0 ${isActive ? 'bg-[#2563EB] text-white' : 'bg-gray-100 text-gray-600'}`}>
-                      <IconComp size={14} className="sm:w-[18px] sm:h-[18px]" />
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className={`p-2.5 rounded-xl shrink-0 ${isActive ? 'bg-[#2563EB] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                      <IconComp size={18} />
                     </div>
                     <div className="truncate">
-                      <div className={`text-[11px] sm:text-xs font-bold truncate ${isActive ? 'text-[#0A0A0A]' : 'text-gray-700'}`}>
+                      <div className={`text-xs font-bold truncate ${isActive ? 'text-[#0A0A0A]' : 'text-gray-700'}`}>
                         {item.business}
                       </div>
-                      <div className="text-[9px] sm:text-[11px] text-gray-500 font-medium truncate">
+                      <div className="text-[11px] text-gray-500 font-medium truncate">
                         {item.name}
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-0.5 shrink-0 text-amber-400">
-                    <Star size={11} className="fill-amber-400 sm:w-[13px] sm:h-[13px]" />
-                    <span className="text-[10px] sm:text-xs font-bold text-gray-800">{item.rating}.0</span>
+                    <Star size={13} className="fill-amber-400" />
+                    <span className="text-xs font-bold text-gray-800">{item.rating}.0</span>
                   </div>
                 </motion.button>
               )
@@ -305,29 +383,29 @@ export function Testimonials() {
 
         </div>
 
-        {/* LOCAL BUSINESS CLIENT LOGO ROW (COMPACT 3-COLUMN GRID ON MOBILE) */}
+        {/* CLIENT LOGO ROW */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="pt-5 sm:pt-10 border-t border-gray-200/80"
+          className="pt-10 border-t border-gray-200/80"
         >
-          <p className="text-center text-[9px] sm:text-xs font-bold text-gray-400 uppercase tracking-widest mb-3 sm:mb-8">
+          <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">
             Trusted across Indian local business industries
           </p>
 
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 sm:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-3 sm:gap-4">
             {businessLogos.map((logo, idx) => {
               const LogoIcon = logo.icon
               return (
                 <motion.div
                   key={idx}
                   whileHover={{ y: -3, borderColor: "rgba(37,99,235,0.3)" }}
-                  className="bg-white border border-gray-200/80 rounded-xl sm:rounded-2xl p-2 sm:p-4 flex flex-col items-center justify-center gap-1 shadow-2xs transition-all duration-200"
+                  className="bg-white border border-gray-200/80 rounded-2xl p-4 flex flex-col items-center justify-center gap-1 shadow-2xs transition-all duration-200"
                 >
-                  <LogoIcon className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#2563EB]" />
-                  <span className="text-[10px] sm:text-xs font-bold text-[#0A0A0A] font-sans text-center truncate w-full">{logo.name}</span>
-                  <span className="text-[8px] sm:text-[10px] text-gray-400 font-medium hidden xs:block">{logo.category}</span>
+                  <LogoIcon className="w-5 h-5 text-[#2563EB]" />
+                  <span className="text-xs font-bold text-[#0A0A0A] font-sans text-center truncate w-full">{logo.name}</span>
+                  <span className="text-[10px] text-gray-400 font-medium">{logo.category}</span>
                 </motion.div>
               )
             })}

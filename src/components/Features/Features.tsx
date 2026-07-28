@@ -54,16 +54,16 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
   }
 }
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20 },
   show: { 
     opacity: 1, 
     y: 0, 
-    transition: { type: "spring", stiffness: 95, damping: 18 } 
+    transition: { type: "spring", stiffness: 90, damping: 20 } 
   }
 }
 
@@ -104,7 +104,6 @@ function MultiDeviceIllustration() {
       onMouseLeave={handleMouseLeave}
       className="relative flex-1 w-full flex items-center justify-center my-2 py-2 overflow-visible cursor-pointer group/stage"
     >
-      {/* SOFT AMBIENT BLUE RADIAL GLOW */}
       <motion.div 
         style={{ x: glowX }}
         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.35, 0.2] }}
@@ -112,7 +111,6 @@ function MultiDeviceIllustration() {
         className="absolute w-[280px] sm:w-[380px] h-[160px] sm:h-[250px] bg-gradient-to-tr from-[#2563EB] via-blue-500 to-cyan-400 rounded-full blur-2xl sm:blur-3xl pointer-events-none z-0"
       />
 
-      {/* DESKTOP BROWSER MOCKUP */}
       <motion.div 
         style={{ x: laptopX, y: laptopY }}
         animate={{ y: [0, -6, 0] }}
@@ -120,7 +118,6 @@ function MultiDeviceIllustration() {
         className="w-[200px] sm:w-[340px] md:w-[380px] h-[130px] sm:h-[220px] bg-[#090D16] rounded-xl sm:rounded-2xl border border-gray-800 p-1.5 sm:p-2 shadow-xl relative z-10"
       >
         <div className="w-full h-full bg-[#0F172A] rounded-lg sm:rounded-xl p-2 sm:p-3 flex flex-col gap-1 sm:gap-2.5 overflow-hidden border border-white/5 relative">
-          
           <div className="flex items-center justify-between border-b border-white/10 pb-1 sm:pb-2">
             <div className="flex gap-1">
               <div className="w-1.5 h-1.5 rounded-full bg-red-500/80" />
@@ -165,11 +162,9 @@ function MultiDeviceIllustration() {
               </div>
             </div>
           </div>
-
         </div>
       </motion.div>
 
-      {/* MOBILE PHONE MOCKUP */}
       <motion.div 
         style={{ x: phoneX, y: phoneY }}
         animate={{ y: [0, -6, 0] }}
@@ -187,7 +182,6 @@ function MultiDeviceIllustration() {
           </div>
         </div>
       </motion.div>
-
     </div>
   )
 }
@@ -197,31 +191,30 @@ export function Features() {
   const isInView = useInView(sectionRef, { once: true, margin: "-80px" })
 
   return (
-    <section ref={sectionRef} className="py-6 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="features">
+    <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" id="features">
       
-      {/* Soft Radial Ambient Background */}
+      {/* Soft Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_70%)] pointer-events-none" />
 
-      {/* GUARANTEED 20-24PX MARGINS ON MOBILE */}
-      <div className="max-w-[1300px] mx-auto px-5 sm:px-6 md:px-12 relative z-10">
+      <div className="max-w-[1300px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
-        <div className="text-center mb-5 sm:mb-8 max-w-2xl mx-auto">
+        <div className="text-center mb-10 sm:mb-14 max-w-2xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50/80 border border-blue-100 shadow-2xs mb-2 sm:mb-4"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Everything Included</span>
+            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Everything Included</span>
           </motion.div>
 
           <motion.h2 
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-2 sm:mb-4 tracking-tight font-sans leading-[1.15]"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0A0A0A] mb-3 tracking-tight font-sans leading-[1.15]"
           >
             Everything you need to launch and grow.
           </motion.h2>
@@ -230,7 +223,7 @@ export function Features() {
             initial={{ opacity: 0, y: 10 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xs sm:text-base md:text-lg text-[#6B7280] leading-relaxed font-medium max-w-lg mx-auto"
+            className="text-sm sm:text-base md:text-lg text-[#6B7280] leading-relaxed font-medium max-w-lg mx-auto"
           >
             Every website is built with essential tools modern businesses need. No hidden add-ons. No confusing packages.
           </motion.p>
@@ -238,127 +231,193 @@ export function Features() {
 
 
         {/* ========================================================================= */}
-        {/* MOBILE-FIRST DENSE FEATURE GRID (≤768px ONLY) */}
+        {/* 1. MOBILE-ONLY STACKED PREMIUM CARDS (≤768px) */}
         {/* ========================================================================= */}
-        <div className="block md:hidden space-y-3">
+        <div className="block md:hidden space-y-6">
           
-          {/* FEATURED CARD 1: MOBILE RESPONSIVE */}
+          {/* CARD 1: MOBILE RESPONSIVE */}
           <motion.div 
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-2xl p-4 shadow-2xs flex flex-col justify-between overflow-hidden relative"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
           >
-            <div>
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[#2563EB] mb-1.5">
-                <Smartphone size={12} />
-                <span className="text-[9px] font-bold uppercase tracking-wider">Multi-Device</span>
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
+                <Smartphone size={14} />
+                <span className="text-xs font-bold uppercase tracking-wider">Multi-Device</span>
               </div>
-              <h3 className="text-base font-bold text-[#0A0A0A] font-sans">Mobile Responsive</h3>
-              <p className="text-[11px] text-[#6B7280] font-medium mt-0.5">Smoothly adapts across desktop, tablet, and mobile screens.</p>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Mobile Responsive</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                Smoothly adapts across desktop, tablet, and mobile screens so your business looks top tier on every device.
+              </p>
             </div>
 
-            <div className="h-[135px] flex items-center justify-center my-1 relative">
-              <MultiDeviceIllustration />
+            <div className="bg-[#090D16] rounded-2xl p-4 border border-gray-800 shadow-md my-2 flex items-center justify-between">
+              <div className="space-y-1.5 w-full">
+                <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2">
+                  <span className="text-emerald-400 font-bold flex items-center gap-1"><Lock size={10} /> prostolabs.in</span>
+                  <span>100% Fluid</span>
+                </div>
+                <div className="w-full h-3 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full mt-2" />
+                <div className="w-3/4 h-2 bg-white/30 rounded-full" />
+              </div>
             </div>
 
-            <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[10px] text-[#2563EB] font-bold">
-              <span className="flex items-center gap-1"><CheckCircle2 size={12} /> iOS & Android Tested</span>
-              <span className="text-gray-400 font-semibold">100% Fluid</span>
+            <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> iOS & Android Tested</span>
+              <span className="text-gray-400">Mobile First</span>
             </div>
           </motion.div>
 
-          {/* FEATURED CARD 2: LEAD CAPTURE / WHATSAPP */}
+          {/* CARD 2: SPEED SCORE */}
           <motion.div 
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="bg-white border border-gray-200/90 rounded-2xl p-4 shadow-2xs flex flex-col justify-between overflow-hidden relative"
+            className="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
           >
-            <div className="flex items-center justify-between mb-1">
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-green-50 text-green-600">
-                <MessageSquare size={12} />
-                <span className="text-[9px] font-bold uppercase tracking-wider">Lead Capture</span>
-              </div>
-              <span className="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                Online Chat
-              </span>
-            </div>
-
-            <h3 className="text-base font-bold text-[#0A0A0A] font-sans">WhatsApp Integration</h3>
-            <p className="text-[11px] text-[#6B7280] font-medium mt-0.5">Direct chat button for instant customer inquiries.</p>
-
-            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-xl p-2.5 my-2 space-y-1.5">
-              <div className="bg-white text-[#0A0A0A] p-2 rounded-lg text-[10px] shadow-2xs border border-gray-100 max-w-[85%]">
-                Hi! I want more info about your services.
-              </div>
-              <div className="bg-[#2563EB] text-white p-2 rounded-lg text-[10px] shadow-2xs ml-auto max-w-[85%]">
-                Hello! 👋 We'd love to build your website!
-              </div>
-            </div>
-          </motion.div>
-
-          {/* COMPACT 2-COLUMN GRID FOR REMAINING 4 FEATURES */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="grid grid-cols-2 gap-2.5"
-          >
-            {/* 1. SPEED SCORE */}
-            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
-              <div className="flex items-center gap-1.5 text-emerald-600">
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-700">
                 <Zap size={14} className="fill-emerald-600" />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Speed</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Fast Performance</span>
               </div>
-              <div>
-                <h4 className="text-xs font-extrabold text-[#0A0A0A]">99/100 Score</h4>
-                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Instant load time</p>
-              </div>
-            </motion.div>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Speed Score 99/100</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                Ultra-fast load times ensure visitors stay on your page and convert into paying customers instantly.
+              </p>
+            </div>
 
-            {/* 2. SEO READY */}
-            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
-              <div className="flex items-center gap-1.5 text-orange-500">
+            <div className="bg-white border border-emerald-100 rounded-2xl p-4 my-2 flex items-center justify-between shadow-2xs">
+              <div className="flex items-center gap-3">
+                <div className="text-3xl font-black text-emerald-600 font-sans">
+                  <LiveCounter value={99} />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-gray-900">Google PageSpeed</div>
+                  <div className="text-[10px] font-semibold text-emerald-600">Grade A+ Optimized</div>
+                </div>
+              </div>
+              <div className="text-right text-[10px] text-gray-400 font-mono space-y-0.5">
+                <div>LCP: 0.4s</div>
+                <div>FID: 2ms</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CARD 3: WHATSAPP INTEGRATION */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+          >
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-600">
+                <MessageSquare size={14} />
+                <span className="text-xs font-bold uppercase tracking-wider">Lead Capture</span>
+              </div>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">WhatsApp Chat Integration</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                Connect directly with prospective customers through a floating 1-tap WhatsApp action button.
+              </p>
+            </div>
+
+            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-3.5 space-y-2.5 my-2">
+              <div className="bg-white text-[#0A0A0A] p-2.5 rounded-xl text-xs shadow-2xs border border-gray-100 max-w-[88%]">
+                Hi! I want to know more about your service options.
+              </div>
+              <div className="bg-[#2563EB] text-white p-2.5 rounded-xl text-xs shadow-2xs ml-auto max-w-[88%]">
+                Hello! 👋 We'd be happy to help you set up!
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CARD 4: SEO READY */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+          >
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600">
                 <Search size={14} />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">SEO</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Search Engine</span>
               </div>
-              <div>
-                <h4 className="text-xs font-extrabold text-[#0A0A0A]">Google Indexed</h4>
-                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Rank ready setup</p>
-              </div>
-            </motion.div>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">SEO Ready & Google Indexing</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                Complete meta tag structure, page titles, and sitemap generation included so Google finds you fast.
+              </p>
+            </div>
 
-            {/* 3. GOOGLE MAPS */}
-            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
-              <div className="flex items-center gap-1.5 text-red-500">
+            <div className="bg-gray-50 border border-gray-200/80 rounded-2xl p-3.5 flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shrink-0">
+                G
+              </div>
+              <div className="truncate">
+                <div className="text-[10px] text-emerald-600 font-bold">https://yourbusiness.in • Indexed ✓</div>
+                <div className="text-xs font-bold text-[#2563EB] truncate">Your Business Name — #1 Best Service</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* CARD 5: GOOGLE MAPS */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+          >
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600">
                 <MapPin size={14} />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Maps</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Location</span>
               </div>
-              <div>
-                <h4 className="text-xs font-extrabold text-[#0A0A0A]">Local Search</h4>
-                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">Map pin & directions</p>
-              </div>
-            </motion.div>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Google Maps Setup</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                Help local customers navigate directly to your storefront or office with embedded map pins.
+              </p>
+            </div>
 
-            {/* 4. SSL SECURITY */}
-            <motion.div variants={cardVariants} className="bg-white border border-gray-200/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs h-[105px]">
-              <div className="flex items-center gap-1.5 text-blue-600">
+            <div className="h-20 bg-slate-100 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:8px_8px]" />
+              <MapPin size={28} className="text-red-600 fill-red-500 drop-shadow-md z-10" />
+            </div>
+          </motion.div>
+
+          {/* CARD 6: SSL & HOSTING */}
+          <motion.div 
+            variants={cardVariants}
+            initial="hidden"
+            animate={isInView ? "show" : "hidden"}
+            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative"
+          >
+            <div className="space-y-2 mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
                 <ShieldCheck size={14} />
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Security</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Security</span>
               </div>
-              <div>
-                <h4 className="text-xs font-extrabold text-[#0A0A0A]">256-bit SSL</h4>
-                <p className="text-[10px] text-[#6B7280] font-medium leading-tight mt-0.5">99.9% Uptime host</p>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Secure Managed Hosting</h3>
+              <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
+                256-bit SSL encryption certificate, monthly backups, and 99.9% uptime managed automatically.
+              </p>
+            </div>
+
+            <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-3.5 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Lock size={14} className="text-[#2563EB]" />
+                <span className="text-xs font-bold text-[#0A0A0A]">256-bit SSL Active</span>
               </div>
-            </motion.div>
+              <span className="text-xs font-bold text-emerald-600">99.9% Uptime</span>
+            </div>
           </motion.div>
 
         </div>
 
 
         {/* ========================================================================= */}
-        {/* DESKTOP BENTO GRID (UNTOUCHED FOR DESKTOP ≥768px) */}
+        {/* 2. UNTOUCHED DESKTOP BENTO GRID (≥768px) */}
         {/* ========================================================================= */}
         <motion.div 
           variants={containerVariants}
@@ -366,7 +425,6 @@ export function Features() {
           animate={isInView ? "show" : "hidden"}
           className="hidden md:grid grid-cols-4 gap-5 auto-rows-[270px]"
         >
-
           {/* 1. MOBILE RESPONSIVE CARD */}
           <motion.div 
             variants={cardVariants}
@@ -394,7 +452,6 @@ export function Features() {
             </div>
           </motion.div>
 
-
           {/* 2. FAST PERFORMANCE CARD */}
           <motion.div 
             variants={cardVariants}
@@ -410,7 +467,6 @@ export function Features() {
               <p className="text-xs text-[#6B7280] mt-1 font-medium">Instant load times for higher conversion.</p>
             </div>
 
-            {/* Circular Gauge */}
             <div className="flex-1 flex flex-col items-center justify-center my-3 relative">
               <motion.div 
                 animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -446,7 +502,6 @@ export function Features() {
               </div>
             </div>
 
-            {/* Technical Metrics Pill */}
             <div className="bg-emerald-50/80 border border-emerald-100 rounded-xl p-3 flex justify-between items-center text-[11px] font-medium text-emerald-900 shadow-2xs">
               <span>LCP: <strong className="text-emerald-600">0.4s</strong></span>
               <span>FID: <strong className="text-emerald-600">2ms</strong></span>
@@ -454,12 +509,11 @@ export function Features() {
             </div>
           </motion.div>
 
-
           {/* 3. WHATSAPP INTEGRATION CARD */}
           <motion.div 
             variants={cardVariants}
             whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(34,197,94,0.18)", borderColor: "rgba(34,197,94,0.35)" }}
-            className="md:col-span-1 md:row-span-2 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
+            className="md:col-span-1 md:row-span-2 bg-[#2563EB]/0 bg-white border border-gray-200/90 rounded-[32px] p-6 flex flex-col justify-between overflow-hidden relative shadow-sm group transition-all duration-300"
           >
             <div>
               <div className="flex items-center justify-between mb-3">
@@ -476,9 +530,7 @@ export function Features() {
               <p className="text-xs text-[#6B7280] mt-1 font-medium">Connect directly with customers.</p>
             </div>
 
-            {/* Chat Screen Simulation */}
             <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-3.5 space-y-3 my-3 flex-1 flex flex-col justify-end">
-              
               <motion.div 
                 initial={{ opacity: 0, x: -15 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -509,14 +561,12 @@ export function Features() {
                 Hello! 👋 We would love to help you build your website.
                 <div className="text-[9px] text-blue-200 text-right mt-1">10:43 AM ✓✓</div>
               </motion.div>
-
             </div>
 
             <div className="text-[11px] text-center font-semibold text-[#2563EB] bg-blue-50 py-2 rounded-xl border border-blue-100">
               Direct WhatsApp Button Included
             </div>
           </motion.div>
-
 
           {/* 4. SEO OPTIMIZED CARD */}
           <motion.div 
@@ -564,7 +614,6 @@ export function Features() {
             </motion.div>
           </motion.div>
 
-
           {/* 5. GOOGLE MAPS CARD */}
           <motion.div 
             variants={cardVariants}
@@ -585,21 +634,9 @@ export function Features() {
 
             <div className="h-16 bg-slate-100 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:8px_8px]" />
-              
-              <motion.div 
-                initial={{ y: -15, opacity: 0 }}
-                animate={isInView ? { y: 0, opacity: 1 } : {}}
-                transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.6 }}
-                className="relative z-10 flex flex-col items-center"
-              >
-                <div className="relative">
-                  <MapPin size={24} className="text-red-600 fill-red-500 drop-shadow-md" />
-                  <span className="absolute -inset-1 bg-red-500/30 rounded-full animate-ping pointer-events-none" />
-                </div>
-              </motion.div>
+              <MapPin size={24} className="text-red-600 fill-red-500 drop-shadow-md z-10" />
             </div>
           </motion.div>
-
 
           {/* 6. SSL SECURE & HOSTING CARD */}
           <motion.div 
@@ -627,33 +664,58 @@ export function Features() {
                 <Lock size={14} className="text-[#2563EB]" />
                 <span className="text-xs font-bold text-[#0A0A0A]">256-bit SSL</span>
               </div>
-              <span className="text-xs font-bold text-emerald-600">
-                <LiveCounter value={99.9} decimals={1} suffix="%" />
-              </span>
+              <span className="text-xs font-bold text-emerald-600">99.9% Uptime</span>
             </div>
           </motion.div>
 
         </motion.div>
 
 
-        {/* CTA BOTTOM CONVERSION STRIP */}
+        {/* ========================================================================= */}
+        {/* 3. CTA BOTTOM BANNER (MOBILE SPECIFIC STACK VS DESKTOP HORIZONTAL STRIP) */}
+        {/* ========================================================================= */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-6 sm:mt-12 bg-[#2563EB] rounded-[22px] sm:rounded-[32px] p-5 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 shadow-xl relative overflow-hidden group"
+          className="mt-8 sm:mt-12 bg-gradient-to-br from-[#2563EB] via-[#1D4ED8] to-[#1E3A8A] rounded-[24px] sm:rounded-[32px] p-7 sm:p-10 shadow-xl relative overflow-hidden group"
         >
-          <div className="text-center md:text-left text-white relative z-10">
-            <h3 className="text-lg sm:text-2xl font-bold font-sans mb-1">Ready to launch your business online?</h3>
-            <p className="text-blue-100 text-xs sm:text-base font-medium">Everything above is included with every ProstoLabs plan.</p>
+          {/* Ambient Glow Orb */}
+          <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Mobile Stack Layout (block md:hidden) */}
+          <div className="block md:hidden text-center text-white relative z-10 space-y-5">
+            <div className="space-y-2">
+              <h3 className="text-xl font-black font-sans leading-tight">
+                Ready to launch your business online?
+              </h3>
+              <p className="text-blue-100 text-xs font-medium leading-relaxed">
+                Everything above is included with every ProstoLabs plan.
+              </p>
+            </div>
+
+            <motion.a 
+              href="#pricing" 
+              whileTap={{ scale: 0.97 }}
+              className="w-full h-[52px] bg-white text-[#2563EB] px-6 rounded-2xl font-black text-sm shadow-lg hover:bg-blue-50 transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Start for ₹499/month</span>
+              <ArrowRight size={16} />
+            </motion.a>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full md:w-auto relative z-10">
+          {/* Desktop Horizontal Layout (hidden md:flex) */}
+          <div className="hidden md:flex items-center justify-between gap-6 text-white relative z-10">
+            <div>
+              <h3 className="text-2xl font-bold font-sans mb-1">Ready to launch your business online?</h3>
+              <p className="text-blue-100 text-base font-medium">Everything above is included with every ProstoLabs plan.</p>
+            </div>
+
             <motion.a 
               href="#pricing" 
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="bg-white text-[#2563EB] h-11 sm:h-auto px-6 py-3 sm:py-3.5 rounded-xl font-bold text-xs sm:text-sm hover:bg-blue-50 transition-all duration-300 shadow-md text-center flex items-center justify-center gap-2"
+              className="bg-white text-[#2563EB] h-auto px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all duration-300 shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer"
             >
               <span>Start for ₹499/month</span>
               <ArrowRight size={15} />

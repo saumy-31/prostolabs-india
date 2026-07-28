@@ -45,12 +45,12 @@ const trustBadgeVariants: Variants = {
 
 // --- TRUST BADGES DATA ---
 const trustBadges = [
-  { icon: Zap, label: "⚡ Fast Delivery", mobile: true },
-  { icon: Smartphone, label: "📱 Mobile Friendly", mobile: true },
-  { icon: Search, label: "🔍 SEO Ready", mobile: true },
-  { icon: MessageSquare, label: "💬 WhatsApp Support", mobile: true },
-  { icon: ShieldCheck, label: "🔒 Secure Hosting", mobile: false },
-  { icon: Star, label: "⭐ Ongoing Support", mobile: false }
+  { icon: Zap, label: "⚡ Fast Delivery" },
+  { icon: Smartphone, label: "📱 Mobile Friendly" },
+  { icon: Search, label: "🔍 SEO Ready" },
+  { icon: MessageSquare, label: "💬 WhatsApp Support" },
+  { icon: ShieldCheck, label: "🔒 Secure Hosting" },
+  { icon: Star, label: "⭐ Ongoing Support" }
 ]
 
 // --- REALISTIC INDIAN BUSINESS OWNER AVATARS ---
@@ -91,7 +91,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
       <div className="max-w-[1350px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* FULL-WIDTH PREMIUM CANVAS CARD */}
-        <div className="bg-gradient-to-b from-[#1E3A8A] via-[#2563EB] to-[#1D4ED8] rounded-[24px] sm:rounded-[32px] md:rounded-[36px] p-5 sm:p-10 md:p-12 lg:p-14 text-white shadow-xl sm:shadow-2xl relative overflow-hidden border border-blue-400/30">
+        <div className="bg-gradient-to-b from-[#1E3A8A] via-[#2563EB] to-[#1D4ED8] rounded-[24px] sm:rounded-[32px] md:rounded-[36px] p-6 sm:p-10 md:p-12 lg:p-14 text-white shadow-xl sm:shadow-2xl relative overflow-hidden border border-blue-400/30">
           
           {/* FLOATING AMBIENT BACKGROUND GLOWS */}
           <motion.div 
@@ -107,14 +107,14 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
           <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
           {/* HEADER CONTENT */}
-          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10 md:mb-12 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-10 md:mb-12 relative z-10 space-y-3">
             
             {/* BADGE */}
             <motion.div 
               initial={{ opacity: 0, y: -8 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs mb-3 sm:mb-4"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-white shadow-xs"
             >
               <motion.span 
                 animate={{ y: [0, -3, 0] }}
@@ -122,7 +122,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               >
                 🚀
               </motion.span>
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase">Ready to Launch?</span>
+              <span className="text-[11px] font-bold tracking-wider uppercase">Ready to Launch?</span>
             </motion.div>
 
             {/* HEADING */}
@@ -130,7 +130,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-sans tracking-tight leading-[1.15] mb-2.5 sm:mb-4 text-white"
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black font-sans tracking-tight leading-[1.15] text-white"
             >
               Your business deserves a website that works as hard as you do.
             </motion.h2>
@@ -146,15 +146,57 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
             </motion.p>
           </div>
 
+          {/* ========================================================================= */}
+          {/* 1. MOBILE FEATURED SINGLE PRICING CARD (≤1023px) */}
+          {/* ========================================================================= */}
+          <div className="block lg:hidden mb-8 relative z-10 max-w-sm mx-auto">
+            <div className="bg-white text-[#0A0A0A] rounded-[24px] p-6 shadow-2xl relative border-2 border-white">
+              <div className="absolute -top-3.5 right-6 bg-[#2563EB] text-white px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md">
+                🔥 Most Popular
+              </div>
 
-          {/* 3 PRICING OPTION CARDS (HIDDEN ON MOBILE, VISIBLE ON LAPTOP/DESKTOP) */}
+              <div className="inline-block px-3 py-1 bg-blue-50 text-[#2563EB] rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-3">
+                Fully Managed Care
+              </div>
+
+              <div className="text-3xl font-black text-[#0A0A0A] font-sans tracking-tight mb-1">
+                ₹499 <span className="text-xs font-semibold text-gray-500">/ month</span>
+              </div>
+
+              <p className="text-xs text-gray-600 mb-4 font-medium leading-relaxed">
+                All-inclusive managed site with hosting & updates included.
+              </p>
+
+              <hr className="border-gray-100 mb-4" />
+
+              <ul className="space-y-2 mb-6">
+                {["Modern Custom Website", "High-Speed Hosting Included", "SSL & Security Managed", "WhatsApp Support Channel"].map((item, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-xs font-bold text-[#0A0A0A]">
+                    <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <button 
+                onClick={() => onOpenModal?.('care')}
+                className="w-full h-[52px] bg-[#2563EB] text-white font-bold text-sm rounded-2xl shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>Get Started for ₹499/mo</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* ========================================================================= */}
+          {/* 2. UNTOUCHED DESKTOP 3-CARD GRID (≥1024px) */}
+          {/* ========================================================================= */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10 md:mb-12 relative z-10 items-stretch"
+            className="hidden lg:grid grid-cols-3 gap-6 mb-10 md:mb-12 relative z-10 items-stretch"
           >
-
             {/* CARD 1: ₹499 / MONTH */}
             <motion.div 
               variants={itemVariants}
@@ -201,7 +243,6 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               </motion.button>
             </motion.div>
 
-
             {/* CARD 2: ₹4,999 ONE-TIME */}
             <motion.div 
               variants={itemVariants}
@@ -247,7 +288,6 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               </motion.button>
             </motion.div>
 
-
             {/* CARD 3: CUSTOM SOLUTION */}
             <motion.div 
               variants={itemVariants}
@@ -288,28 +328,22 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                 Get a Custom Quote
               </motion.button>
             </motion.div>
-
           </motion.div>
 
 
-          {/* TRUST STRIP BADGES */}
-          <motion.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "show" : "hidden"}
-            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6 sm:mb-10 relative z-10"
-          >
-            {trustBadges.map((badge, idx) => (
-              <motion.div
-                key={idx}
-                variants={trustBadgeVariants}
-                whileHover={{ scale: 1.04 }}
-                className={`bg-white/10 backdrop-blur-md border border-white/15 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl sm:rounded-2xl text-[10px] sm:text-[11px] font-bold text-white shadow-2xs ${badge.mobile ? 'block' : 'hidden sm:block'}`}
-              >
-                <span>{badge.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* TRUST STRIP BADGES (HORIZONTALLY SCROLLABLE ON MOBILE) */}
+          <div className="mb-6 sm:mb-10 relative z-10">
+            <div className="flex sm:flex-wrap items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar pb-2 sm:pb-0 -mx-6 px-6 sm:mx-0 sm:px-0">
+              {trustBadges.map((badge, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white/10 backdrop-blur-md border border-white/15 px-3.5 py-1.5 rounded-full text-[11px] font-bold text-white whitespace-nowrap shrink-0"
+                >
+                  <span>{badge.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
 
           {/* SOCIAL PROOF AVATARS STACK */}
@@ -327,28 +361,22 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                   alt={person.name} 
                   title={`${person.name} (${person.role})`}
                   whileHover={{ scale: 1.15, zIndex: 30 }}
-                  className="inline-block h-7 w-7 sm:h-9 sm:w-9 rounded-full ring-2 ring-white/90 object-cover shadow-md transition-transform" 
+                  className="inline-block h-8 w-8 sm:h-9 sm:w-9 rounded-full ring-2 ring-white/90 object-cover shadow-md transition-transform" 
                 />
               ))}
             </div>
-            <p className="text-[11px] sm:text-sm font-semibold text-blue-100">
+            <p className="text-xs sm:text-sm font-semibold text-blue-100">
               Helping businesses across India build modern websites.
             </p>
           </motion.div>
 
 
-          {/* PRIMARY & SECONDARY ACTION BUTTONS */}
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5 sm:gap-3.5 max-w-md mx-auto relative z-10"
-          >
+          {/* PRIMARY & SECONDARY FULL-WIDTH ACTION BUTTONS */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 max-w-md mx-auto relative z-10">
             <motion.button 
               onClick={() => onOpenModal?.('care')}
-              whileHover={{ scale: 1.03 }} 
               whileTap={{ scale: 0.97 }}
-              className="w-full sm:w-auto h-12 sm:h-auto bg-white text-[#2563EB] px-6 sm:px-7 py-3.5 rounded-xl sm:rounded-2xl font-black text-xs sm:text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
+              className="w-full sm:w-auto h-[52px] sm:h-auto bg-white text-[#2563EB] px-6 sm:px-7 py-3.5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
             >
               <span>Start Your Website Today</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -358,14 +386,13 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               href="https://wa.me/916392577105" 
               target="_blank" 
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03 }} 
               whileTap={{ scale: 0.97 }}
-              className="w-full sm:w-auto h-12 sm:h-auto bg-emerald-500 text-white border border-emerald-400/30 px-6 sm:px-7 py-3.5 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm shadow-lg hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
+              className="w-full sm:w-auto h-[52px] sm:h-auto bg-emerald-500 text-white border border-emerald-400/30 px-6 sm:px-7 py-3.5 rounded-2xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
             >
               <MessageSquare className="w-4 h-4 fill-white" />
               <span>Talk on WhatsApp</span>
             </motion.a>
-          </motion.div>
+          </div>
 
         </div>
 

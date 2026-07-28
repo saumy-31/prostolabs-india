@@ -203,7 +203,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
         className="absolute bottom-1/3 -right-20 w-[550px] h-[550px] bg-indigo-500/5 rounded-full blur-[110px] pointer-events-none" 
       />
 
-      <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+      <div className="max-w-[1300px] mx-auto px-6 sm:px-6 md:px-12 relative z-10 w-full overflow-x-hidden">
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-16">
@@ -238,14 +238,14 @@ export function FAQ({ onOpenModal }: FAQProps) {
         </div>
 
         {/* MAIN SPLIT LAYOUT (QUESTIONS FIRST ON MOBILE, SUPPORT CARD SECOND) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start w-full">
           
           {/* ACCORDION QUESTIONS (8 COLS ON DESKTOP, FIRST ON MOBILE) */}
           <motion.div 
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "show" : "hidden"}
-            className="lg:col-span-8 order-1 lg:order-2 space-y-2.5 sm:space-y-3.5"
+            className="lg:col-span-8 order-1 lg:order-2 space-y-4 sm:space-y-3.5 w-full"
           >
             {faqList.map((item, idx) => {
               const isOpen = openIndex === idx
@@ -255,7 +255,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                   key={idx}
                   variants={itemVariants}
                   whileHover={{ y: -2, boxShadow: "0 20px 40px -15px rgba(37,99,235,0.12)" }}
-                  className={`border rounded-xl sm:rounded-2xl overflow-hidden relative transition-colors duration-300 ${
+                  className={`border rounded-[20px] sm:rounded-2xl overflow-hidden relative transition-colors duration-300 w-full ${
                     isOpen 
                       ? 'bg-blue-50/30 border-[#2563EB] shadow-md ring-2 ring-blue-100' 
                       : 'bg-white border-gray-200/90 hover:border-blue-400/60 shadow-2xs'
@@ -268,15 +268,15 @@ export function FAQ({ onOpenModal }: FAQProps) {
                       initial={{ scaleY: 0 }}
                       animate={{ scaleY: 1 }}
                       exit={{ scaleY: 0 }}
-                      className="absolute left-0 top-0 bottom-0 w-1 sm:w-1.5 bg-[#2563EB] rounded-l-xl z-20"
+                      className="absolute left-0 top-0 bottom-0 w-1 sm:w-1.5 bg-[#2563EB] rounded-l-[20px] sm:rounded-l-2xl z-20"
                     />
                   )}
 
                   <button
                     onClick={() => toggleAccordion(idx)}
-                    className="w-full p-3.5 sm:p-5 md:p-6 text-left flex items-center justify-between gap-3 cursor-pointer relative z-10"
+                    className="w-full min-h-[56px] py-4 px-5 sm:p-5 md:p-6 text-left flex items-center justify-between gap-3.5 cursor-pointer relative z-10"
                   >
-                    <span className={`text-xs sm:text-base font-sans leading-snug transition-colors duration-200 ${
+                    <span className={`text-sm sm:text-base font-sans leading-snug transition-colors duration-200 pr-1 ${
                       isOpen ? 'font-extrabold text-[#2563EB]' : 'font-bold text-[#0A0A0A]'
                     }`}>
                       {item.question}
@@ -285,11 +285,11 @@ export function FAQ({ onOpenModal }: FAQProps) {
                     <motion.div 
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className={`p-1.5 sm:p-2 rounded-lg sm:rounded-xl shrink-0 transition-colors ${
+                      className={`p-2 rounded-xl shrink-0 transition-colors ${
                         isOpen ? 'bg-[#2563EB] text-white shadow-xs' : 'bg-gray-100 text-gray-500'
                       }`}
                     >
-                      <ChevronDown size={16} />
+                      <ChevronDown size={18} className="sm:w-4 sm:h-4" />
                     </motion.div>
                   </button>
 
@@ -301,20 +301,20 @@ export function FAQ({ onOpenModal }: FAQProps) {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        <div className="px-3.5 pb-4 sm:px-6 sm:pb-6 relative z-10">
+                        <div className="px-5 pb-5 sm:px-6 sm:pb-6 relative z-10">
                           
                           <motion.div 
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: 1 }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="h-px bg-blue-100 origin-left mb-3 sm:mb-4"
+                            className="h-px bg-blue-100 origin-left mb-3.5 sm:mb-4"
                           />
 
                           <motion.div 
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: 0.1 }}
-                            className="text-xs sm:text-sm text-[#6B7280] leading-relaxed"
+                            className="text-xs sm:text-sm text-[#6B7280] leading-relaxed break-words"
                           >
                             {item.answer}
                           </motion.div>
@@ -332,50 +332,50 @@ export function FAQ({ onOpenModal }: FAQProps) {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-4 order-2 lg:order-1 lg:sticky lg:top-28 mt-4 lg:mt-0"
+            className="lg:col-span-4 order-2 lg:order-1 lg:sticky lg:top-28 mt-4 lg:mt-0 w-full"
           >
             <motion.div 
               whileHover={{ y: -6, boxShadow: "0 25px 50px -12px rgba(37,99,235,0.18)" }}
-              className="bg-white border-2 border-[#2563EB] rounded-2xl sm:rounded-[32px] p-5 sm:p-8 shadow-lg sm:shadow-xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300"
+              className="bg-white border-2 border-[#2563EB] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 shadow-lg sm:shadow-xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 w-full"
             >
               <div className="absolute top-0 right-0 w-48 h-48 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
               <div>
-                <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 text-[#2563EB] border border-blue-100 flex items-center justify-center font-bold text-lg sm:text-xl shadow-2xs">
+                <div className="flex items-center justify-between mb-5 sm:mb-6">
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 text-[#2563EB] border border-blue-100 flex items-center justify-center font-bold text-xl shadow-2xs">
                     💬
                   </div>
                   
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 rounded-full border border-emerald-200">
+                  <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-200">
                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-ping" />
                     <span className="text-[10px] font-bold text-emerald-700">Online Now</span>
                   </div>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold text-[#0A0A0A] font-sans mb-1.5 sm:mb-2">
+                <h3 className="text-xl font-bold text-[#0A0A0A] font-sans mb-2">
                   Need more help?
                 </h3>
 
-                <p className="text-xs text-[#6B7280] leading-relaxed mb-4 sm:mb-6">
+                <p className="text-xs text-[#6B7280] leading-relaxed mb-5 sm:mb-6">
                   Have a specific question about your business or custom requirements? Talk directly to our team.
                 </p>
 
-                <div className="space-y-2 sm:space-y-3 mb-6 sm:mb-8">
-                  <div className="flex items-center gap-2.5 sm:gap-3 bg-gray-50/80 border border-gray-200/80 p-2.5 sm:p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
+                <div className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
+                  <div className="flex items-center gap-3 bg-gray-50/80 border border-gray-200/80 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
                     <div className="p-1.5 bg-green-50 text-green-600 rounded-lg shrink-0">
                       <MessageSquare size={15} />
                     </div>
                     <span>WhatsApp Direct Support</span>
                   </div>
 
-                  <div className="flex items-center gap-2.5 sm:gap-3 bg-gray-50/80 border border-gray-200/80 p-2.5 sm:p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
+                  <div className="flex items-center gap-3 bg-gray-50/80 border border-gray-200/80 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
                     <div className="p-1.5 bg-blue-50 text-[#2563EB] rounded-lg shrink-0">
                       <Mail size={15} />
                     </div>
                     <span>Email Consultation</span>
                   </div>
 
-                  <div className="flex items-center gap-2.5 sm:gap-3 bg-emerald-50/60 border border-emerald-100 p-2.5 sm:p-3 rounded-xl text-xs font-bold text-emerald-900">
+                  <div className="flex items-center gap-3 bg-emerald-50/60 border border-emerald-100 p-3 rounded-xl text-xs font-bold text-emerald-900">
                     <div className="p-1.5 bg-emerald-100 text-emerald-600 rounded-lg shrink-0">
                       <Zap size={15} />
                     </div>
@@ -388,7 +388,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                 onClick={() => onOpenModal?.('care')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-[#2563EB] text-white font-bold text-xs sm:text-sm h-12 sm:h-auto sm:py-3.5 rounded-xl shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full bg-[#2563EB] text-white font-bold text-sm h-[52px] sm:h-auto sm:py-3.5 rounded-2xl sm:rounded-xl shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Talk to ProstoLabs</span>
                 <ArrowRight size={15} />
