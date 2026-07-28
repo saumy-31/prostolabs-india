@@ -15,15 +15,14 @@ import {
   CheckCircle2,
   Lock,
   MessageSquare,
-  Star,
+  
   Zap,
   MapPin,
   Calendar,
   ChevronRight,
-  ShieldCheck,
+ 
   UserCheck,
-  Building2,
-  Award
+  
 } from 'lucide-react'
 import { BrowserMockup } from './BrowserMockup'
 import type { PlanType } from '../Modal/EnquiryModal'
