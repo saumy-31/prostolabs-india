@@ -16,13 +16,7 @@ import {
   Dumbbell,
   Scissors,
   Stethoscope,
-  Star,
-  CheckCircle2,
-  Calendar,
-  Clock,
-  MapPin,
-  PhoneCall,
-  ShieldCheck,
+  
   UserCheck
 } from 'lucide-react'
 
