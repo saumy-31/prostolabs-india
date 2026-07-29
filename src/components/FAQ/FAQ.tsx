@@ -210,7 +210,6 @@ export function FAQ({ onOpenModal }: FAQProps) {
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-16">
-          {/* REFINED SECTION BADGE */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
@@ -365,26 +364,49 @@ export function FAQ({ onOpenModal }: FAQProps) {
                 </p>
 
                 <div className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8">
-                  <div className="flex items-center gap-3 bg-gray-50/80 border border-gray-200/80 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
-                    <div className="p-1.5 bg-green-50 text-green-600 rounded-lg shrink-0">
-                      <MessageSquare size={15} />
+                  
+                  {/* WHATSAPP DIRECT SUPPORT CARD */}
+                  <motion.a
+                    href="https://wa.me/916392577105?text=Hello%20ProstoLabs%2C%0AI%27d%20like%20to%20know%20more%20about%20getting%20a%20website%20for%20my%20business."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chat on WhatsApp Direct Support"
+                    whileHover={{ y: -2, boxShadow: "0 6px 16px -2px rgba(34,197,94,0.15)" }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-3 bg-gray-50/80 hover:bg-white border border-gray-200/80 hover:border-emerald-300 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A] transition-all cursor-pointer transform-gpu group/wa block"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="p-1.5 bg-green-50 text-green-600 rounded-lg shrink-0 group-hover/wa:bg-green-100 transition-colors">
+                        <MessageSquare size={15} />
+                      </div>
+                      <span>WhatsApp Direct Support</span>
                     </div>
-                    <span>WhatsApp Direct Support</span>
-                  </div>
+                  </motion.a>
 
-                  <div className="flex items-center gap-3 bg-gray-50/80 border border-gray-200/80 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A]">
-                    <div className="p-1.5 bg-blue-50 text-[#2563EB] rounded-lg shrink-0">
-                      <Mail size={15} />
+                  {/* EMAIL CONSULTATION CARD */}
+                  <motion.a
+                    href="mailto:hello@prostolabs.com?subject=Website%20Enquiry&body=Hello%20ProstoLabs%2C%0A%0AI%27m%20interested%20in%20getting%20a%20website%20for%20my%20business.%0APlease%20share%20more%20details.%0A%0AThanks%21"
+                    aria-label="Send email consultation"
+                    whileHover={{ y: -2, boxShadow: "0 6px 16px -2px rgba(37,99,235,0.15)" }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-3 bg-gray-50/80 hover:bg-white border border-gray-200/80 hover:border-blue-300 p-3 rounded-xl text-xs font-semibold text-[#0A0A0A] transition-all cursor-pointer transform-gpu group/mail block"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="p-1.5 bg-blue-50 text-[#2563EB] rounded-lg shrink-0 group-hover/mail:bg-blue-100 transition-colors">
+                        <Mail size={15} />
+                      </div>
+                      <span>Email Consultation</span>
                     </div>
-                    <span>Email Consultation</span>
-                  </div>
+                  </motion.a>
 
+                  {/* AVERAGE RESPONSE TIME INDICATOR */}
                   <div className="flex items-center gap-3 bg-emerald-50/60 border border-emerald-100 p-3 rounded-xl text-xs font-bold text-emerald-900">
                     <div className="p-1.5 bg-emerald-100 text-emerald-600 rounded-lg shrink-0">
                       <Zap size={15} />
                     </div>
                     <span>⚡ Average Response: &lt; 15 Mins</span>
                   </div>
+
                 </div>
               </div>
 

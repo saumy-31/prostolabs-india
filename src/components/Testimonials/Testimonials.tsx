@@ -242,29 +242,29 @@ export function Testimonials() {
                     </div>
                   </div>
 
-                  {/* Customer Avatar & Bio Footer */}
-                  <div className="pt-5 mt-6 border-t border-gray-100 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+                  {/* Customer Avatar & Bio Responsive Mobile Footer */}
+                  <div className="pt-5 mt-6 border-t border-gray-100 flex flex-col min-[380px]:flex-row items-start min-[380px]:items-center justify-between gap-3 min-[380px]:gap-2">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
                       <img 
                         src={item.avatar} 
                         alt={item.name} 
                         className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs shrink-0 transform-gpu" 
                       />
-                      <div>
-                        <h4 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
-                          {item.name}
-                          <CheckCircle2 size={14} className="text-[#2563EB]" />
+                      <div className="min-w-0 flex-1">
+                        <h4 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1 truncate">
+                          <span className="truncate">{item.name}</span>
+                          <CheckCircle2 size={14} className="text-[#2563EB] shrink-0" />
                         </h4>
-                        <p className="text-xs text-gray-500 font-medium truncate max-w-[140px]">{item.business}</p>
-                        <p className="text-[10px] text-gray-400 flex items-center gap-0.5 mt-0.5">
-                          <MapPin size={10} /> {item.location}
+                        <p className="text-xs text-gray-500 font-medium truncate">{item.business}</p>
+                        <p className="text-[10px] text-gray-400 flex items-center gap-0.5 mt-0.5 truncate">
+                          <MapPin size={10} className="shrink-0" /> <span className="truncate">{item.location}</span>
                         </p>
                       </div>
                     </div>
 
-                    <div className="bg-blue-50 border border-blue-100 rounded-xl px-2.5 py-1.5 text-right shrink-0">
+                    <div className="bg-blue-50 border border-blue-100 rounded-xl px-2.5 py-1.5 text-left min-[380px]:text-right shrink-0 self-start min-[380px]:self-auto">
                       <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Plan</div>
-                      <div className="text-[11px] font-bold text-[#2563EB]">{item.packageSelected}</div>
+                      <div className="text-[11px] font-bold text-[#2563EB] whitespace-nowrap">{item.packageSelected}</div>
                     </div>
                   </div>
 

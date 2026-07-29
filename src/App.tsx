@@ -84,17 +84,16 @@ export default function App() {
     setIsModalOpen(false)
   }
 
-  // FIXED: Using ReactElement type instead of namespace JSX.Element
   const wrapWithSuspense = (component: React.ReactNode) => (
-  <Suspense fallback={<PageSkeleton height="min-h-screen" />}>
-    <SEO />
-    {component}
-    <Footer />
-    <Suspense fallback={null}>
-      <EnquiryModal isOpen={isModalOpen} onClose={handleCloseModal} initialPlan={selectedPlan} />
+    <Suspense fallback={<PageSkeleton height="min-h-screen" />}>
+      <SEO />
+      {component}
+      <Footer />
+      <Suspense fallback={null}>
+        <EnquiryModal isOpen={isModalOpen} onClose={handleCloseModal} initialPlan={selectedPlan} />
+      </Suspense>
     </Suspense>
-  </Suspense>
-);
+  );
 
   // ROUTE 1: ABOUT US PAGE
   if (currentPath === '/about') {
@@ -130,8 +129,9 @@ export default function App() {
           <Pricing onOpenModal={handleOpenModal} />
         </Suspense>
 
+        {/* CONNECTED onOpenModal PROP HERE */}
         <Suspense fallback={<FeaturesSkeleton />}>
-          <Features />
+          <Features onOpenModal={handleOpenModal} />
         </Suspense>
 
         <Suspense fallback={<ShowcaseSkeleton />}>

@@ -2,13 +2,11 @@ import { motion } from 'framer-motion'
 import { 
   Sparkles, 
   Target, 
-
   Zap, 
   ShieldCheck, 
   CheckCircle2, 
   ArrowRight, 
   ArrowLeft,
-  
 } from 'lucide-react'
 import type { PlanType } from '../components/Modal/EnquiryModal'
 
@@ -18,10 +16,10 @@ interface AboutUsProps {
 
 export function AboutUs({ onOpenModal }: AboutUsProps) {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* AMBIENT BACKGROUND GLOWS */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* AMBIENT BACKGROUND GLOWS - Scaled down for mobile to eliminate horizontal scroll canvas expansion */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] sm:w-[500px] md:w-[800px] h-[300px] sm:h-[400px] max-w-full bg-blue-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto space-y-12 relative z-10">
         
@@ -50,7 +48,7 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
           </div>
 
           <h1 className="text-3xl sm:text-4xl lg:text-6xl font-black tracking-tight text-[#0A0A0A] font-sans leading-[1.1]">
-            Modern Web Development <br />
+            Modern Web Development <br className="hidden sm:inline" />
             <span className="text-[#2563EB]">For Every Business.</span>
           </h1>
 

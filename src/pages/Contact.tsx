@@ -4,7 +4,6 @@ import {
   Mail, 
   MapPin, 
   Clock, 
-   
   ArrowRight, 
   ArrowLeft,
   Headphones,
@@ -18,10 +17,10 @@ interface ContactProps {
 
 export function Contact({ onOpenModal }: ContactProps) {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* AMBIENT BACKGROUND GLOW */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* AMBIENT BACKGROUND GLOW - Scaled down for mobile to eliminate horizontal scroll canvas expansion */}
+      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] sm:w-[500px] md:w-[800px] h-[300px] sm:h-[400px] max-w-full bg-blue-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto space-y-10 relative z-10">
         
@@ -102,7 +101,7 @@ export function Contact({ onOpenModal }: ContactProps) {
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare size={18} fill="white" />
-              <span>Chat on WhatsApp (+91 63925 77105)</span>
+              <span>Chat on WhatsApp</span>
             </a>
           </motion.div>
 
@@ -126,7 +125,7 @@ export function Contact({ onOpenModal }: ContactProps) {
               <div className="bg-gray-50 border border-gray-200/80 rounded-2xl p-4 space-y-2 text-xs font-semibold text-gray-700">
                 <div className="flex items-center gap-2">
                   <Mail size={16} className="text-[#2563EB]" />
-                  <span>Email: support@prostolabs.in</span>
+                  <span>Email: hello@prostolabs.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin size={16} className="text-[#2563EB]" />

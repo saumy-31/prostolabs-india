@@ -22,6 +22,11 @@ import {
   CheckCircle2,
   ArrowRight
 } from 'lucide-react'
+import type { PlanType } from '../Modal/EnquiryModal'
+
+interface FeaturesProps {
+  onOpenModal?: (plan?: PlanType) => void
+}
 
 // --- EASING CURVES ---
 const easeSaaS = [0.16, 1, 0.3, 1] as const
@@ -190,7 +195,7 @@ function MultiDeviceIllustration() {
   )
 }
 
-export function Features() {
+export function Features({ onOpenModal }: FeaturesProps) {
   const sectionRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(sectionRef, { once: true, margin: "-50px" })
 
@@ -746,14 +751,14 @@ export function Features() {
               </p>
             </div>
 
-            <motion.a 
-              href="#pricing" 
+            <motion.button 
+              onClick={() => onOpenModal?.('care')} 
               whileTap={{ scale: 0.97 }}
               className="w-full h-[52px] bg-white text-[#2563EB] px-6 rounded-2xl font-black text-sm shadow-lg hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 cursor-pointer transform-gpu"
             >
               <span>Start for ₹499/month</span>
               <ArrowRight size={16} />
-            </motion.a>
+            </motion.button>
           </div>
 
           {/* Desktop Horizontal Layout (hidden md:flex) */}
@@ -763,15 +768,15 @@ export function Features() {
               <p className="text-blue-100 text-base font-medium">Everything above is included with every ProstoLabs plan.</p>
             </div>
 
-            <motion.a 
-              href="#pricing" 
+            <motion.button 
+              onClick={() => onOpenModal?.('care')} 
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="bg-white text-[#2563EB] h-auto px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all duration-300 shadow-md flex items-center justify-center gap-2 shrink-0 cursor-pointer transform-gpu"
             >
               <span>Start for ₹499/month</span>
               <ArrowRight size={15} />
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
 
