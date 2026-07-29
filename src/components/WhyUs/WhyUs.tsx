@@ -121,11 +121,9 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
     { icon: ShieldCheck, feature: "Website Security", wix: "Standard Software", godaddy: "Basic Protection", prosto: "Active Firewall & Threat Protection" },
     { icon: Database, feature: "Automated Daily Backups", wix: "Manual Revision Points", godaddy: "Paid Add-on", prosto: "Automated Cloud Backups" },
     { icon: Headphones, feature: "Technical Support", wix: "Support Ticket System", godaddy: "Call Center Queue", prosto: "Direct Developer Access on WhatsApp" },
-    { icon: Key, feature: "Full Website Ownership", wix: "Locked to Platform", godaddy: "Locked to Platform", prosto: "100% Client Code & Asset Rights" },
     { icon: Calendar, feature: "Delivery Time", wix: "2–4 Weeks Self-Work", godaddy: "1–3 Weeks Self-Work", prosto: "3–7 Business Days Guaranteed", isHighlight: true },
     { icon: ZapOff, feature: "Hidden Charges", wix: "App Store Add-ons", godaddy: "High Renewal Prices", prosto: "Zero Hidden Fees — Transparent" },
     { icon: HelpCircle, feature: "Custom Domain Setup", wix: "Self-configured", godaddy: "Self-configured", prosto: "Complete DNS & SSL Configuration" },
-    { icon: Mail, feature: "Business Email Setup", wix: "Google Workspace Extra", godaddy: "Paid Add-on", prosto: "DNS MX Routing & Setup Included" },
     { icon: Clock, feature: "Your Time Commitment", wix: "15–30+ Hours", godaddy: "10–20+ Hours", prosto: "~15 Mins Onboarding Brief", isTimeField: true },
   ]
 
@@ -680,17 +678,17 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm font-bold text-[#0A0A0A]">
                 {[
                   "We build everything for you",
-                  "No generic templates",
+                  
                   "No coding or DIY work required",
                   "Enterprise hosting included",
                   "100% managed website maintenance",
                   "Direct WhatsApp support access",
                   "SEO ready out of the box",
                   "Flawless mobile responsiveness",
-                  "Secure SSL & active firewalls",
+              
                   "Launch in 3–7 business days",
                   "Transparent pricing — 0 hidden fees",
-                  "100% full website ownership rights"
+                  
                 ].map((point, index) => (
                   <div key={index} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-200/80 shadow-2xs">
                     <div className="w-5 h-5 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
