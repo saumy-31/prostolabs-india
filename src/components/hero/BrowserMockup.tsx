@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import { motion, AnimatePresence, useMotionValue, useTransform, animate, type MotionValue } from 'framer-motion'
 import { 
   Star, 
@@ -6,11 +6,8 @@ import {
   MessageCircle, 
   Sparkles, 
   ArrowUpRight, 
-  
- 
   Bell,
   MousePointer2,
-  
   Zap
 } from 'lucide-react'
 
@@ -109,7 +106,7 @@ const DEMO_SCENARIOS = [
 ]
 
 // --- LIVE STAT COUNTER ---
-function LiveCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+const LiveCounter = memo(function LiveCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const count = useMotionValue(0)
   const rounded = useTransform(count, (latest) => 
     latest % 1 === 0 ? Math.round(latest) : latest.toFixed(1)
@@ -125,11 +122,11 @@ function LiveCounter({ value, suffix = "" }: { value: number; suffix?: string })
 
   return (
     <span>
-     <motion.span>{rounded as any}</motion.span>
+      <motion.span>{rounded as any}</motion.span>
       {suffix}
     </span>
   )
-}
+})
 
 export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
   const [activeIdx, setActiveIndex] = useState(0)
@@ -149,34 +146,35 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
       initial={{ opacity: 0, scale: 0.94, y: 25 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 85, damping: 18 }}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="relative w-full z-20 group/mockup"
+      style={{ rotateX, rotateY }}
+      // Safe WebKit stacking isolation (isolate-layer & backface-visibility prevents Safari refresh collapse)
+      className="relative w-full z-20 group/mockup isolate-layer [backface-visibility:hidden] [webkit-backface-visibility:hidden]"
     >
-      {/* AMBIENT BACKLIGHT GLOW THAT ADAPTS TO CURRENT BRAND ACCENT */}
+      {/* AMBIENT BACKLIGHT GLOW - Fixed Safari blur texture caching by using controlled blur class */}
       <motion.div 
         animate={{ backgroundColor: current.accentColor }}
         transition={{ duration: 1.2 }}
-        className="absolute inset-0 blur-[100px] opacity-20 rounded-[32px] transform translate-y-8 scale-95 pointer-events-none" 
+        className="absolute inset-0 blur-2xl sm:blur-3xl opacity-20 rounded-[32px] transform translate-y-6 scale-95 pointer-events-none z-0" 
       />
 
       {/* FLOATING TOP BRAND BADGE */}
       <motion.div
         animate={{ y: [0, -5, 0] }}
         transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
-        className="hidden sm:flex absolute -top-5 -left-4 z-40 items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white/95 border border-gray-200/90 shadow-xl backdrop-blur-md text-xs font-bold text-gray-900 pointer-events-none"
+        className="hidden sm:flex absolute -top-5 -left-4 z-40 items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-white/95 border border-gray-200/90 shadow-xl backdrop-blur-md text-xs font-bold text-gray-900 pointer-events-none transform-gpu"
       >
         <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
         <span>⚡ Built by ProstoLabs • Live Demo</span>
       </motion.div>
 
       {/* MAIN BROWSER CONTAINER */}
-      <div className="bg-white rounded-[26px] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.25)] border border-gray-200/90 overflow-hidden flex flex-col h-[460px] sm:h-[490px] md:h-[520px] relative z-10">
+      <div className="bg-white rounded-[26px] shadow-[0_30px_90px_-15px_rgba(0,0,0,0.25)] border border-gray-200/90 overflow-hidden flex flex-col h-[460px] sm:h-[490px] md:h-[520px] relative z-10 transform-gpu">
         
         {/* GLASS REFLECTION SHEEN PASS */}
         <motion.div 
           animate={{ x: ['-100%', '200%'] }}
           transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", repeatDelay: 2.5 }}
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none z-40"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-12 pointer-events-none z-40 transform-gpu"
         />
 
         {/* 1. BROWSER HEADER TOOLBAR */}
@@ -215,7 +213,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 7, ease: "linear" }}
-              className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#2563EB] to-emerald-400 origin-left pointer-events-none"
+              className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#2563EB] to-emerald-400 origin-left pointer-events-none transform-gpu"
             />
           </div>
 
@@ -225,7 +223,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
         </div>
 
         {/* 2. INTERACTIVE DEMO VIEWPORT */}
-        <div className="relative flex-1 overflow-hidden bg-[#0A0D14] text-white">
+        <div className="relative flex-1 overflow-hidden bg-[#0A0D14] text-white isolate-layer">
           
           <AnimatePresence mode="wait">
             <motion.div
@@ -234,14 +232,14 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.02 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 overflow-hidden"
+              className="absolute inset-0 flex flex-col justify-between p-5 sm:p-7 overflow-hidden transform-gpu"
             >
-              {/* Image Background with Parallax Pan */}
+              {/* Image Background with WebKit render guard */}
               <motion.div 
-                initial={{ scale: 1.08, y: 0 }}
-                animate={{ scale: 1, y: -12 }}
+                initial={{ scale: 1.06, y: 0 }}
+                animate={{ scale: 1, y: -10 }}
                 transition={{ duration: 7, ease: "linear" }}
-                className="absolute inset-0 bg-cover bg-center opacity-45 z-0"
+                className="absolute inset-0 bg-cover bg-center opacity-45 z-0 transform-gpu"
                 style={{ backgroundImage: `url('${current.bgImage}')` }}
               />
 
@@ -278,7 +276,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 }}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-[10px] font-bold text-white mb-2.5 shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-[10px] font-bold text-white mb-2.5 shadow-xs transform-gpu"
                 >
                   <Sparkles className="w-3 h-3 text-amber-300" />
                   <span>{current.badge}</span>
@@ -289,7 +287,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-[1.12] mb-2 font-sans"
+                  className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-[1.12] mb-2 font-sans transform-gpu"
                 >
                   {current.title}
                 </motion.h2>
@@ -299,7 +297,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.25 }}
-                  className="text-xs text-gray-300 leading-relaxed mb-4 font-medium"
+                  className="text-xs text-gray-300 leading-relaxed mb-4 font-medium transform-gpu"
                 >
                   {current.subtitle}
                 </motion.p>
@@ -309,11 +307,11 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="flex items-center gap-2.5"
+                  className="flex items-center gap-2.5 transform-gpu"
                 >
                   <motion.div 
                     whileHover={{ scale: 1.04 }}
-                    className={`bg-gradient-to-r ${current.accentGradient} text-white font-extrabold text-[11px] px-4.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer`}
+                    className={`bg-gradient-to-r ${current.accentGradient} text-white font-extrabold text-[11px] px-4.5 py-2 rounded-xl shadow-lg flex items-center gap-1.5 cursor-pointer transform-gpu`}
                   >
                     <span>{current.ctaText}</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -327,7 +325,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
 
               {/* BOTTOM STATS & TRUST STRIP */}
               <div className="relative z-10 pt-3 border-t border-white/10 grid grid-cols-2 gap-2">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 backdrop-blur-md flex items-center justify-between">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 backdrop-blur-md flex items-center justify-between transform-gpu">
                   <div>
                     <div className="text-xs font-black text-white font-sans">
                       <LiveCounter value={current.stat1.val} suffix={current.stat1.suffix} />
@@ -337,7 +335,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
                 </div>
 
-                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 backdrop-blur-md flex items-center justify-between">
+                <div className="bg-white/5 border border-white/10 rounded-xl p-2.5 backdrop-blur-md flex items-center justify-between transform-gpu">
                   <div>
                     <div className="text-xs font-black text-white font-sans">
                       <LiveCounter value={current.stat2.val} suffix={current.stat2.suffix} />
@@ -353,7 +351,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                 initial={{ opacity: 0, y: 15, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 1.2, type: "spring", stiffness: 120 }}
-                className="absolute top-16 right-4 z-30 bg-white/95 border border-gray-200 text-gray-900 p-2.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center gap-2 max-w-[210px]"
+                className="absolute top-16 right-4 z-30 bg-white/95 border border-gray-200 text-gray-900 p-2.5 rounded-2xl shadow-xl backdrop-blur-md flex items-center gap-2 max-w-[210px] transform-gpu"
               >
                 <div className="p-1.5 bg-blue-50 text-[#2563EB] rounded-xl shrink-0">
                   <Bell className="w-3.5 h-3.5" />
@@ -376,7 +374,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
                   ease: "easeInOut",
                   repeatDelay: 1
                 }}
-                className="absolute top-0 left-0 pointer-events-none z-40 drop-shadow-md text-white"
+                className="absolute top-0 left-0 pointer-events-none z-40 drop-shadow-md text-white transform-gpu"
               >
                 <MousePointer2 className="w-4 h-4 fill-white text-[#2563EB]" />
               </motion.div>
@@ -388,7 +386,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
           <motion.div 
             animate={{ scale: [1, 1.04, 1] }}
             transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-            className="absolute bottom-3 right-3 z-30 bg-emerald-600 text-white p-2.5 rounded-2xl shadow-xl border border-emerald-400/40 flex items-center gap-2 text-left pointer-events-none"
+            className="absolute bottom-3 right-3 z-30 bg-emerald-600 text-white p-2.5 rounded-2xl shadow-xl border border-emerald-400/40 flex items-center gap-2 text-left pointer-events-none transform-gpu"
           >
             <div className="p-1.5 bg-white/20 rounded-xl shrink-0">
               <MessageCircle className="w-3.5 h-3.5 fill-white text-emerald-600" />
@@ -396,7 +394,7 @@ export function BrowserMockup({ rotateX, rotateY }: BrowserMockupProps) {
             <div>
               <div className="text-[10px] font-extrabold flex items-center gap-1">
                 <span>{current.whatsappText}</span>
-                <span className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-ping" />
+                <span className="w-1.5 h-1.5 bg-emerald-300 rounded-full animate-ping transform-gpu" />
               </div>
               <div className="text-[8px] text-emerald-100 font-medium">Direct Lead Channel</div>
             </div>

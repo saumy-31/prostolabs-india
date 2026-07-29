@@ -491,18 +491,16 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      // Added 'isolate-layer' for WebKit z-index stacking isolation on iOS
-      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none transform-gpu isolate-layer" 
+      // 'isolate-layer' establishes WebKit z-index stacking context on iOS
+      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none isolate-layer" 
       id="hero"
     >
-      {/* BACKGROUND AMBIENT GLOW */}
+      {/* BACKGROUND AMBIENT GLOW - Fixed iOS refresh collapse by using deterministic animate trigger and controlled blur class */}
       <motion.div 
         style={{ y: shouldReduceMotion ? 0 : bgScrollY, x: shouldReduceMotion ? 0 : glowX }}
-        whileInView={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", delay: 1 }}
-        // Explicit WebKit backdrop/opacity isolation for Safari
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[1000px] h-[300px] sm:h-[550px] bg-[#2563EB] rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-0 transform-gpu" 
+        animate={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
+        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[1000px] h-[300px] sm:h-[550px] bg-[#2563EB] rounded-full blur-2xl sm:blur-3xl pointer-events-none z-0" 
       />
 
       {/* ========================================================================= */}
@@ -635,7 +633,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             <div className="w-16 h-3 bg-gray-800 rounded-full mx-auto mb-1.5 shrink-0 relative z-30" />
 
             {/* Screen Inner Stage */}
-            <div className="w-full flex-1 bg-[#0F172A] rounded-[28px] p-3 flex flex-col justify-between border border-white/10 text-white text-left relative overflow-hidden">
+            <div className="w-full flex-1 bg-[#0F172A] rounded-[28px] p-3 flex flex-col justify-between border border-white/10 text-white text-left relative overflow-hidden isolate-layer">
               
               {/* Top Browser Bar */}
               <div className="flex items-center justify-between border-b border-white/10 pb-2 shrink-0 z-20 relative">
