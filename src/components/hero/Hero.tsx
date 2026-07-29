@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { 
   motion, 
   AnimatePresence,
@@ -9,21 +9,20 @@ import {
   animate,
   useReducedMotion
 } from 'framer-motion'
+// IMPORT ICONS SPECIFICALLY FOR MAXIMUM TREE-SHAKING
 import { 
   Sparkles, 
   ArrowRight, 
-  CheckCircle2,
-  Lock,
-  MessageSquare,
-  
-  Zap,
-  MapPin,
-  Calendar,
-  ChevronRight,
- 
-  UserCheck,
-  
+  CheckCircle2, 
+  Lock, 
+  MessageSquare, 
+  Zap, 
+  MapPin, 
+  Calendar, 
+  ChevronRight, 
+  UserCheck 
 } from 'lucide-react'
+
 import { BrowserMockup } from './BrowserMockup'
 import type { PlanType } from '../Modal/EnquiryModal'
 
@@ -35,7 +34,8 @@ interface HeroProps {
 const easeSaaS = [0.16, 1, 0.3, 1] as const
 
 // --- LIVE NUMBER COUNTER FOR PHONE UI ---
-function PhoneLiveCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
+// Memoized to prevent re-renders when parent state changes
+const PhoneLiveCounter = memo(function PhoneLiveCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const count = useMotionValue(0)
   const rounded = useTransform(count, (latest) => Math.round(latest).toLocaleString('en-IN'))
 
@@ -54,7 +54,7 @@ function PhoneLiveCounter({ value, suffix = "" }: { value: number; suffix?: stri
       {suffix}
     </span>
   )
-}
+})
 
 // --- LIVE COUNT UP PRICE COMPONENT (HERO HEADLINE) ---
 function AnimatedPriceCounter() {
@@ -73,7 +73,7 @@ function AnimatedPriceCounter() {
   }, [count])
 
   return (
-    <span className="inline-flex items-baseline relative font-black text-[#2563EB] tracking-tight">
+    <span className="inline-flex items-baseline relative font-black text-[#2563EB] tracking-tight transform-gpu">
       <span className="mr-0.5">₹</span>
       <motion.span>{rounded}</motion.span>
 
@@ -97,15 +97,16 @@ function AnimatedPriceCounter() {
 // --- 6 INDIVIDUAL INDUSTRY WEBSITES (UNIQUE COMPONENT LAYOUTS) ---
 
 // 1. RESTAURANT WEBSITE UI
-function RestaurantWebsite() {
+const RestaurantWebsite = memo(function RestaurantWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&auto=format&fit=crop&q=80')` }}
+        className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5 transform-gpu"
+        // Optimizing background image loading
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&auto=format&fit=crop&q=80')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         <div className="relative z-10 space-y-0.5">
@@ -124,7 +125,7 @@ function RestaurantWebsite() {
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.35, delay: 0.2 }}
-            className="bg-white/5 border border-white/10 p-1.5 rounded-xl text-left"
+            className="bg-white/5 border border-white/10 p-1.5 rounded-xl text-left transform-gpu"
           >
             <div className="text-[10px] font-extrabold text-white truncate">Truffle Pizza</div>
             <div className="text-[8px] text-amber-400 font-bold">₹599</div>
@@ -134,7 +135,7 @@ function RestaurantWebsite() {
             initial={{ opacity: 0, x: 8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.35, delay: 0.25 }}
-            className="bg-white/5 border border-white/10 p-1.5 rounded-xl text-left"
+            className="bg-white/5 border border-white/10 p-1.5 rounded-xl text-left transform-gpu"
           >
             <div className="text-[10px] font-extrabold text-white truncate">Paneer Tikka</div>
             <div className="text-[8px] text-amber-400 font-bold">₹349</div>
@@ -147,7 +148,7 @@ function RestaurantWebsite() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.3 }}
-        className="bg-amber-950/40 border border-amber-500/30 p-2 rounded-xl flex items-center justify-between text-[9px]"
+        className="bg-amber-950/40 border border-amber-500/30 p-2 rounded-xl flex items-center justify-between text-[9px] transform-gpu"
       >
         <span className="text-amber-200 font-medium">Table Turn:</span>
         <span className="font-bold text-amber-400"><PhoneLiveCounter value={15} suffix=" Mins" /></span>
@@ -157,17 +158,17 @@ function RestaurantWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Reserve Table Now</span>
         <ChevronRight size={12} />
       </motion.button>
     </div>
   )
-}
+})
 
 // 2. MEDICAL CLINIC WEBSITE UI
-function ClinicWebsite() {
+const ClinicWebsite = memo(function ClinicWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       {/* Doctor Info Card */}
@@ -175,7 +176,7 @@ function ClinicWebsite() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="bg-blue-950/50 border border-blue-400/30 p-2.5 rounded-2xl flex items-center gap-2.5"
+        className="bg-blue-950/50 border border-blue-400/30 p-2.5 rounded-2xl flex items-center gap-2.5 transform-gpu"
       >
         <div className="w-10 h-10 rounded-xl bg-blue-600/30 border border-blue-400/30 flex items-center justify-center shrink-0">
           <UserCheck size={20} className="text-blue-400" />
@@ -200,7 +201,7 @@ function ClinicWebsite() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.2 + idx * 0.05 }}
-              className="bg-white/10 border border-white/10 rounded-lg p-1 text-center text-[9px] font-bold text-blue-200"
+              className="bg-white/10 border border-white/10 rounded-lg p-1 text-center text-[9px] font-bold text-blue-200 transform-gpu"
             >
               {time}
             </motion.div>
@@ -213,7 +214,7 @@ function ClinicWebsite() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.3 }}
-        className="bg-white/5 border border-white/10 p-2 rounded-xl flex items-center justify-between text-[9px]"
+        className="bg-white/5 border border-white/10 p-2 rounded-xl flex items-center justify-between text-[9px] transform-gpu"
       >
         <span className="text-gray-300">Patients Treated:</span>
         <span className="font-extrabold text-emerald-400"><PhoneLiveCounter value={10000} suffix="+" /></span>
@@ -223,24 +224,24 @@ function ClinicWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Book OPD Appointment</span>
         <Calendar size={12} />
       </motion.button>
     </div>
   )
-}
+})
 
 // 3. SALON WEBSITE UI
-function SalonWebsite() {
+const SalonWebsite = memo(function SalonWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="bg-gradient-to-r from-pink-900/40 to-rose-900/40 border border-pink-500/30 p-2.5 rounded-2xl text-left"
+        className="bg-gradient-to-r from-pink-900/40 to-rose-900/40 border border-pink-500/30 p-2.5 rounded-2xl text-left transform-gpu"
       >
         <span className="bg-pink-500 text-white font-black text-[8px] px-2 py-0.5 rounded-full uppercase tracking-wider">
           20% OFF FIRST VISIT
@@ -256,7 +257,7 @@ function SalonWebsite() {
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.35, delay: 0.2 }}
-          className="bg-white/5 border border-white/10 p-2 rounded-xl flex items-center justify-between text-[10px]"
+          className="bg-white/5 border border-white/10 p-2 rounded-xl flex items-center justify-between text-[10px] transform-gpu"
         >
           <div>
             <div className="font-extrabold text-white">Keratin & Glow Facial</div>
@@ -270,7 +271,7 @@ function SalonWebsite() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.3 }}
-        className="bg-pink-950/30 border border-pink-500/20 p-2 rounded-xl flex items-center justify-between text-[9px]"
+        className="bg-pink-950/30 border border-pink-500/20 p-2 rounded-xl flex items-center justify-between text-[9px] transform-gpu"
       >
         <span className="text-gray-300">Client Rating:</span>
         <span className="font-bold text-amber-400">5.0 ⭐ (420+ Reviews)</span>
@@ -280,24 +281,24 @@ function SalonWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Claim 20% Discount Pass</span>
         <ChevronRight size={12} />
       </motion.button>
     </div>
   )
-}
+})
 
 // 4. GYM WEBSITE UI
-function GymWebsite() {
+const GymWebsite = memo(function GymWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="bg-emerald-950/50 border border-emerald-500/40 p-2.5 rounded-2xl text-left"
+        className="bg-emerald-950/50 border border-emerald-500/40 p-2.5 rounded-2xl text-left transform-gpu"
       >
         <div className="flex items-center justify-between">
           <span className="text-emerald-400 font-extrabold text-[8px] uppercase tracking-wider">
@@ -314,7 +315,7 @@ function GymWebsite() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.2 }}
-          className="bg-white/5 border border-white/10 p-2 rounded-xl text-center"
+          className="bg-white/5 border border-white/10 p-2 rounded-xl text-center transform-gpu"
         >
           <div className="text-sm font-black text-emerald-400">
             <PhoneLiveCounter value={1250} suffix="+" />
@@ -326,7 +327,7 @@ function GymWebsite() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.25 }}
-          className="bg-white/5 border border-white/10 p-2 rounded-xl text-center"
+          className="bg-white/5 border border-white/10 p-2 rounded-xl text-center transform-gpu"
         >
           <div className="text-sm font-black text-white">780 kcal</div>
           <div className="text-[8px] text-gray-400 font-medium">Avg Burned/Session</div>
@@ -337,25 +338,25 @@ function GymWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Get Free 1-Day Trial Pass</span>
         <Zap size={12} className="fill-white" />
       </motion.button>
     </div>
   )
-}
+})
 
 // 5. REAL ESTATE WEBSITE UI
-function RealEstateWebsite() {
+const RealEstateWebsite = memo(function RealEstateWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&auto=format&fit=crop&q=80')` }}
+        className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5 transform-gpu"
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=300&auto=format&fit=crop&q=80')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
         <div className="relative z-10 space-y-0.5">
@@ -378,24 +379,24 @@ function RealEstateWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Schedule Private Visit</span>
         <MapPin size={12} />
       </motion.button>
     </div>
   )
-}
+})
 
 // 6. COACHING WEBSITE UI
-function CoachingWebsite() {
+const CoachingWebsite = memo(function CoachingWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
-        className="bg-indigo-950/50 border border-indigo-500/30 p-2.5 rounded-2xl text-left"
+        className="bg-indigo-950/50 border border-indigo-500/30 p-2.5 rounded-2xl text-left transform-gpu"
       >
         <div className="inline-block bg-indigo-500 text-white font-extrabold text-[8px] px-2 py-0.5 rounded uppercase mb-1">
           BATCH 2026 ADMISSIONS
@@ -420,23 +421,23 @@ function CoachingWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
-        className="w-full h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md"
+        className="w-full h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Register Free Demo Class</span>
         <ChevronRight size={12} />
       </motion.button>
     </div>
   )
-}
+})
 
 // --- PHONE ROTATOR DEMOS REGISTRY ---
 const phoneDemos = [
-  { id: 'restaurant', businessName: 'Spice Route Bistro', domain: 'spiceroute.in', notification: '💬 WhatsApp: Table for 4 confirmed!', component: RestaurantWebsite },
-  { id: 'clinic', businessName: 'CarePlus Multi-Clinic', domain: 'careplus.in', notification: '✅ Slot Confirmed: Dr. Sharma at 4:30 PM', component: ClinicWebsite },
-  { id: 'salon', businessName: 'Lumiere Spa & Salon', domain: 'lumieresalon.in', notification: '💬 WhatsApp: Hair Spa enquiry received', component: SalonWebsite },
-  { id: 'gym', businessName: 'FitPulse Fitness', domain: 'fitpulse.in', notification: '🔥 Trial Pass sent via WhatsApp', component: GymWebsite },
-  { id: 'realestate', businessName: 'Apex Estate Realty', domain: 'apexestates.in', notification: '📑 Brochure Downloaded', component: RealEstateWebsite },
-  { id: 'coaching', businessName: 'Mindspace Academy', domain: 'mindspace.in', notification: '✅ Seat Reserved for Sunday Demo', component: CoachingWebsite }
+  { id: 'restaurant', domain: 'spiceroute.in', notification: '💬 WhatsApp: Table for 4 confirmed!', component: RestaurantWebsite },
+  { id: 'clinic', domain: 'careplus.in', notification: '✅ Slot Confirmed: Dr. Sharma at 4:30 PM', component: ClinicWebsite },
+  { id: 'salon', domain: 'lumieresalon.in', notification: '💬 WhatsApp: Hair Spa enquiry received', component: SalonWebsite },
+  { id: 'gym', domain: 'fitpulse.in', notification: '🔥 Trial Pass sent via WhatsApp', component: GymWebsite },
+  { id: 'realestate', domain: 'apexestates.in', notification: '📑 Brochure Downloaded', component: RealEstateWebsite },
+  { id: 'coaching', domain: 'mindspace.in', notification: '✅ Seat Reserved for Sunday Demo', component: CoachingWebsite }
 ]
 
 export function Hero({ onOpenModal }: HeroProps) {
@@ -448,6 +449,9 @@ export function Hero({ onOpenModal }: HeroProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    // Only run expensive interval if reduce motion is NOT enabled
+    if (shouldReduceMotion) return;
+
     const timer = setInterval(() => {
       setIsLoading(true)
       setTimeout(() => {
@@ -457,7 +461,7 @@ export function Hero({ onOpenModal }: HeroProps) {
     }, 4600)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [shouldReduceMotion])
 
   const currentDemo = phoneDemos[demoIndex]
   const ActiveComponent = currentDemo.component
@@ -474,7 +478,8 @@ export function Hero({ onOpenModal }: HeroProps) {
   const glowX = useTransform(smoothMouseX, [-0.5, 0.5], [-25, 25])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (window.innerWidth < 1024) return
+    // Disable parallax on mobile/reduced motion for performance
+    if (window.innerWidth < 1024 || shouldReduceMotion) return
     const rect = e.currentTarget.getBoundingClientRect()
     const x = (e.clientX - rect.left) / rect.width - 0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5
@@ -492,22 +497,25 @@ export function Hero({ onOpenModal }: HeroProps) {
     target: containerRef,
     offset: ["start start", "end start"]
   })
-  const mockupScrollY = useTransform(scrollYProgress, [0, 1], [0, 50])
-  const bgScrollY = useTransform(scrollYProgress, [0, 1], [0, -40])
+  // We apply parallax to mockup in view only
+  const mockupScrollY = useTransform(scrollYProgress, [0, 0.5], [0, 50])
+  const bgScrollY = useTransform(scrollYProgress, [0, 0.5], [0, -40])
 
   return (
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none" 
+      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none transform-gpu" 
       id="hero"
     >
       {/* BACKGROUND AMBIENT GLOW */}
       <motion.div 
         style={{ y: shouldReduceMotion ? 0 : bgScrollY, x: shouldReduceMotion ? 0 : glowX }}
-        animate={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
-        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+        // Define animation to run *only when in view* with a delay for initial page load paint
+        whileInView={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
+        viewport={{ once: true, margin: "-50px" }} // Triggers just before coming into view
+        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", delay: 1 }}
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[1000px] h-[300px] sm:h-[550px] bg-[#2563EB] rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-0 transform-gpu" 
       />
 
@@ -520,7 +528,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
+          transition={{ duration: 0.45, delay: 0.1 }} // Delayed briefly for LCP paint priority
           className="inline-flex justify-center transform-gpu"
         >
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs">
@@ -535,7 +543,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
+          transition={{ duration: 0.5, delay: 0.2, ease: easeSaaS }}
           className="space-y-2 transform-gpu"
         >
           <h1 className="text-[2.25rem] leading-[1.1] font-black text-[#0A0A0A] font-sans tracking-tight">
@@ -554,7 +562,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.p 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.45, delay: 0.3, ease: "easeOut" }}
           className="text-sm text-[#6B7280] font-medium leading-relaxed px-1 transform-gpu"
         >
           Launch a modern, mobile-friendly website for your business without paying agency prices. Hosting, maintenance, security, and support included.
@@ -564,7 +572,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
           className="inline-flex items-center gap-2 p-1.5 px-3.5 rounded-2xl bg-white border border-gray-200/90 shadow-2xs text-xs font-semibold transform-gpu"
         >
           <div className="flex items-center gap-1 text-gray-500">
@@ -582,13 +590,13 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.38 }}
+          transition={{ duration: 0.45, delay: 0.48 }}
           className="space-y-3 pt-1 transform-gpu"
         >
           <motion.button 
             onClick={() => onOpenModal?.('care')}
             whileTap={{ scale: 0.98 }}
-            className="w-full h-[56px] bg-[#2563EB] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors"
+            className="w-full h-[56px] bg-[#2563EB] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors transform-gpu"
           >
             <span>Start at ₹499/month</span>
             <ArrowRight className="w-5 h-5" />
@@ -596,7 +604,7 @@ export function Hero({ onOpenModal }: HeroProps) {
 
           <a 
             href="#pricing"
-            className="w-full h-[56px] bg-white text-[#0A0A0A] border border-gray-200 font-bold text-base rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors"
+            className="w-full h-[56px] bg-white text-[#0A0A0A] border border-gray-200 font-bold text-base rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors transform-gpu"
           >
             View Pricing
           </a>
@@ -606,26 +614,23 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.48 }}
+          transition={{ duration: 0.4, delay: 0.58 }}
           className="pt-3 border-t border-gray-200/60 transform-gpu"
         >
           <div className="grid grid-cols-2 gap-2 text-xs font-semibold text-gray-600 text-left">
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-              <span>Hosting Included</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-              <span>SEO Ready</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-              <span>WhatsApp Support</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-              <span>Mobile Friendly</span>
-            </div>
+            {[ { text: "Hosting Included" }, { text: "SEO Ready" }, { text: "WhatsApp Support" }, { text: "Mobile Friendly" } ].map((item, idx) => (
+              <motion.div 
+                key={item.text}
+                // Delay badge animations to not block main thread during headline paint
+                initial={{ opacity: 0, x: -5 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: 0.7 + (idx * 0.05) }}
+                className="flex items-center gap-1.5 transform-gpu"
+              >
+                <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
+                <span>{item.text}</span>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
@@ -633,13 +638,13 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 20, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.55, ease: easeSaaS }}
+          transition={{ duration: 0.6, delay: 0.8, ease: easeSaaS }}
           className="relative pt-4 transform-gpu"
         >
-          <div className="absolute inset-0 bg-[#2563EB]/15 blur-2xl rounded-full scale-90 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#2563EB]/15 blur-2xl rounded-full scale-90 pointer-events-none transform-gpu" />
 
           {/* Phone Frame */}
-          <div className="relative w-[255px] h-[450px] mx-auto bg-[#090D16] rounded-[38px] border-4 border-gray-800 p-2 shadow-2xl overflow-hidden flex flex-col justify-between">
+          <div className="relative w-[255px] h-[450px] mx-auto bg-[#090D16] rounded-[38px] border-4 border-gray-800 p-2 shadow-2xl overflow-hidden flex flex-col justify-between transform-gpu">
             
             {/* Phone Notch */}
             <div className="w-16 h-3 bg-gray-800 rounded-full mx-auto mb-1.5 shrink-0 relative z-30" />
@@ -648,14 +653,14 @@ export function Hero({ onOpenModal }: HeroProps) {
             <div className="w-full flex-1 bg-[#0F172A] rounded-[28px] p-3 flex flex-col justify-between border border-white/10 text-white text-left relative overflow-hidden">
               
               {/* Top Browser Bar */}
-              <div className="flex items-center justify-between border-b border-white/10 pb-2 shrink-0 z-20">
+              <div className="flex items-center justify-between border-b border-white/10 pb-2 shrink-0 z-20 relative">
                 <div className="flex items-center gap-1.5 overflow-hidden">
                   <Lock size={10} className="text-emerald-400 shrink-0" />
                   <span className="font-mono text-[9px] text-gray-300 truncate">{currentDemo.domain}</span>
                 </div>
 
                 <div className="flex items-center gap-1 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-400/30 shrink-0">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping transform-gpu" />
                   <span className="text-[8px] font-mono text-emerald-300 font-bold">ONLINE</span>
                 </div>
               </div>
@@ -671,12 +676,12 @@ export function Hero({ onOpenModal }: HeroProps) {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute inset-0 bg-[#0F172A] p-2 flex flex-col justify-center space-y-3"
+                      className="absolute inset-0 bg-[#0F172A] p-2 flex flex-col justify-center space-y-3 transform-gpu"
                     >
-                      <div className="w-full h-12 bg-white/5 rounded-xl animate-pulse" />
-                      <div className="w-3/4 h-4 bg-white/5 rounded animate-pulse" />
-                      <div className="w-1/2 h-3 bg-white/5 rounded animate-pulse" />
-                      <div className="w-full h-8 bg-blue-500/20 rounded-xl animate-pulse mt-auto" />
+                      <div className="w-full h-12 bg-white/5 rounded-xl animate-pulse transform-gpu" />
+                      <div className="w-3/4 h-4 bg-white/5 rounded animate-pulse transform-gpu" />
+                      <div className="w-1/2 h-3 bg-white/5 rounded animate-pulse transform-gpu" />
+                      <div className="w-full h-8 bg-blue-500/20 rounded-xl animate-pulse mt-auto transform-gpu" />
                     </motion.div>
                   ) : (
                     /* Render Active Website Layout */
@@ -700,7 +705,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.6, ease: easeSaaS }}
-                className="bg-emerald-950/90 border border-emerald-500/40 text-emerald-200 p-1.5 px-2 rounded-xl text-[9px] font-bold flex items-center gap-1.5 shadow-lg shrink-0 z-20"
+                className="bg-emerald-950/90 border border-emerald-500/40 text-emerald-200 p-1.5 px-2 rounded-xl text-[9px] font-bold flex items-center gap-1.5 shadow-lg shrink-0 z-20 transform-gpu"
               >
                 <MessageSquare size={10} className="text-emerald-400 shrink-0" />
                 <span className="truncate">{currentDemo.notification}</span>
@@ -720,7 +725,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                       setIsLoading(false)
                     }, 200)
                   }}
-                  className={`h-1 rounded-full transition-all duration-300 ${
+                  className={`h-1 rounded-full transition-all duration-300 cursor-pointer ${
                     demoIndex === idx ? 'w-5 bg-[#2563EB]' : 'w-1 bg-gray-700'
                   }`}
                 />
@@ -745,7 +750,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             <motion.div 
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.15 }} // Delayed briefly for LCP paint priority
               className="inline-flex transform-gpu"
             >
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs">
@@ -845,7 +850,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1.35 }}
-                className="bg-white text-[#0A0A0A] border border-gray-200/90 font-bold text-sm px-6 py-3.5 rounded-xl transition-all items-center justify-center text-center shadow-2xs cursor-pointer hover:bg-gray-50 transform-gpu"
+                className="bg-white text-[#0A0A0A] border border-gray-200/90 font-bold text-sm px-6 py-3.5 rounded-xl transition-all items-center justify-center text-center shadow-2xs cursor-pointer hover:bg-gray-50 transform-gpu active:bg-gray-100"
               >
                 View Pricing
               </motion.a>
@@ -856,6 +861,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 {["Hosting Included", "SEO Ready", "WhatsApp Support", "Mobile Friendly", "SSL Security"].map((text, idx) => (
                   <motion.div 
                     key={text}
+                    // Delay badge animations to not block main thread during headline paint
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 1.45 + (idx * 0.05) }}
@@ -875,7 +881,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             style={{ y: shouldReduceMotion ? 0 : mockupScrollY }}
             className="col-span-5 relative transform-gpu"
           >
-            <div className="relative rounded-2xl border border-gray-200/90 bg-white shadow-2xl overflow-hidden">
+            <div className="relative rounded-2xl border border-gray-200/90 bg-white shadow-2xl overflow-hidden transform-gpu">
               <BrowserMockup rotateX={rotateX} rotateY={rotateY} />
             </div>
           </motion.div>
@@ -884,8 +890,8 @@ export function Hero({ onOpenModal }: HeroProps) {
       </div>
 
       {/* SECTION SEPARATOR & BLEND */}
-      <div className="absolute bottom-0 left-0 right-0 h-8 sm:h-10 bg-gradient-to-b from-transparent via-gray-100/30 to-white/80 pointer-events-none z-10" />
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1300px] px-6 z-10">
+      <div className="absolute bottom-0 left-0 right-0 h-8 sm:h-10 bg-gradient-to-b from-transparent via-gray-100/30 to-white/80 pointer-events-none z-10 transform-gpu" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1300px] px-6 z-10 transform-gpu">
         <div className="h-px bg-gradient-to-r from-transparent via-gray-200/80 to-transparent" />
       </div>
     </section>
