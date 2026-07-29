@@ -10,5 +10,58 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    
+    /* Cross-browser dynamic viewport height normalization */
+    min-height: 100vh;
+    min-height: 100dvh;
   }
+
+  /* Prevent text size adjustment after orientation changes on iOS Safari */
+  body {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* ==========================================================================
+   SAFARI / WEBKIT COMPATIBILITY FIXES
+   ========================================================================== */
+
+/* WebKit Backdrop Filter Fallback for iOS Safari */
+.backdrop-blur-xs {
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.backdrop-blur-lg {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+.backdrop-blur-2xl {
+  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(40px);
+}
+
+/* Stacking Isolation Fix for iOS GPU Acceleration Layers */
+.isolate-layer {
+  isolation: isolate;
+}
+
+/* Safe Area Inset Utility Classes for iPhone Notch/Home Bar */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 16px);
 }

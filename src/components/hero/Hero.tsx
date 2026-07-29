@@ -9,7 +9,7 @@ import {
   animate,
   useReducedMotion
 } from 'framer-motion'
-// IMPORT ICONS SPECIFICALLY FOR MAXIMUM TREE-SHAKING
+// IMPORT ICONS DIRECTLY FROM LUCIDE-REACT
 import { 
   Sparkles, 
   ArrowRight, 
@@ -34,7 +34,6 @@ interface HeroProps {
 const easeSaaS = [0.16, 1, 0.3, 1] as const
 
 // --- LIVE NUMBER COUNTER FOR PHONE UI ---
-// Memoized to prevent re-renders when parent state changes
 const PhoneLiveCounter = memo(function PhoneLiveCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
   const count = useMotionValue(0)
   const rounded = useTransform(count, (latest) => Math.round(latest).toLocaleString('en-IN'))
@@ -94,8 +93,6 @@ function AnimatedPriceCounter() {
   )
 }
 
-// --- 6 INDIVIDUAL INDUSTRY WEBSITES (UNIQUE COMPONENT LAYOUTS) ---
-
 // 1. RESTAURANT WEBSITE UI
 const RestaurantWebsite = memo(function RestaurantWebsite() {
   return (
@@ -105,7 +102,6 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: 0.1 }}
         className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5 transform-gpu"
-        // Optimizing background image loading
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&auto=format&fit=crop&q=80')` }}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -117,7 +113,6 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
         </div>
       </motion.div>
 
-      {/* Menu Cards */}
       <div className="space-y-1.5">
         <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Popular Starters</div>
         <div className="grid grid-cols-2 gap-1.5">
@@ -143,7 +138,6 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
         </div>
       </div>
 
-      {/* Counter & Action */}
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
@@ -171,7 +165,6 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
 const ClinicWebsite = memo(function ClinicWebsite() {
   return (
     <div className="flex-1 flex flex-col justify-between space-y-2">
-      {/* Doctor Info Card */}
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
@@ -188,7 +181,6 @@ const ClinicWebsite = memo(function ClinicWebsite() {
         </div>
       </motion.div>
 
-      {/* OPD Slots */}
       <div className="space-y-1.5">
         <div className="flex justify-between items-center text-[9px]">
           <span className="font-bold text-gray-300">OPD Slots Today</span>
@@ -209,7 +201,6 @@ const ClinicWebsite = memo(function ClinicWebsite() {
         </div>
       </div>
 
-      {/* Trust Rating */}
       <motion.div 
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
@@ -250,7 +241,6 @@ const SalonWebsite = memo(function SalonWebsite() {
         <p className="text-[8px] text-pink-200 leading-tight">Bespoke hair styling & deep skin hydration</p>
       </motion.div>
 
-      {/* Services List */}
       <div className="space-y-1.5">
         <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">Featured Packages</div>
         <motion.div 
@@ -309,7 +299,6 @@ const GymWebsite = memo(function GymWebsite() {
         <h5 className="font-black text-sm text-white mt-1">FitPulse Fitness Arena</h5>
       </motion.div>
 
-      {/* Fitness Counter */}
       <div className="grid grid-cols-2 gap-1.5">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -449,7 +438,6 @@ export function Hero({ onOpenModal }: HeroProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // Only run expensive interval if reduce motion is NOT enabled
     if (shouldReduceMotion) return;
 
     const timer = setInterval(() => {
@@ -457,7 +445,7 @@ export function Hero({ onOpenModal }: HeroProps) {
       setTimeout(() => {
         setDemoIndex((prev) => (prev + 1) % phoneDemos.length)
         setIsLoading(false)
-      }, 400) // Shimmer transition phase duration
+      }, 400)
     }, 4600)
 
     return () => clearInterval(timer)
@@ -478,7 +466,6 @@ export function Hero({ onOpenModal }: HeroProps) {
   const glowX = useTransform(smoothMouseX, [-0.5, 0.5], [-25, 25])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Disable parallax on mobile/reduced motion for performance
     if (window.innerWidth < 1024 || shouldReduceMotion) return
     const rect = e.currentTarget.getBoundingClientRect()
     const x = (e.clientX - rect.left) / rect.width - 0.5
@@ -492,12 +479,10 @@ export function Hero({ onOpenModal }: HeroProps) {
     mouseY.set(0)
   }
 
-  // --- SCROLL DEPTH PARALLAX ---
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   })
-  // We apply parallax to mockup in view only
   const mockupScrollY = useTransform(scrollYProgress, [0, 0.5], [0, 50])
   const bgScrollY = useTransform(scrollYProgress, [0, 0.5], [0, -40])
 
@@ -506,16 +491,17 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none transform-gpu" 
+      // Added 'isolate-layer' for WebKit z-index stacking isolation on iOS
+      className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none transform-gpu isolate-layer" 
       id="hero"
     >
       {/* BACKGROUND AMBIENT GLOW */}
       <motion.div 
         style={{ y: shouldReduceMotion ? 0 : bgScrollY, x: shouldReduceMotion ? 0 : glowX }}
-        // Define animation to run *only when in view* with a delay for initial page load paint
         whileInView={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
-        viewport={{ once: true, margin: "-50px" }} // Triggers just before coming into view
+        viewport={{ once: true, margin: "-50px" }}
         transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", delay: 1 }}
+        // Explicit WebKit backdrop/opacity isolation for Safari
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] sm:w-[1000px] h-[300px] sm:h-[550px] bg-[#2563EB] rounded-full blur-[90px] sm:blur-[120px] pointer-events-none z-0 transform-gpu" 
       />
 
@@ -528,7 +514,7 @@ export function Hero({ onOpenModal }: HeroProps) {
         <motion.div 
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1 }} // Delayed briefly for LCP paint priority
+          transition={{ duration: 0.45, delay: 0.1 }}
           className="inline-flex justify-center transform-gpu"
         >
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs">
@@ -621,7 +607,6 @@ export function Hero({ onOpenModal }: HeroProps) {
             {[ { text: "Hosting Included" }, { text: "SEO Ready" }, { text: "WhatsApp Support" }, { text: "Mobile Friendly" } ].map((item, idx) => (
               <motion.div 
                 key={item.text}
-                // Delay badge animations to not block main thread during headline paint
                 initial={{ opacity: 0, x: -5 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3, delay: 0.7 + (idx * 0.05) }}
@@ -669,7 +654,6 @@ export function Hero({ onOpenModal }: HeroProps) {
               <div className="flex-1 my-2 relative flex flex-col justify-between overflow-hidden">
                 <AnimatePresence mode="wait">
                   {isLoading ? (
-                    /* Loading Shimmer Transition Phase */
                     <motion.div 
                       key="loading-state"
                       initial={{ opacity: 0 }}
@@ -684,7 +668,6 @@ export function Hero({ onOpenModal }: HeroProps) {
                       <div className="w-full h-8 bg-blue-500/20 rounded-xl animate-pulse mt-auto transform-gpu" />
                     </motion.div>
                   ) : (
-                    /* Render Active Website Layout */
                     <motion.div
                       key={currentDemo.id}
                       initial={{ opacity: 0, scale: 0.98, y: 12 }}
@@ -750,7 +733,7 @@ export function Hero({ onOpenModal }: HeroProps) {
             <motion.div 
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.15 }} // Delayed briefly for LCP paint priority
+              transition={{ duration: 0.45, delay: 0.15 }}
               className="inline-flex transform-gpu"
             >
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs">
@@ -861,7 +844,6 @@ export function Hero({ onOpenModal }: HeroProps) {
                 {["Hosting Included", "SEO Ready", "WhatsApp Support", "Mobile Friendly", "SSL Security"].map((text, idx) => (
                   <motion.div 
                     key={text}
-                    // Delay badge animations to not block main thread during headline paint
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 1.45 + (idx * 0.05) }}
