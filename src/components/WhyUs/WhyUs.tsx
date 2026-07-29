@@ -31,10 +31,8 @@ import {
   ZapOff,
   Lock,
   Database,
-  Key,
   Calendar,
   HelpCircle,
-  Mail,
   Gauge
 } from 'lucide-react'
 import { type PlanType } from '../Modal/EnquiryModal'
