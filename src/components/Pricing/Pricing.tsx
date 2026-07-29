@@ -54,9 +54,9 @@ export function Pricing({ onOpenModal }: PricingProps) {
 
   const carePlanFeatures = [
     { text: "Professional Website", primary: true },
-    { text: "Hosting Included*", primary: true },
+    { text: "Hosting Included", primary: true },
     { text: "Maintenance Included", primary: true },
-    { text: "Unlimited Content Updates*", primary: true },
+    { text: "Unlimited Content Updates", primary: true },
     { text: "WhatsApp & Tech Support", primary: true },
     { text: "Security & Monthly Backup", primary: false },
     { text: "Performance Monitoring", primary: false },

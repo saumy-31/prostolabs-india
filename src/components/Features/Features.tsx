@@ -216,7 +216,7 @@ export function Features({ onOpenModal }: FeaturesProps) {
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-4 transform-gpu"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">✨ Everything Included</span>
+            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase"> Everything Included</span>
           </motion.div>
 
           <motion.h2 
