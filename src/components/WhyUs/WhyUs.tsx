@@ -28,7 +28,6 @@ import {
   Smartphone, 
   DollarSign,
   UserX,
-  FileCheck,
   ZapOff,
   Lock,
   Database,
