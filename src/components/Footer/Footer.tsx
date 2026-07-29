@@ -60,7 +60,6 @@ export function Footer() {
   const solutionsLinks = [
     { label: "Website Plans", target: "pricing" },
     { label: "Everything Included", target: "features" },
-    
     { label: "Industries", target: "work" },
     { label: "How It Works", target: "how-it-works" }
   ]
@@ -68,7 +67,6 @@ export function Footer() {
   const companyLinks = [
     { label: "About Us", href: "/about", isRoute: true },
     { label: "Why ProstoLabs", target: "why-us" },
-    
     { label: "FAQ", target: "faq" },
     { label: "Contact", href: "/contact", isRoute: true }
   ]
@@ -80,8 +78,10 @@ export function Footer() {
   ]
 
   return (
-    <footer ref={footerRef} className="bg-white border-t border-gray-200/80 pt-20 pb-12 relative overflow-hidden text-[#0A0A0A]">
-      
+    <footer 
+      ref={footerRef} 
+      className="bg-white border-t border-gray-200/80 pt-16 md:pt-20 pb-[calc(90px+env(safe-area-inset-bottom,16px))] md:pb-12 relative overflow-hidden text-[#0A0A0A]"
+    >
       {/* SUBTLE AMBIENT BACKGROUND GLOW */}
       <motion.div 
         animate={{ opacity: [0.3, 0.6, 0.3], scale: [1, 1.05, 1] }}
@@ -96,7 +96,7 @@ export function Footer() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12 sm:mb-16"
         >
 
           {/* COLUMN 1: BRAND & LOGO */}
@@ -214,7 +214,7 @@ export function Footer() {
         </motion.div>
 
         {/* ANIMATED DIVIDER LINE */}
-        <div className="relative my-8">
+        <div className="relative my-6 sm:my-8">
           <motion.div 
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
@@ -228,10 +228,10 @@ export function Footer() {
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280] font-medium pt-2 mb-8 transform-gpu"
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#6B7280] font-medium pt-2 mb-6 sm:mb-8 transform-gpu"
         >
           <div>
-            © 2026 ProstoLabs. All rights reserved.
+            © {new Date().getFullYear()} ProstoLabs. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">

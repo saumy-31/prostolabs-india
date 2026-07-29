@@ -48,10 +48,10 @@ export function FloatingCTA({ onOpenModal, isModalOpen = false }: FloatingCTAPro
             <motion.button
               onClick={() => onOpenModal?.('care')}
               whileTap={{ scale: 0.98 }}
-              className="w-full h-[56px] bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white rounded-full border border-white/20 shadow-md shadow-blue-500/25 flex items-center justify-center gap-2.5 px-5 cursor-pointer font-sans transform-gpu active:bg-blue-700 select-none"
+              className="w-full h-[56px] bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white rounded-full border border-white/20 shadow-md shadow-blue-500/25 flex items-center justify-center gap-2 sm:gap-2.5 px-4 sm:px-5 cursor-pointer font-sans transform-gpu active:bg-blue-700 select-none"
             >
               <span className="text-base shrink-0">🚀</span>
-              <span className="font-bold text-sm tracking-tight text-white whitespace-nowrap">
+              <span className="font-bold text-xs min-[380px]:text-sm tracking-tight text-white whitespace-nowrap overflow-hidden text-ellipsis">
                 Let's Build Your Website
               </span>
               <ArrowRight className="w-4 h-4 text-white stroke-[2.5] shrink-0" />
@@ -59,7 +59,7 @@ export function FloatingCTA({ onOpenModal, isModalOpen = false }: FloatingCTAPro
           </motion.div>
 
           {/* ========================================================================= */}
-          {/* 2. UNTOUCHED DESKTOP FLOATING PILL (≥768px)                              */}
+          {/* 2. UNTOUCHED DESKTOP FLOATING PILL (≥768px)                               */}
           {/* ========================================================================= */}
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
