@@ -217,14 +217,16 @@ export function Testimonials() {
                   <div className="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none transform-gpu" />
 
                   <div className="space-y-4">
-                    {/* Top Industry Pill & Stars */}
-                    <div className="flex items-center justify-between">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100 text-[11px] font-bold uppercase tracking-wider">
-                        <IconComp size={13} />
-                        <span>{item.industry}</span>
+                    {/* Responsive Mobile Header: Vertically Centered Badge + Fixed Right Rating */}
+                    <div className="flex items-center justify-between gap-3 sm:gap-4">
+                      {/* Flexible Category Badge */}
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-[#2563EB] border border-blue-100 text-[11px] font-bold uppercase tracking-wider max-w-[65%] sm:max-w-[70%] leading-tight">
+                        <IconComp size={13} className="shrink-0" />
+                        <span className="truncate">{item.industry}</span>
                       </div>
 
-                      <div className="flex items-center gap-0.5 text-amber-400">
+                      {/* Fixed Right-Aligned Rating */}
+                      <div className="flex items-center gap-0.5 text-amber-400 shrink-0 ml-auto">
                         {[...Array(item.rating)].map((_, i) => (
                           <Star key={i} size={14} className="fill-amber-400" />
                         ))}

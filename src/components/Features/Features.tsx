@@ -235,7 +235,7 @@ export function Features() {
 
 
         {/* ========================================================================= */}
-        {/* 1. MOBILE-ONLY STACKED PREMIUM CARDS (≤768px) */}
+        {/* 1. MOBILE-ONLY COMPACT & BREATHABLE FEATURE CARDS (≤768px) */}
         {/* ========================================================================= */}
         <motion.div 
           variants={containerVariants}
@@ -247,31 +247,36 @@ export function Features() {
           {/* CARD 1: MOBILE RESPONSIVE */}
           <motion.div 
             variants={cardVariants}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] mb-2.5">
                 <Smartphone size={14} />
                 <span className="text-xs font-bold uppercase tracking-wider">Multi-Device</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Mobile Responsive</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">Mobile Responsive</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 Smoothly adapts across desktop, tablet, and mobile screens so your business looks top tier on every device.
               </p>
             </div>
 
-            <div className="bg-[#090D16] rounded-2xl p-4 border border-gray-800 shadow-md my-2 flex items-center justify-between">
-              <div className="space-y-1.5 w-full">
-                <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2">
-                  <span className="text-emerald-400 font-bold flex items-center gap-1"><Lock size={10} /> prostolabs.in</span>
-                  <span>100% Fluid</span>
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full bg-[#090D16] rounded-2xl p-3.5 border border-gray-800 shadow-md">
+                <div className="space-y-1.5 w-full">
+                  <div className="flex items-center justify-between text-[10px] font-mono text-gray-400 border-b border-white/10 pb-2">
+                    <span className="text-emerald-400 font-bold flex items-center gap-1"><Lock size={10} /> prostolabs.in</span>
+                    <span>100% Fluid</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full mt-2" />
+                  <div className="w-3/4 h-2 bg-white/30 rounded-full" />
                 </div>
-                <div className="w-full h-3 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full mt-2" />
-                <div className="w-3/4 h-2 bg-white/30 rounded-full" />
               </div>
             </div>
 
-            <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
               <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> iOS & Android Tested</span>
               <span className="text-gray-400">Mobile First</span>
             </div>
@@ -280,133 +285,183 @@ export function Features() {
           {/* CARD 2: SPEED SCORE */}
           <motion.div 
             variants={cardVariants}
-            className="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-gradient-to-b from-emerald-50/50 to-white border border-emerald-100 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-700">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-700 mb-2.5">
                 <Zap size={14} className="fill-emerald-600" />
                 <span className="text-xs font-bold uppercase tracking-wider">Fast Performance</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Speed Score 99/100</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">Speed Score 99/100</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 Ultra-fast load times ensure visitors stay on your page and convert into paying customers instantly.
               </p>
             </div>
 
-            <div className="bg-white border border-emerald-100 rounded-2xl p-4 my-2 flex items-center justify-between shadow-2xs">
-              <div className="flex items-center gap-3">
-                <div className="text-3xl font-black text-emerald-600 font-sans">
-                  <LiveCounter value={99} />
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full bg-white border border-emerald-100 rounded-2xl p-3.5 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl font-black text-emerald-600 font-sans">
+                    <LiveCounter value={99} />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-gray-900">Google PageSpeed</div>
+                    <div className="text-[10px] font-semibold text-emerald-600">Grade A+ Optimized</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-xs font-bold text-gray-900">Google PageSpeed</div>
-                  <div className="text-[10px] font-semibold text-emerald-600">Grade A+ Optimized</div>
+                <div className="text-right text-[10px] text-gray-400 font-mono space-y-0.5">
+                  <div>LCP: 0.4s</div>
+                  <div>FID: 2ms</div>
                 </div>
               </div>
-              <div className="text-right text-[10px] text-gray-400 font-mono space-y-0.5">
-                <div>LCP: 0.4s</div>
-                <div>FID: 2ms</div>
-              </div>
+            </div>
+
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-emerald-100 flex items-center justify-between text-xs text-emerald-700 font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> Core Web Vitals Passed</span>
+              <span className="text-emerald-600 font-extrabold">99/100 Score</span>
             </div>
           </motion.div>
 
           {/* CARD 3: WHATSAPP INTEGRATION */}
           <motion.div 
             variants={cardVariants}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-600">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-50 text-green-600 mb-2.5">
                 <MessageSquare size={14} />
                 <span className="text-xs font-bold uppercase tracking-wider">Lead Capture</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">WhatsApp Chat Integration</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">WhatsApp Chat Integration</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 Connect directly with prospective customers through a floating 1-tap WhatsApp action button.
               </p>
             </div>
 
-            <div className="bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-3.5 space-y-2.5 my-2">
-              <div className="bg-white text-[#0A0A0A] p-2.5 rounded-xl text-xs shadow-2xs border border-gray-100 max-w-[88%]">
-                Hi! I want to know more about your service options.
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full bg-emerald-950/5 border border-emerald-900/10 rounded-2xl p-3 space-y-2">
+                <div className="bg-white text-[#0A0A0A] p-2 rounded-xl text-xs shadow-2xs border border-gray-100 max-w-[88%]">
+                  Hi! I want to know more about your service options.
+                </div>
+                <div className="bg-[#2563EB] text-white p-2 rounded-xl text-xs shadow-2xs ml-auto max-w-[88%]">
+                  Hello! 👋 We'd be happy to help you set up!
+                </div>
               </div>
-              <div className="bg-[#2563EB] text-white p-2.5 rounded-xl text-xs shadow-2xs ml-auto max-w-[88%]">
-                Hello! 👋 We'd be happy to help you set up!
-              </div>
+            </div>
+
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> Instant Lead Alert</span>
+              <span className="text-emerald-600 font-extrabold">1-Tap Connect</span>
             </div>
           </motion.div>
 
           {/* CARD 4: SEO READY */}
           <motion.div 
             variants={cardVariants}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-50 text-orange-600 mb-2.5">
                 <Search size={14} />
                 <span className="text-xs font-bold uppercase tracking-wider">Search Engine</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">SEO Ready & Google Indexing</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">SEO Ready & Google Indexing</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 Complete meta tag structure, page titles, and sitemap generation included so Google finds you fast.
               </p>
             </div>
 
-            <div className="bg-gray-50 border border-gray-200/80 rounded-2xl p-3.5 flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shrink-0">
-                G
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full bg-gray-50 border border-gray-200/80 rounded-2xl p-3 flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-xs shrink-0">
+                  G
+                </div>
+                <div className="truncate">
+                  <div className="text-[10px] text-emerald-600 font-bold">https://yourbusiness.in • Indexed ✓</div>
+                  <div className="text-xs font-bold text-[#2563EB] truncate">Your Business Name — #1 Best Service</div>
+                </div>
               </div>
-              <div className="truncate">
-                <div className="text-[10px] text-emerald-600 font-bold">https://yourbusiness.in • Indexed ✓</div>
-                <div className="text-xs font-bold text-[#2563EB] truncate">Your Business Name — #1 Best Service</div>
-              </div>
+            </div>
+
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> Local Keyword Setup</span>
+              <span className="text-emerald-600 font-extrabold">Google Indexed</span>
             </div>
           </motion.div>
 
           {/* CARD 5: GOOGLE MAPS */}
           <motion.div 
             variants={cardVariants}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-50 text-red-600 mb-2.5">
                 <MapPin size={14} />
                 <span className="text-xs font-bold uppercase tracking-wider">Location</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Google Maps Setup</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">Google Maps Setup</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 Help local customers navigate directly to your storefront or office with embedded map pins.
               </p>
             </div>
 
-            <div className="h-20 bg-slate-100 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:8px_8px]" />
-              <MapPin size={28} className="text-red-600 fill-red-500 drop-shadow-md z-10" />
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full h-20 bg-slate-100 rounded-2xl relative overflow-hidden flex items-center justify-center border border-slate-200/80">
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:8px_8px]" />
+                <MapPin size={26} className="text-red-600 fill-red-500 drop-shadow-md z-10" />
+              </div>
+            </div>
+
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> Store Directions</span>
+              <span className="text-gray-400">Embed Map</span>
             </div>
           </motion.div>
 
           {/* CARD 6: SSL & HOSTING */}
           <motion.div 
             variants={cardVariants}
-            className="bg-white border border-gray-200/90 rounded-[24px] p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu"
+            className="bg-white border border-gray-200/90 rounded-[24px] p-5 sm:p-6 shadow-sm flex flex-col justify-between overflow-hidden relative transform-gpu h-auto"
           >
-            <div className="space-y-2 mb-4">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB]">
+            {/* Header & Text Area */}
+            <div className="mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] mb-2.5">
                 <ShieldCheck size={14} />
                 <span className="text-xs font-bold uppercase tracking-wider">Security</span>
               </div>
-              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans">Secure Managed Hosting</h3>
+              <h3 className="text-xl font-extrabold text-[#0A0A0A] font-sans mb-1.5">Secure Managed Hosting</h3>
               <p className="text-xs text-[#6B7280] font-medium leading-relaxed">
                 256-bit SSL encryption certificate, monthly backups, and 99.9% uptime managed automatically.
               </p>
             </div>
 
-            <div className="bg-blue-50/60 border border-blue-100 rounded-2xl p-3.5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Lock size={14} className="text-[#2563EB]" />
-                <span className="text-xs font-bold text-[#0A0A0A]">256-bit SSL Active</span>
+            {/* Compact Preview Widget Container */}
+            <div className="h-[140px] my-2 flex items-center justify-center">
+              <div className="w-full bg-blue-50/60 border border-blue-100 rounded-2xl p-3.5 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Lock size={14} className="text-[#2563EB]" />
+                  <span className="text-xs font-bold text-[#0A0A0A]">256-bit SSL Active</span>
+                </div>
+                <span className="text-xs font-bold text-emerald-600">99.9% Uptime</span>
               </div>
-              <span className="text-xs font-bold text-emerald-600">99.9% Uptime</span>
+            </div>
+
+            {/* Bottom Footer Baseline */}
+            <div className="pt-3 mt-4 border-t border-gray-100 flex items-center justify-between text-xs text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5"><CheckCircle2 size={14} /> SSL Encryption</span>
+              <span className="text-emerald-600 font-extrabold">99.9% Uptime</span>
             </div>
           </motion.div>
 

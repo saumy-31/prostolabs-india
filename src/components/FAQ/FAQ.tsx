@@ -182,7 +182,7 @@ const faqList = [
 ]
 
 export function FAQ({ onOpenModal }: FAQProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
   const sectionRef = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
   const isInView = useInView(sectionRef, { once: true, margin: "-40px" })
@@ -210,14 +210,15 @@ export function FAQ({ onOpenModal }: FAQProps) {
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-16">
+          {/* REFINED SECTION BADGE */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.45, ease: easeSaaS }}
-            className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 sm:mb-6 transform-gpu"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 sm:mb-6 transform-gpu"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">❓ FAQ</span>
+            <span className="text-[10px] sm:text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">FAQ</span>
           </motion.div>
 
           <motion.h2 

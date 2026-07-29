@@ -15,7 +15,15 @@ import {
   Utensils,
   Dumbbell,
   Scissors,
-  Stethoscope
+  Stethoscope,
+  Star,
+  CheckCircle2,
+  Calendar,
+  Clock,
+  MapPin,
+  PhoneCall,
+  ShieldCheck,
+  UserCheck
 } from 'lucide-react'
 
 // --- EASING CURVES ---
@@ -48,7 +56,7 @@ function MetricCounter({ value, suffix = "", decimals = 0 }: { value: number; su
   )
 }
 
-// --- INDUSTRY SHOWCASE DEFINITIONS ---
+// --- INDUSTRY SHOWCASE DEFINITIONS WITH HIGH-RES REALISTIC PREVIEWS ---
 const industries = [
   {
     id: 'restaurant',
@@ -56,23 +64,23 @@ const industries = [
     icon: Utensils,
     url: 'gourmet-bistro.in',
     badge: 'Fine Dining & Hospitality',
-    theme: 'dark-luxury',
     preview: {
-      tag: '🔥 Table Reservation Open',
+      tag: '⭐ Michelin Starred Chef',
       headline: 'Artisanal Culinary Excellence in Every Bite',
-      description: 'Experience handcrafted recipes, organic local ingredients, and an unforgettable fine dining ambiance.',
-      accent: 'from-amber-500 to-orange-600',
-      accentColor: '#D97706',
+      description: 'Handcrafted recipes, organic local ingredients, and an unforgettable fine dining ambiance.',
+      accent: 'from-amber-500 via-orange-600 to-red-600',
+      heroImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Reserve Table',
       secondaryCta: 'Explore Menu',
       stat1: '4.9 ⭐',
-      stat1Label: '350+ Reviews',
+      stat1Label: '1,200+ Reviews',
       stat2: '15 Mins',
       stat2Label: 'Avg. Table Turn',
-      cardTag: 'Chef Signature',
-      cardTitle: 'Wood-Fired Pizza',
+      cardTag: 'Chef Special',
+      cardTitle: 'Wood-Fired Truffle Pizza',
       cardPrice: '₹649',
-      cardMeta: 'Fresh Mozzarella • Black Truffle'
+      cardMeta: 'Fresh Mozzarella • Black Truffle',
+      badgeIcon: Utensils
     }
   },
   {
@@ -81,23 +89,23 @@ const industries = [
     icon: Dumbbell,
     url: 'fitpulse-arena.in',
     badge: 'High Performance Fitness',
-    theme: 'neon-energy',
     preview: {
       tag: '⚡ 0 Initiation Fee This Week',
       headline: 'CRUSH YOUR LIMITS. REBUILD YOURSELF.',
       description: 'State-of-the-art strength gear, elite personal coaching, and high-energy group functional training.',
-      accent: 'from-emerald-500 to-teal-400',
-      accentColor: '#10B981',
+      accent: 'from-emerald-500 via-teal-500 to-cyan-600',
+      heroImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Claim Free Pass',
       secondaryCta: 'View Schedule',
       stat1: '1,250+',
       stat1Label: 'Active Members',
       stat2: '24/7',
       stat2Label: 'Facility Access',
-      cardTag: 'Live Tracker',
-      cardTitle: 'Strength & Conditioning',
+      cardTag: 'Live Burn Tracker',
+      cardTitle: 'CrossFit & HIIT Arena',
       cardPrice: '780 kcal',
-      cardMeta: 'Avg. Burned per 45 min session'
+      cardMeta: 'Avg. Burned per 45 min session',
+      badgeIcon: Dumbbell
     }
   },
   {
@@ -106,23 +114,23 @@ const industries = [
     icon: Scissors,
     url: 'lumiere-salon.in',
     badge: 'Luxury Beauty & Care',
-    theme: 'rose-elegance',
     preview: {
       tag: '✨ 20% Off First Treatment',
       headline: 'Redefine Your Everyday Elegance & Beauty',
       description: 'Pamper yourself with bespoke hair styling, skin rejuvenation, and luxury spa treatments.',
-      accent: 'from-rose-400 to-pink-600',
-      accentColor: '#F43F5E',
+      accent: 'from-pink-500 via-rose-500 to-purple-600',
+      heroImage: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Book Slot',
       secondaryCta: 'View Spa Menu',
       stat1: '5.0 ⭐',
-      stat1Label: '420+ Clients',
+      stat1Label: '850+ Clients',
       stat2: '100%',
-      stat2Label: 'Organic Hair Products',
+      stat2Label: 'Organic Hair Care',
       cardTag: 'Popular Choice',
       cardTitle: 'Keratin & Glow Facial',
       cardPrice: '₹2,499',
-      cardMeta: '90 Mins • Deep Hydration'
+      cardMeta: '90 Mins • Deep Hydration',
+      badgeIcon: Scissors
     }
   },
   {
@@ -131,23 +139,23 @@ const industries = [
     icon: Stethoscope,
     url: 'careplus-health.in',
     badge: 'Trusted Healthcare',
-    theme: 'clean-medical',
     preview: {
-      tag: '🏥 OPD Appointments Available Today',
+      tag: '🏥 OPD Slots Available Today',
       headline: 'World-Class Healthcare You Can Depend On',
       description: 'Expert doctors, zero waiting time, and compassionate medical care for your entire family.',
-      accent: 'from-blue-600 to-cyan-500',
-      accentColor: '#2563EB',
+      accent: 'from-blue-600 via-blue-500 to-cyan-500',
+      heroImage: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Book OPD Slot',
-      secondaryCta: 'Find Specialist',
+      secondaryCta: 'Find Doctor',
       stat1: '15+ Yrs',
       stat1Label: 'Combined Experience',
       stat2: '10k+',
       stat2Label: 'Patients Treated',
-      cardTag: 'Verified Specialist',
-      cardTitle: 'Dr. Ananya Sharma',
+      cardTag: 'Chief Specialist',
+      cardTitle: 'Dr. Arvind Rao',
       cardPrice: 'Cardiologist',
-      cardMeta: 'MD • Available Today (4 slots left)'
+      cardMeta: 'MD • Available Today (4 slots left)',
+      badgeIcon: UserCheck
     }
   },
   {
@@ -156,23 +164,23 @@ const industries = [
     icon: Building2,
     url: 'apex-estates.in',
     badge: 'Luxury Properties',
-    theme: 'architectural-gold',
     preview: {
       tag: '🏡 New Launch in City Center',
       headline: 'Discover Villas & Penthouses Crafted for You',
       description: 'Explore verified luxury properties with 3D virtual walkthroughs and 100% legal clearance.',
-      accent: 'from-[#D4AF37] to-amber-600',
-      accentColor: '#D4AF37',
+      accent: 'from-amber-600 via-yellow-600 to-amber-700',
+      heroImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Schedule Visit',
       secondaryCta: 'Brochure',
       stat1: '₹50Cr+',
       stat1Label: 'Properties Closed',
       stat2: '0%',
-      stat2Label: 'Brokerage',
+      stat2Label: 'Brokerage Fee',
       cardTag: 'Featured Listing',
-      cardTitle: 'Skyline Luxury Villa',
+      cardTitle: 'Skyline Villa Residency',
       cardPrice: '₹1.85 Cr',
-      cardMeta: '4 BHK • Private Pool • 3,400 sq.ft'
+      cardMeta: '4 BHK • Private Pool • 3,400 sq.ft',
+      badgeIcon: Building2
     }
   },
   {
@@ -181,13 +189,12 @@ const industries = [
     icon: GraduationCap,
     url: 'apex-academy.in',
     badge: 'Education & Admissions',
-    theme: 'indigo-academic',
     preview: {
       tag: '🎓 Batch 2026 Admissions Open',
       headline: 'Empowering Top Ranks in JEE, NEET & Boards',
       description: 'Learn from IIT & AIIMS alumni mentors with small batch sizes and rigorous test series.',
-      accent: 'from-indigo-600 to-purple-600',
-      accentColor: '#4F46E5',
+      accent: 'from-indigo-600 via-purple-600 to-blue-700',
+      heroImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80',
       ctaText: 'Free Demo Class',
       secondaryCta: 'Batch Schedule',
       stat1: '98.4%',
@@ -197,7 +204,8 @@ const industries = [
       cardTag: 'Scholarship Test',
       cardTitle: 'Talent Hunt Exam',
       cardPrice: 'Up to 100%',
-      cardMeta: 'Fee Scholarship • Next Sunday'
+      cardMeta: 'Fee Scholarship • Next Sunday',
+      badgeIcon: GraduationCap
     }
   }
 ]
@@ -327,17 +335,17 @@ export function Showcase() {
           )}
 
           {/* PHONE MOCKUP STAGE */}
-          <div className="relative max-w-[280px] mx-auto transform-gpu">
+          <div className="relative max-w-[310px] mx-auto transform-gpu">
             <div className="absolute inset-0 bg-[#2563EB]/15 blur-2xl rounded-full scale-90 pointer-events-none" />
 
             {/* Smartphone Outer Box */}
-            <div className="relative bg-[#090D16] rounded-[36px] border-4 border-gray-800 p-2.5 shadow-2xl overflow-hidden min-h-[460px] flex flex-col justify-between transform-gpu">
+            <div className="relative bg-[#090D16] rounded-[40px] border-4 border-gray-800 p-2.5 shadow-2xl overflow-hidden min-h-[520px] flex flex-col justify-between transform-gpu">
               
               {/* Phone Speaker Notch */}
-              <div className="w-16 h-3 bg-gray-800 rounded-full mx-auto mb-2 shrink-0 z-20" />
+              <div className="w-20 h-3 bg-gray-800 rounded-full mx-auto mb-2 shrink-0 z-20" />
 
               {/* Phone Screen Display */}
-              <div className="w-full bg-[#0F172A] rounded-[26px] p-3.5 flex-1 flex flex-col justify-between border border-white/10 text-white relative overflow-hidden">
+              <div className="w-full bg-[#0B0F19] rounded-[30px] flex-1 flex flex-col justify-between border border-white/10 text-white relative overflow-hidden">
                 
                 <AnimatePresence mode="wait">
                   {isBeforeView ? (
@@ -347,14 +355,14 @@ export function Showcase() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.35, ease: easeSaaS }}
-                      className="flex-1 flex flex-col justify-between p-2 text-center text-gray-900 bg-[#F5F2EB] rounded-2xl transform-gpu"
+                      className="flex-1 flex flex-col justify-between p-4 text-center text-gray-900 bg-[#F5F2EB] rounded-[26px] transform-gpu"
                     >
                       <div className="text-[9px] font-mono text-red-900 uppercase font-bold">⚠️ Outdated 2010 Site</div>
                       <div className="my-auto space-y-2">
-                        <div className="text-sm font-serif font-black text-[#800000] underline">Not Mobile Friendly</div>
-                        <p className="text-[10px] text-gray-600 font-sans leading-tight">Takes 8+ seconds to load. Non-responsive text.</p>
+                        <div className="text-base font-serif font-black text-[#800000] underline">Not Mobile Friendly</div>
+                        <p className="text-[11px] text-gray-600 font-sans leading-tight">Takes 8+ seconds to load. Tiny non-responsive text and broken links.</p>
                       </div>
-                      <div className="text-[8px] bg-red-100 text-red-900 p-1 font-mono rounded">70% Users Exit Immediately</div>
+                      <div className="text-[9px] bg-red-100 text-red-900 p-1.5 font-mono rounded-lg">70% Users Exit Immediately</div>
                     </motion.div>
                   ) : (
                     <motion.div
@@ -363,39 +371,61 @@ export function Showcase() {
                       animate={{ opacity: 1, scale: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.98, y: -12 }}
                       transition={{ duration: 0.4, ease: easeSaaS }}
-                      className="flex-1 flex flex-col justify-between space-y-4 transform-gpu"
+                      className="flex-1 flex flex-col justify-between relative transform-gpu"
                     >
-                      {/* Top Bar */}
-                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                        <div className="flex items-center gap-1.5">
-                          <div className={`w-5 h-5 rounded-md bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-[10px]`}>
-                            ✓
+                      {/* Background Realistic Image Layer with Gradient Overlay */}
+                      <div className="absolute inset-0 z-0">
+                        <img 
+                          src={currentInd.preview.heroImage} 
+                          alt={currentInd.preview.headline}
+                          className="w-full h-full object-cover opacity-35 filter brightness-90"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F19]/90 via-[#0B0F19]/80 to-[#0B0F19]" />
+                      </div>
+
+                      {/* Foreground Content */}
+                      <div className="relative z-10 p-3.5 flex-1 flex flex-col justify-between space-y-3">
+                        {/* Top Bar */}
+                        <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                          <div className="flex items-center gap-1.5">
+                            <div className={`w-5 h-5 rounded-md bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-[10px]`}>
+                              ✓
+                            </div>
+                            <span className="font-bold text-xs tracking-tight">{currentInd.name}</span>
                           </div>
-                          <span className="font-bold text-xs tracking-tight">{currentInd.name}</span>
+                          <div className="text-[9px] text-gray-300 font-mono border border-white/15 px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-xs">
+                            {currentInd.url}
+                          </div>
                         </div>
-                        <div className="text-[9px] text-gray-400 font-mono border border-white/10 px-1.5 py-0.5 rounded">
-                          {currentInd.url}
+
+                        {/* Main Showcase Hero */}
+                        <div className="space-y-2 my-auto pt-2">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-white/10 text-[9px] font-bold rounded-full border border-white/20 backdrop-blur-md">
+                            {currentInd.preview.tag}
+                          </span>
+                          <h3 className="text-lg font-black leading-tight text-white drop-shadow-sm font-sans">
+                            {currentInd.preview.headline}
+                          </h3>
+                          <p className="text-[10px] text-gray-200 leading-relaxed font-medium line-clamp-2">
+                            {currentInd.preview.description}
+                          </p>
                         </div>
-                      </div>
 
-                      {/* Main Showcase Hero */}
-                      <div className="space-y-2.5 my-auto">
-                        <span className="inline-block px-2 py-0.5 bg-white/10 text-[9px] font-bold rounded-full border border-white/15">
-                          {currentInd.preview.tag}
-                        </span>
-                        <h3 className="text-lg font-black leading-tight">
-                          {currentInd.preview.headline}
-                        </h3>
-                        <p className="text-[10px] text-gray-300 leading-relaxed font-medium">
-                          {currentInd.preview.description}
-                        </p>
-                      </div>
+                        {/* Featured Mini Card */}
+                        <div className="bg-white/10 border border-white/15 rounded-xl p-2.5 backdrop-blur-md space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] font-bold text-amber-400 uppercase tracking-wider">{currentInd.preview.cardTag}</span>
+                            <span className="text-[10px] font-black text-white">{currentInd.preview.cardPrice}</span>
+                          </div>
+                          <div className="text-xs font-bold text-white truncate">{currentInd.preview.cardTitle}</div>
+                        </div>
 
-                      {/* Phone CTA */}
-                      <button className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1 transform-gpu active:scale-95 transition-transform`}>
-                        <span>{currentInd.preview.ctaText}</span>
-                        <ChevronRight size={14} />
-                      </button>
+                        {/* Phone CTA */}
+                        <button className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1 transform-gpu active:scale-95 transition-transform cursor-pointer`}>
+                          <span>{currentInd.preview.ctaText}</span>
+                          <ChevronRight size={14} />
+                        </button>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -523,8 +553,8 @@ export function Showcase() {
                 </div>
               </div>
 
-              {/* Viewport */}
-              <div className="min-h-[460px] relative overflow-hidden flex flex-col justify-between">
+              {/* Viewport Display Stage */}
+              <div className="min-h-[480px] relative overflow-hidden flex flex-col justify-between bg-[#0B0F19]">
                 <AnimatePresence mode="wait">
                   {isBeforeView ? (
                     <motion.div 
@@ -533,7 +563,7 @@ export function Showcase() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[460px] flex flex-col justify-between transform-gpu"
+                      className="p-10 bg-[#F5F2EB] text-gray-900 font-serif min-h-[480px] flex flex-col justify-between transform-gpu"
                     >
                       <div className="border-b border-red-900/40 pb-2 flex justify-between items-center">
                         <div className="text-base font-bold text-red-900 uppercase font-mono tracking-wider">
@@ -560,40 +590,54 @@ export function Showcase() {
                   ) : (
                     <motion.div 
                       key={currentInd.id}
-                      initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.98, y: -10 }}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.35, ease: easeSaaS }}
-                      className="flex-1 flex flex-col justify-between p-8 relative text-white transform-gpu"
+                      className="flex-1 flex flex-col justify-between relative text-white transform-gpu overflow-hidden min-h-[480px]"
                     >
-                      {/* Nav */}
-                      <div className="flex items-center justify-between pb-4 border-b border-white/10 relative z-10">
-                        <div className="flex items-center gap-2">
-                          <div className={`w-7 h-7 rounded-xl bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-white text-xs shadow-xs`}>
+                      {/* Rich Background Image with Soft Gradient Overlay */}
+                      <div className="absolute inset-0 z-0">
+                        <img 
+                          src={currentInd.preview.heroImage} 
+                          alt={currentInd.preview.headline} 
+                          className="w-full h-full object-cover opacity-30 filter contrast-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-[#0B0F19]/80" />
+                      </div>
+
+                      {/* Top Navigation Bar */}
+                      <div className="flex items-center justify-between p-6 pb-4 border-b border-white/10 relative z-10 backdrop-blur-xs">
+                        <div className="flex items-center gap-2.5">
+                          <div className={`w-8 h-8 rounded-xl bg-gradient-to-r ${currentInd.preview.accent} flex items-center justify-center font-bold text-white text-xs shadow-sm`}>
                             ✓
                           </div>
-                          <span className="font-bold text-white text-sm font-sans tracking-tight">{currentInd.name}</span>
+                          <div>
+                            <span className="font-extrabold text-white text-sm font-sans tracking-tight block">{currentInd.name}</span>
+                            <span className="text-[10px] text-gray-400 font-mono block">{currentInd.badge}</span>
+                          </div>
                         </div>
 
-                        <div className="flex items-center gap-5 text-[11px] font-semibold text-gray-300">
-                          <span>Services</span>
-                          <span>About</span>
-                          <span>Reviews</span>
-                          <span>Contact</span>
+                        <div className="flex items-center gap-6 text-xs font-semibold text-gray-300">
+                          <span className="hover:text-white cursor-pointer transition-colors">Services</span>
+                          <span className="hover:text-white cursor-pointer transition-colors">About</span>
+                          <span className="hover:text-white cursor-pointer transition-colors">Reviews</span>
+                          <span className="hover:text-white cursor-pointer transition-colors">Contact</span>
                         </div>
 
-                        <button className={`px-3.5 py-1.5 rounded-xl text-white font-bold text-[11px] bg-gradient-to-r ${currentInd.preview.accent} shadow-2xs transform-gpu hover:opacity-90 active:scale-95 transition-all`}>
+                        <button className={`px-4 py-2 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} shadow-md transform-gpu hover:opacity-95 active:scale-95 transition-all cursor-pointer`}>
                           {currentInd.preview.ctaText}
                         </button>
                       </div>
 
-                      {/* Hero Content */}
-                      <div className="py-8 relative z-10 max-w-2xl">
-                        <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 border border-white/15 backdrop-blur-md text-[11px] font-bold text-white mb-3 shadow-2xs">
+                      {/* Main Hero Showcase */}
+                      <div className="px-8 py-6 relative z-10 max-w-2xl">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs font-bold text-white mb-4 shadow-sm">
                           <span>{currentInd.preview.tag}</span>
                         </div>
 
-                        <h3 className="text-3xl lg:text-4xl font-black tracking-tight font-sans leading-[1.12] mb-3 text-white">
+                        <h3 className="text-3xl lg:text-4xl font-black tracking-tight font-sans leading-[1.12] mb-3 text-white drop-shadow-sm">
                           {currentInd.preview.headline}
                         </h3>
 
@@ -602,35 +646,35 @@ export function Showcase() {
                         </p>
 
                         <div className="flex items-center gap-3">
-                          <button className={`px-5 py-2.5 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1 shadow-md cursor-pointer transform-gpu hover:opacity-90 active:scale-95 transition-all`}>
+                          <button className={`px-6 py-3 rounded-xl text-white font-extrabold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1.5 shadow-lg cursor-pointer transform-gpu hover:opacity-95 active:scale-95 transition-all`}>
                             <span>{currentInd.preview.ctaText}</span>
-                            <ChevronRight className="w-3.5 h-3.5" />
+                            <ChevronRight className="w-4 h-4" />
                           </button>
 
-                          <button className="px-4 py-2.5 rounded-xl bg-white/10 text-white border border-white/15 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer transform-gpu active:scale-95">
+                          <button className="px-5 py-3 rounded-xl bg-white/10 text-white border border-white/20 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer transform-gpu active:scale-95">
                             {currentInd.preview.secondaryCta}
                           </button>
                         </div>
                       </div>
 
-                      {/* Stats */}
-                      <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10 relative z-10 items-center">
+                      {/* Bottom Real-time Feature Metrics Strip */}
+                      <div className="grid grid-cols-3 gap-4 px-8 py-4 border-t border-white/10 relative z-10 items-center backdrop-blur-md bg-black/20">
                         <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md transform-gpu">
-                          <div className="text-sm font-black text-white">{currentInd.preview.stat1}</div>
-                          <div className="text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat1Label}</div>
+                          <div className="text-base font-black text-white">{currentInd.preview.stat1}</div>
+                          <div className="text-[11px] text-gray-400 font-medium truncate">{currentInd.preview.stat1Label}</div>
                         </div>
 
                         <div className="bg-white/5 border border-white/10 p-3 rounded-2xl backdrop-blur-md transform-gpu">
-                          <div className="text-sm font-black text-white">{currentInd.preview.stat2}</div>
-                          <div className="text-[10px] text-gray-400 font-medium truncate">{currentInd.preview.stat2Label}</div>
+                          <div className="text-base font-black text-white">{currentInd.preview.stat2}</div>
+                          <div className="text-[11px] text-gray-400 font-medium truncate">{currentInd.preview.stat2Label}</div>
                         </div>
 
-                        <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-white/15 p-3 rounded-2xl backdrop-blur-md flex items-center justify-between transform-gpu">
+                        <div className="bg-gradient-to-r from-blue-600/30 to-purple-600/30 border border-white/20 p-3 rounded-2xl backdrop-blur-md flex items-center justify-between transform-gpu">
                           <div>
-                            <div className="text-[9px] font-bold text-blue-400 uppercase tracking-wider">{currentInd.preview.cardTag}</div>
+                            <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">{currentInd.preview.cardTag}</div>
                             <div className="text-xs font-bold text-white truncate">{currentInd.preview.cardTitle}</div>
                           </div>
-                          <div className="text-xs font-black text-white bg-white/10 px-1.5 py-0.5 rounded shrink-0">
+                          <div className="text-xs font-black text-white bg-white/15 px-2 py-1 rounded-lg shrink-0 border border-white/20">
                             {currentInd.preview.cardPrice}
                           </div>
                         </div>
