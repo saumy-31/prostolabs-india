@@ -26,7 +26,17 @@ import {
   ShieldCheck, 
   Headphones, 
   Smartphone, 
-  Compass
+  DollarSign,
+  UserX,
+  FileCheck,
+  ZapOff,
+  Lock,
+  Database,
+  Key,
+  Calendar,
+  HelpCircle,
+  Mail,
+  Gauge
 } from 'lucide-react'
 import { type PlanType } from '../Modal/EnquiryModal'
 
@@ -63,8 +73,6 @@ const rightCardVariant: Variants = {
   }
 }
 
-
-
 export function WhyUs({ onOpenModal }: WhyUsProps) {
   const agencySectionRef = useRef<HTMLDivElement>(null)
   const diySectionRef = useRef<HTMLDivElement>(null)
@@ -96,28 +104,37 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
     { text: "100% transparent pricing — 0 hidden fees", highlight: false },
   ]
 
-  // --- DATA: DIY BUILDER COMPARISON TABLE ---
+  // --- DATA: COMPREHENSIVE BUSINESS COMPARISON TABLE ---
   const diyComparisonData = [
-    { icon: Palette, feature: "Professional Custom Design", wix: "DIY Template", godaddy: "Basic Layouts", prosto: "100% Handcrafted For You" },
-    { icon: Rocket, feature: "Website Setup & Build", wix: "You build it", godaddy: "You build it", prosto: "Done entirely by our experts" },
-    { icon: Server, feature: "Hosting Setup & Config", wix: "Included (DIY)", godaddy: "Extra renewal fee", prosto: "Managed high-speed hosting" },
-    { icon: Wrench, feature: "Ongoing Maintenance", wix: "Self-managed", godaddy: "Self-managed", prosto: "Fully managed by ProstoLabs" },
-    { icon: RefreshCw, feature: "Content Updates", wix: "Edit yourself", godaddy: "Edit yourself", prosto: "Send us a WhatsApp message" },
-    { icon: Search, feature: "SEO Optimization", wix: "Basic checklist", godaddy: "Basic settings", prosto: "Technical SEO ready out of box" },
-    { icon: MessageSquare, feature: "WhatsApp Integration", wix: "3rd-party app", godaddy: "Limited app", prosto: "Built-in direct WhatsApp chat" },
-    { icon: MapPin, feature: "Google Maps Setup", wix: "Manual widget", godaddy: "Basic embed", prosto: "Verified location integration" },
-    { icon: ShieldCheck, feature: "SSL Security", wix: "Included", godaddy: "Paid add-on", prosto: "Fully managed SSL security" },
-    { icon: Headphones, feature: "Technical Support", wix: "Help center", godaddy: "Call center queue", prosto: "Direct WhatsApp support team" },
-    { icon: Smartphone, feature: "Mobile Optimization", wix: "Manual edits", godaddy: "Auto-generated", prosto: "Flawless on all mobile screens" },
-    { icon: Compass, feature: "Business Guidance", wix: "Software only", godaddy: "Software only", prosto: "Strategy for local business" },
-    { icon: Clock, feature: "Time Required From You", wix: "15–30+ Hours", godaddy: "10–20+ Hours", prosto: "~15 Mins onboarding", isTimeField: true },
+    { icon: DollarSign, feature: "Starting Price", wix: "₹1,000+/mo (Plus Add-ons)", godaddy: "₹800+/mo (Renews Higher)", prosto: "₹499/mo or ₹4,999 One-time", isHighlight: true },
+    { icon: UserX, feature: "You Build It Yourself", wix: "Yes (Requires 20+ Hrs)", godaddy: "Yes (Requires 15+ Hrs)", prosto: "No — Done Entirely For You", isHighlight: true },
+    { icon: Rocket, feature: "Ready-to-Launch Website", wix: "Self-assembled", godaddy: "Self-assembled", prosto: "100% Fully Built & Ready" },
+    { icon: Palette, feature: "Professional Custom Design", wix: "Generic Template", godaddy: "Basic Layouts", prosto: "Handcrafted Custom Design" },
+    { icon: Server, feature: "Managed Hosting Included", wix: "Basic Shared", godaddy: "Extra Renewal Cost", prosto: "Fast Enterprise Cloud Hosting" },
+    { icon: Lock, feature: "SSL Security Included", wix: "Included", godaddy: "Paid Annual Add-on", prosto: "Fully Managed & Auto-Renewed" },
+    { icon: Wrench, feature: "Ongoing Maintenance", wix: "Self-managed", godaddy: "Self-managed", prosto: "100% Managed By ProstoLabs" },
+    { icon: RefreshCw, feature: "Monthly Content Updates", wix: "Edit Yourself", godaddy: "Edit Yourself", prosto: "Send Us a WhatsApp Message" },
+    { icon: MessageSquare, feature: "WhatsApp Support & Chat", wix: "3rd-Party Paid App", godaddy: "Limited Integration", prosto: "Direct WhatsApp Support Team" },
+    { icon: MapPin, feature: "Google Maps & Business Setup", wix: "Manual Widget", godaddy: "Basic Embed", prosto: "Verified Profile & Map Integration" },
+    { icon: Search, feature: "SEO Optimization Ready", wix: "Basic Checklist", godaddy: "Basic Settings", prosto: "Full Technical SEO On-Page Setup" },
+    { icon: Smartphone, feature: "Mobile Responsiveness", wix: "Manual Mobile Edits", godaddy: "Auto-generated", prosto: "Flawless Multi-device Tuning" },
+    { icon: Gauge, feature: "Fast Page Load Speeds", wix: "Variable (Heavy Scripts)", godaddy: "Average", prosto: "Optimized for <1s Speed Scores" },
+    { icon: ShieldCheck, feature: "Website Security", wix: "Standard Software", godaddy: "Basic Protection", prosto: "Active Firewall & Threat Protection" },
+    { icon: Database, feature: "Automated Daily Backups", wix: "Manual Revision Points", godaddy: "Paid Add-on", prosto: "Automated Cloud Backups" },
+    { icon: Headphones, feature: "Technical Support", wix: "Support Ticket System", godaddy: "Call Center Queue", prosto: "Direct Developer Access on WhatsApp" },
+    { icon: Key, feature: "Full Website Ownership", wix: "Locked to Platform", godaddy: "Locked to Platform", prosto: "100% Client Code & Asset Rights" },
+    { icon: Calendar, feature: "Delivery Time", wix: "2–4 Weeks Self-Work", godaddy: "1–3 Weeks Self-Work", prosto: "3–7 Business Days Guaranteed", isHighlight: true },
+    { icon: ZapOff, feature: "Hidden Charges", wix: "App Store Add-ons", godaddy: "High Renewal Prices", prosto: "Zero Hidden Fees — Transparent" },
+    { icon: HelpCircle, feature: "Custom Domain Setup", wix: "Self-configured", godaddy: "Self-configured", prosto: "Complete DNS & SSL Configuration" },
+    { icon: Mail, feature: "Business Email Setup", wix: "Google Workspace Extra", godaddy: "Paid Add-on", prosto: "DNS MX Routing & Setup Included" },
+    { icon: Clock, feature: "Your Time Commitment", wix: "15–30+ Hours", godaddy: "10–20+ Hours", prosto: "~15 Mins Onboarding Brief", isTimeField: true },
   ]
 
-  const visibleMobileRows = showAllMobileRows ? diyComparisonData : diyComparisonData.slice(0, 5)
-  const visibleDesktopRows = showAllDesktopRows ? diyComparisonData : diyComparisonData.slice(0, 5)
+  const visibleMobileRows = showAllMobileRows ? diyComparisonData : diyComparisonData.slice(0, 6)
+  const visibleDesktopRows = showAllDesktopRows ? diyComparisonData : diyComparisonData.slice(0, 6)
 
   return (
-    <div className="bg-[#FAFAFA] text-[#0A0A0A]" id="why-us">
+    <div className="bg-[#FAFAFA] text-[#0A0A0A] font-sans selection:bg-blue-100 selection:text-blue-900" id="why-us">
       
       {/* ========================================================================= */}
       {/* SECTION 1: PROSTOLABS VS TRADITIONAL AGENCIES CARDS */}
@@ -146,7 +163,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
               className="text-3xl sm:text-4xl md:text-5xl font-black font-sans tracking-tight text-[#0A0A0A] transform-gpu"
             >
-              Why Pay Agency Prices?
+              Why Pay High Agency Fees?
             </motion.h2>
 
             <motion.p 
@@ -155,7 +172,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
               className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-2xl mx-auto transform-gpu"
             >
-              Get a professional business website without spending <span className="text-gray-900 font-bold underline decoration-red-300">₹20,000–₹80,000 upfront</span>.
+              Get a custom business website without spending <span className="text-gray-900 font-bold underline decoration-red-300">₹20,000–₹80,000 upfront</span>.
             </motion.p>
           </div>
 
@@ -326,7 +343,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                   className="mb-5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#2563EB] text-white text-[11px] font-bold shadow-md shadow-blue-500/20 transform-gpu"
                 >
                   <Sparkles size={13} />
-                  <span>⭐ Save thousands while getting the same essentials.</span>
+                  <span>⭐ Save thousands while getting identical core results.</span>
                 </motion.div>
 
                 <div className="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
@@ -336,7 +353,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-[#0A0A0A]">ProstoLabs</h3>
-                      <p className="text-xs text-[#2563EB] font-bold">Modern, Fast & Affordable</p>
+                      <p className="text-xs text-[#2563EB] font-bold">Modern, Fast & Fully Managed</p>
                     </div>
                   </div>
                 </div>
@@ -386,14 +403,15 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
 
 
       {/* ========================================================================= */}
-      {/* SECTION 2: MANAGED SERVICE VS DIY (PROSTOLABS VS OTHERS) */}
+      {/* SECTION 2: MANAGED SERVICE VS DIY BUILDERS */}
       {/* ========================================================================= */}
-      <section ref={diySectionRef} className="py-12 sm:py-16 md:py-20 bg-white border-t border-gray-200/80 relative overflow-hidden">
-        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu" />
+      <section ref={diySectionRef} className="py-16 sm:py-20 md:py-24 bg-white border-t border-gray-200/80 relative overflow-hidden">
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[700px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu" />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10">
           
-          <div className="text-center max-w-3xl mx-auto mb-8 space-y-3">
+          {/* SECTION HEADER */}
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
             <motion.div 
               initial={{ opacity: 0, y: -8 }}
               animate={isDiyInView ? { opacity: 1, y: 0 } : {}}
@@ -402,7 +420,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
             >
               <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
               <span className="text-[11px] font-bold text-[#2563EB] uppercase tracking-wider">
-                Managed Service vs DIY
+                Compare Before You Decide
               </span>
             </motion.div>
 
@@ -410,40 +428,38 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               initial={{ opacity: 0, y: 12 }}
               animate={isDiyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.1, ease: easeSaaS }}
-              className="text-3xl sm:text-4xl md:text-5xl font-black font-sans tracking-tight text-[#0A0A0A] transform-gpu"
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-sans tracking-tight text-[#0A0A0A] transform-gpu leading-[1.15]"
             >
-              Build It Yourself... <br />
-              <span className="text-[#2563EB]">Or Let Us Do Everything.</span>
+              Why Build It Yourself When <br className="hidden sm:block" />
+              <span className="text-[#2563EB]">We Can Do Everything For You?</span>
             </motion.h2>
 
             <motion.p 
               initial={{ opacity: 0, y: 8 }}
               animate={isDiyInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
-              className="text-sm sm:text-base md:text-lg text-[#6B7280] font-medium leading-relaxed max-w-2xl mx-auto transform-gpu"
+              className="text-base sm:text-lg text-[#6B7280] font-medium leading-relaxed max-w-2xl mx-auto transform-gpu"
             >
-              Spend your time running your business—not building your website.
+              Website builders give you tools. ProstoLabs gives you a finished, professionally managed website—without technical work.
             </motion.p>
           </div>
 
           {/* ========================================================================= */}
-          {/* MOBILE ORIGINAL COMPARISON TABLE WITH EXPAND/COLLAPSE (≤1023px) */}
+          {/* MOBILE COMPARISON TABLE (≤1023px) */}
           {/* ========================================================================= */}
-          <div className="block lg:hidden relative">
-            
-            {/* SCROLLABLE TABLE WRAPPER */}
-            <div className="rounded-2xl border border-gray-200 bg-white shadow-md overflow-x-auto no-scrollbar relative transform-gpu">
+          <div className="block lg:hidden relative mb-12">
+            <div className="rounded-2xl border-2 border-gray-200 bg-white shadow-lg overflow-x-auto no-scrollbar relative transform-gpu">
               <table className="w-full text-left min-w-[500px] border-collapse">
                 <thead>
-                  <tr className="bg-gray-50 border-b border-gray-200 text-[10px] font-extrabold uppercase tracking-wider text-gray-600">
-                    <th className="p-3 w-[35%]">Feature</th>
-                    <th className="p-3 text-center w-[20%]">Wix</th>
-                    <th className="p-3 text-center w-[20%]">GoDaddy</th>
-                    <th className="p-3 text-center w-[25%] bg-blue-50/90 border-l border-blue-200 text-[#2563EB] relative">
-                      <div className="inline-block bg-[#2563EB] text-white text-[8px] px-1.5 py-0.5 rounded-full font-black mb-0.5">
-                        ⭐ Best Value
+                  <tr className="bg-gray-100/80 border-b border-gray-200 text-[10px] font-extrabold uppercase tracking-wider text-gray-700">
+                    <th className="p-3.5 w-[35%] font-sans">Feature</th>
+                    <th className="p-3.5 text-center w-[20%]">Wix</th>
+                    <th className="p-3.5 text-center w-[20%]">GoDaddy</th>
+                    <th className="p-3.5 text-center w-[25%] bg-gradient-to-b from-[#2563EB] to-[#1D4ED8] text-white relative shadow-md">
+                      <div className="inline-block bg-white text-[#2563EB] text-[8px] px-2 py-0.5 rounded-full font-black mb-1 uppercase tracking-wider">
+                        ⭐ BEST VALUE
                       </div>
-                      <div className="text-xs font-black">ProstoLabs</div>
+                      <div className="text-xs font-black font-sans tracking-tight">ProstoLabs</div>
                     </th>
                   </tr>
                 </thead>
@@ -459,16 +475,16 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -6 }}
                           transition={{ duration: 0.25, ease: easeSaaS }}
-                          className="hover:bg-gray-50/50 transform-gpu"
+                          className={`transform-gpu ${row.isHighlight ? 'bg-blue-50/20 font-semibold' : 'hover:bg-gray-50/50'}`}
                         >
-                          <td className="p-3 flex items-center gap-2 font-bold text-[#0A0A0A]">
+                          <td className="p-3.5 flex items-center gap-2.5 font-bold text-[#0A0A0A]">
                             <div className="w-6 h-6 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
                               <IconComp size={13} />
                             </div>
                             <span className="truncate">{row.feature}</span>
                           </td>
 
-                          <td className="p-3 text-center text-gray-500 text-[11px]">
+                          <td className="p-3.5 text-center text-gray-500 text-[11px]">
                             {row.isTimeField ? (
                               <span className="text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 rounded text-[10px]">{row.wix}</span>
                             ) : (
@@ -476,7 +492,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                             )}
                           </td>
 
-                          <td className="p-3 text-center text-gray-500 text-[11px]">
+                          <td className="p-3.5 text-center text-gray-500 text-[11px]">
                             {row.isTimeField ? (
                               <span className="text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 rounded text-[10px]">{row.godaddy}</span>
                             ) : (
@@ -484,12 +500,17 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                             )}
                           </td>
 
-                          <td className="p-3 text-center bg-blue-50/40 border-l border-blue-100 font-bold text-[#2563EB] text-[11px]">
-                            {row.isTimeField ? (
-                              <span className="bg-[#2563EB] text-white px-2 py-0.5 rounded text-[10px] font-black">{row.prosto}</span>
-                            ) : (
-                              row.prosto
-                            )}
+                          <td className="p-3.5 text-center bg-blue-50/60 border-l-2 border-[#2563EB] font-bold text-[#2563EB] text-[11px]">
+                            <div className="flex items-center justify-center gap-1.5">
+                              <div className="w-4 h-4 rounded-full bg-[#2563EB] text-white flex items-center justify-center shrink-0">
+                                <Check size={10} strokeWidth={3} />
+                              </div>
+                              {row.isTimeField ? (
+                                <span className="bg-[#2563EB] text-white px-2 py-0.5 rounded text-[10px] font-black">{row.prosto}</span>
+                              ) : (
+                                <span className="text-[#0A0A0A] font-extrabold">{row.prosto}</span>
+                              )}
+                            </div>
                           </td>
                         </motion.tr>
                       )
@@ -498,50 +519,49 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                 </tbody>
               </table>
 
-              {/* Subtle Fade Gradient overlay when collapsed */}
               {!showAllMobileRows && (
-                <div className="absolute bottom-0 left-0 right-0 h-14 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none transform-gpu" />
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none transform-gpu" />
               )}
             </div>
 
-            {/* VIEW MORE / SHOW LESS EXPAND BUTTON */}
             <div className="mt-4 text-center">
               <motion.button
                 onClick={() => setShowAllMobileRows(!showAllMobileRows)}
                 whileTap={{ scale: 0.96 }}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-300 shadow-sm text-xs font-extrabold text-[#2563EB] hover:bg-blue-50 transition-colors cursor-pointer transform-gpu"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] active:bg-blue-50 transition-colors cursor-pointer transform-gpu"
               >
-                <span>{showAllMobileRows ? "Show Less ↑" : "View More Features ↓"}</span>
+                <span>{showAllMobileRows ? "Show Less ↑" : "View All Features ↓"}</span>
               </motion.button>
             </div>
-
           </div>
 
           {/* ========================================================================= */}
-          {/* DESKTOP TABLE WITH EXPAND/COLLAPSE (≥1024px) */}
+          {/* DESKTOP COMPARISON TABLE (≥1024px) */}
           {/* ========================================================================= */}
-          <div className="hidden lg:block relative">
+          <div className="hidden lg:block relative mb-16">
             <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate={isDiyInView ? "show" : "hidden"}
-              className="rounded-3xl border border-gray-200/90 bg-white shadow-xl overflow-hidden relative transform-gpu"
+              className="rounded-[32px] border-2 border-gray-200/90 bg-white shadow-2xl overflow-hidden relative transform-gpu"
             >
-              <div className="grid grid-cols-12 bg-gray-50/90 border-b border-gray-200/80 text-xs font-bold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
-                <div className="col-span-4 px-6 py-4 text-gray-900 font-extrabold flex items-center">
-                  Features
+              <div className="grid grid-cols-12 bg-gray-100/90 border-b border-gray-200 text-xs font-extrabold uppercase tracking-wider text-gray-700 items-stretch sticky top-0 z-20 backdrop-blur-md">
+                <div className="col-span-4 px-8 py-5 text-gray-900 font-black text-sm flex items-center font-sans">
+                  Comparison Criteria
                 </div>
-                <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                <div className="col-span-2 px-4 py-5 text-center text-gray-600 font-extrabold border-l border-gray-200/80 flex items-center justify-center">
                   Wix
                 </div>
-                <div className="col-span-2 px-4 py-4 text-center text-gray-600 font-bold border-l border-gray-200/60 flex items-center justify-center">
+                <div className="col-span-2 px-4 py-5 text-center text-gray-600 font-extrabold border-l border-gray-200/80 flex items-center justify-center">
                   GoDaddy
                 </div>
-                <div className="col-span-4 px-6 py-4 text-center bg-blue-50/90 border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative">
-                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-extrabold shadow-2xs mb-0.5">
-                    ⭐ Best Value
+                
+                {/* PROSTOLABS HIGHLIGHTED HEADER COLUMN */}
+                <div className="col-span-4 px-6 py-5 text-center bg-gradient-to-b from-[#2563EB] to-[#1D4ED8] text-white border-l-2 border-[#2563EB] flex flex-col items-center justify-center relative shadow-lg">
+                  <div className="inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-white text-[#2563EB] text-[10px] font-black uppercase tracking-wider mb-1 shadow-sm">
+                    ⭐ BEST VALUE
                   </div>
-                  <div className="text-base font-black text-[#2563EB] tracking-tight">ProstoLabs</div>
+                  <div className="text-xl font-black font-sans tracking-tight">ProstoLabs</div>
                 </div>
               </div>
 
@@ -557,50 +577,58 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3, ease: easeSaaS }}
-                        className="grid grid-cols-12 items-stretch hover:bg-gray-50/40 transition-colors group transform-gpu"
+                        className={`grid grid-cols-12 items-stretch transition-colors group transform-gpu ${
+                          row.isHighlight 
+                            ? 'bg-blue-50/25 hover:bg-blue-50/40' 
+                            : 'hover:bg-gray-50/60'
+                        }`}
                       >
-                        <div className="col-span-4 px-6 py-4 min-h-[88px] flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-xl bg-gray-100/80 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:bg-blue-50 transition-all">
+                        {/* FEATURE TITLE */}
+                        <div className="col-span-4 px-8 py-4.5 min-h-[72px] flex items-center gap-3.5">
+                          <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                             <IconComp size={16} />
                           </div>
-                          <span className="text-sm font-bold text-[#0A0A0A] leading-tight">{row.feature}</span>
+                          <span className="text-sm font-bold text-[#0A0A0A] font-sans leading-snug">{row.feature}</span>
                         </div>
 
-                        <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
+                        {/* WIX COLUMN */}
+                        <div className="col-span-2 px-4 py-4.5 min-h-[72px] flex items-center justify-center text-center text-xs font-semibold text-gray-500 border-l border-gray-100">
                           {row.isTimeField ? (
-                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.wix}</span>
+                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200/60 text-xs">{row.wix}</span>
                           ) : (
                             <span>{row.wix}</span>
                           )}
                         </div>
 
-                        <div className="col-span-2 px-4 py-4 min-h-[88px] flex items-center justify-center text-center text-xs font-medium text-gray-500 border-l border-gray-100">
+                        {/* GODADDY COLUMN */}
+                        <div className="col-span-2 px-4 py-4.5 min-h-[72px] flex items-center justify-center text-center text-xs font-semibold text-gray-500 border-l border-gray-100">
                           {row.isTimeField ? (
-                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded border border-amber-200/60 text-xs">{row.godaddy}</span>
+                            <span className="text-amber-800 font-bold bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200/60 text-xs">{row.godaddy}</span>
                           ) : (
                             <span>{row.godaddy}</span>
                           )}
                         </div>
 
-                        <div className="col-span-4 px-6 py-4 min-h-[88px] bg-blue-50/40 border-l-2 border-[#2563EB] flex items-center">
-                          <div className="grid grid-cols-[24px_1fr] gap-4 items-center w-full">
+                        {/* PROSTOLABS COLUMN (VISUALLY HIGHLIGHTED) */}
+                        <div className="col-span-4 px-8 py-4.5 min-h-[72px] bg-blue-50/50 border-l-2 border-[#2563EB] flex items-center transition-colors group-hover:bg-blue-50/80">
+                          <div className="grid grid-cols-[24px_1fr] gap-3.5 items-center w-full">
                             <motion.div 
                               initial={{ scale: 0.7, opacity: 0 }}
                               animate={isDiyInView ? { scale: 1, opacity: 1 } : {}}
-                              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.08 + (idx * 0.02) }}
-                              className="w-6 h-6 min-w-[24px] min-h-[24px] rounded-full bg-gradient-to-br from-[#3B82F6] via-[#2563EB] to-[#1D4ED8] text-white flex items-center justify-center shrink-0 shadow-2xs transform-gpu"
+                              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.08 + (idx * 0.015) }}
+                              className="w-6 h-6 rounded-full bg-[#2563EB] text-white flex items-center justify-center shrink-0 shadow-xs transform-gpu"
                             >
                               <Check size={13} strokeWidth={3} className="text-white" />
                             </motion.div>
 
                             {row.isTimeField ? (
                               <div>
-                                <span className="inline-block bg-[#2563EB] text-white px-3 py-1 rounded-lg text-xs font-black shadow-2xs">
+                                <span className="inline-block bg-[#2563EB] text-white px-3 py-1 rounded-lg text-xs font-black shadow-xs">
                                   {row.prosto}
                                 </span>
                               </div>
                             ) : (
-                              <span className="text-sm font-bold text-[#0A0A0A] leading-tight tracking-tight">
+                              <span className="text-sm font-extrabold text-[#0A0A0A] font-sans leading-tight">
                                 {row.prosto}
                               </span>
                             )}
@@ -612,28 +640,84 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                 </AnimatePresence>
               </div>
 
-              {/* Subtle Fade Gradient overlay when collapsed on desktop */}
               {!showAllDesktopRows && (
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none transform-gpu z-10" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white via-white/90 to-transparent pointer-events-none transform-gpu z-10" />
               )}
             </motion.div>
 
-            {/* VIEW MORE / SHOW LESS BUTTON FOR DESKTOP */}
-            <div className="mt-6 text-center">
+            {/* EXPAND BUTTON FOR DESKTOP */}
+            <div className="mt-8 text-center">
               <motion.button
                 onClick={() => setShowAllDesktopRows(!showAllDesktopRows)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] hover:bg-blue-50 transition-colors cursor-pointer transform-gpu"
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] hover:bg-blue-50 transition-all cursor-pointer transform-gpu"
               >
-                <span>{showAllDesktopRows ? "Show Less ↑" : "View More Features ↓"}</span>
+                <span>{showAllDesktopRows ? "Show Less ↑" : "View All 22 Comparison Features ↓"}</span>
               </motion.button>
             </div>
           </div>
 
-          <div className="mt-6 text-center text-xs text-gray-500 font-medium">
-            Note: Wix and GoDaddy require you to build, maintain, and troubleshoot your website yourself. ProstoLabs is a complete "Done-For-You" service.
-          </div>
+
+          {/* ========================================================================= */}
+          {/* SUMMARY BOX: WHY BUSINESSES CHOOSE PROSTOLABS */}
+          {/* ========================================================================= */}
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={isDiyInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2, ease: easeSaaS }}
+            className="p-8 sm:p-10 md:p-12 rounded-[32px] bg-gradient-to-br from-white via-[#FAFAFA] to-blue-50/40 border-2 border-blue-100 shadow-xl relative overflow-hidden mb-8"
+          >
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center gap-2 mb-3">
+                <Sparkles className="w-5 h-5 text-[#2563EB]" />
+                <span className="text-xs font-bold text-[#2563EB] uppercase tracking-wider">The Fully Managed Advantage</span>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A0A0A] tracking-tight font-sans mb-8">
+                Why Businesses Choose ProstoLabs
+              </h3>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm font-bold text-[#0A0A0A]">
+                {[
+                  "We build everything for you",
+                  "No generic templates",
+                  "No coding or DIY work required",
+                  "Enterprise hosting included",
+                  "100% managed website maintenance",
+                  "Direct WhatsApp support access",
+                  "SEO ready out of the box",
+                  "Flawless mobile responsiveness",
+                  "Secure SSL & active firewalls",
+                  "Launch in 3–7 business days",
+                  "Transparent pricing — 0 hidden fees",
+                  "100% full website ownership rights"
+                ].map((point, index) => (
+                  <div key={index} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-200/80 shadow-2xs">
+                    <div className="w-5 h-5 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
+                      <Check size={12} strokeWidth={3} />
+                    </div>
+                    <span>{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+
+          {/* ========================================================================= */}
+          {/* TRUST NOTE */}
+          {/* ========================================================================= */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={isDiyInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="p-6 rounded-2xl bg-blue-50/60 border border-blue-100 text-center max-w-4xl mx-auto"
+          >
+            <p className="text-xs sm:text-sm text-[#6B7280] font-medium leading-relaxed">
+              <strong className="text-[#0A0A0A] font-bold">Important Note:</strong> Unlike DIY website builders, ProstoLabs is a fully managed service. We design, build, launch, maintain, secure, and support your website while you focus on growing your business.
+            </p>
+          </motion.div>
 
         </div>
       </section>
