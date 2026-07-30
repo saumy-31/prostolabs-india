@@ -65,11 +65,11 @@ export function Footer() {
   ]
 
   const companyLinks = [
-    { label: "About Us", href: "/about", isRoute: true },
-    { label: "Why ProstoLabs", target: "why-us" },
-    { label: "FAQ", target: "faq" },
-    { label: "Contact", href: "/contact", isRoute: true }
-  ]
+  { label: "About Us", href: "/about", isRoute: true },
+  { label: "Resources", href: "/resources", isRoute: true }, // <--- ADD THIS
+  { label: "FAQ", target: "faq" },
+  { label: "Contact", href: "/contact", isRoute: true }
+]
 
   const socialLinks = [
     { name: "WhatsApp", icon: MessageSquare, href: "https://wa.me/916392577105", color: "hover:bg-green-500 hover:text-white" },
@@ -156,29 +156,34 @@ export function Footer() {
               Company
             </h4>
             <ul className="space-y-2.5">
-              {companyLinks.map((link, idx) => (
-                <li key={idx}>
-                  {link.isRoute ? (
-                    <a 
-                      href={link.href} 
-                      className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
-                    >
-                      <span>{link.label}</span>
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
-                    </a>
-                  ) : (
-                    <a 
-                      href={`/#${link.target}`} 
-                      onClick={(e) => handleSectionClick(e, link.target!)}
-                      className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
-                    >
-                      <span>{link.label}</span>
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
+  {companyLinks.map((link, idx) => (
+    <li key={idx}>
+      {link.isRoute ? (
+        <a 
+          href={link.href} 
+          // CHANGE THE CLASSNAME HERE:
+          className={`text-xs md:text-sm font-medium transition-colors inline-block relative group py-0.5 cursor-pointer ${
+            window.location.pathname === link.href ? 'text-[#2563EB] font-bold' : 'text-[#6B7280] hover:text-[#2563EB]'
+          }`}
+        >
+          <span>{link.label}</span>
+          {/* CHANGE THE SPAN HERE TO STAY UNDERLINED IF ACTIVE: */}
+          <span className={`absolute bottom-0 left-0 h-0.5 bg-[#2563EB] transition-all duration-300 ${window.location.pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+        </a>
+      ) : (
+        <a 
+          href={`/#${link.target}`} 
+          onClick={(e) => handleSectionClick(e, link.target!)}
+          // Keep this part as is (or apply similar logic if you want section highlights):
+          className="text-xs md:text-sm text-[#6B7280] hover:text-[#2563EB] font-medium transition-colors inline-block relative group py-0.5 cursor-pointer"
+        >
+          <span>{link.label}</span>
+          <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#2563EB] transition-all duration-300 group-hover:w-full" />
+        </a>
+      )}
+    </li>
+  ))}
+</ul>
           </motion.div>
 
           {/* COLUMN 4: CONNECT */}

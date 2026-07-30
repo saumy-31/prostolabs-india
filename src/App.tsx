@@ -4,6 +4,9 @@ import { Navbar } from './components/Navbar'
 import { Hero } from './components/hero/Hero'
 import { type PlanType } from './components/Modal/EnquiryModal'
 
+import { Resources } from './pages/Resources'
+import { ResourceArticle } from './pages/ResourceArticle'
+
 // IMPORT PAGES
 import { AboutUs } from './pages/AboutUs'
 import { Contact } from './pages/Contact'
@@ -180,6 +183,7 @@ export default function App() {
     setIsModalOpen(false)
   }
 
+  // GLOBAL LAYOUT WRAPPER (Navbar -> Subpage -> Footer)
   const wrapWithSuspense = (
     component: React.ReactNode, 
     seoProps: { title: string; description: string; path: string }
@@ -190,9 +194,13 @@ export default function App() {
         description={seoProps.description}
         path={seoProps.path}
       />
-      {component}
+      <Navbar onOpenModal={() => handleOpenModal('care')} />
+      <div className="pt-20 sm:pt-24 min-h-screen">
+        {component}
+      </div>
       <Footer />
       <Suspense fallback={null}>
+        <FloatingCTA onOpenModal={handleOpenModal} isModalOpen={isModalOpen} />
         <EnquiryModal isOpen={isModalOpen} onClose={handleCloseModal} initialPlan={selectedPlan} />
       </Suspense>
     </Suspense>
@@ -210,7 +218,31 @@ export default function App() {
     );
   }
 
-  // ROUTE 2: CONTACT PAGE
+  // ROUTE 2: RESOURCES HUB
+  if (currentPath === '/resources') {
+    return wrapWithSuspense(
+      <Resources />, 
+      {
+        title: "Resources | Website Tips for Indian Businesses",
+        description: "Learn how to grow your business online with ProstoLabs.",
+        path: "/resources"
+      }
+    );
+  }
+
+  // ROUTE 3: RESOURCE ARTICLES (DYNAMIC)
+  if (currentPath.startsWith('/resources/')) {
+    return wrapWithSuspense(
+      <ResourceArticle />, 
+      {
+        title: "Article | ProstoLabs",
+        description: "Read our latest insights.",
+        path: currentPath
+      }
+    );
+  }
+
+  // ROUTE 4: CONTACT PAGE
   if (currentPath === '/contact') {
     return wrapWithSuspense(
       <Contact onOpenModal={handleOpenModal} />, 
@@ -222,7 +254,7 @@ export default function App() {
     );
   }
 
-  // ROUTE 3: PRIVACY POLICY
+  // ROUTE 5: PRIVACY POLICY
   if (currentPath === '/privacy-policy') {
     return wrapWithSuspense(
       <PrivacyPolicy />, 
@@ -234,7 +266,7 @@ export default function App() {
     );
   }
 
-  // ROUTE 4: TERMS & CONDITIONS
+  // ROUTE 6: TERMS & CONDITIONS
   if (currentPath === '/terms-and-conditions') {
     return wrapWithSuspense(
       <TermsConditions />, 
@@ -246,7 +278,7 @@ export default function App() {
     );
   }
 
-  // ROUTE 5: MAIN LANDING PAGE
+  // ROUTE 7: MAIN LANDING PAGE (HOMEPAGE)
   return (
     <div className="relative w-full min-h-screen bg-[#FAFAFA] text-[#0A0A0A] font-sans selection:bg-blue-100 selection:text-blue-900">
       <SEO 

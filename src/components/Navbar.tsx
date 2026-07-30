@@ -7,7 +7,6 @@ interface NavbarProps {
   onOpenModal?: (plan?: PlanType) => void
 }
 
-// Magnetic Button Wrapper
 interface MagneticButtonProps {
   children: React.ReactNode
   className?: string
@@ -45,20 +44,50 @@ function MagneticButton({ children, className, onClick }: MagneticButtonProps) {
 export function Navbar({ onOpenModal }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [currentPath, setCurrentPath] = useState(window.location.pathname)
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20)
+    const handleLocationChange = () => setCurrentPath(window.location.pathname)
+
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('popstate', handleLocationChange)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('popstate', handleLocationChange)
+    }
   }, [])
 
   const navLinks = [
-    { name: 'How it Works', href: '#how-it-works' },
-    { name: 'Our Work', href: '#work' },
-    { name: 'Why Us', href: '#why-us' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'FAQ', href: '#faq' },
+    { name: 'Home', href: '/', isRoute: true },
+    { name: 'About', href: '/about', isRoute: true },
+    { name: 'Resources', href: '/resources', isRoute: true },
+    { name: 'Pricing', href: 'pricing', isRoute: false },
+    { name: 'FAQ', href: 'faq', isRoute: false },
+    { name: 'Contact', href: '/contact', isRoute: true },
   ]
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: typeof navLinks[0]) => {
+    setIsMobileMenuOpen(false)
+    if (!link.isRoute) {
+      e.preventDefault()
+      if (window.location.pathname === '/') {
+        const element = document.getElementById(link.href)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+          window.history.pushState(null, '', `/#${link.href}`)
+        }
+      } else {
+        window.history.pushState(null, '', `/#${link.href}`)
+        window.dispatchEvent(new PopStateEvent('popstate'))
+      }
+    } else {
+      window.history.pushState(null, '', link.href)
+      window.dispatchEvent(new PopStateEvent('popstate'))
+      setCurrentPath(link.href)
+    }
+  }
 
   const handleOpenCTA = () => {
     setIsMobileMenuOpen(false)
@@ -70,13 +99,17 @@ export function Navbar({ onOpenModal }: NavbarProps) {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${
         isScrolled 
           ? 'bg-[#FAFAFA]/80 backdrop-blur-xl border-gray-200/60 shadow-[0_4px_30px_rgba(0,0,0,0.03)] py-3' 
-          : 'bg-transparent border-transparent py-5'
+          : 'bg-white/80 backdrop-blur-md border-gray-100 py-4'
       }`}
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
         
         {/* Animated Logo */}
-        <a href="#" className="flex items-center gap-2 group relative z-50">
+        <a 
+          href="/" 
+          onClick={(e) => handleNavClick(e, { name: 'Home', href: '/', isRoute: true })}
+          className="flex items-center gap-2 group relative z-50"
+        >
           <motion.div 
             whileHover={{ rotate: 90, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 200, damping: 10 }}
@@ -91,18 +124,29 @@ export function Navbar({ onOpenModal }: NavbarProps) {
           </span>
         </a>
 
-        {/* Desktop Nav with Animated Underlines */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className="relative group text-xs sm:text-sm font-semibold text-[#6B7280] hover:text-[#0A0A0A] transition-colors"
-            >
-              {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#2563EB] transition-all duration-300 group-hover:w-full rounded-full" />
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = link.isRoute && (
+              currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+            )
+
+            return (
+              <a 
+                key={link.name} 
+                href={link.isRoute ? link.href : `/#${link.href}`}
+                onClick={(e) => handleNavClick(e, link)}
+                className={`relative group text-xs sm:text-sm font-semibold transition-colors ${
+                  isActive ? 'text-[#2563EB] font-bold' : 'text-[#6B7280] hover:text-[#0A0A0A]'
+                }`}
+              >
+                {link.name}
+                <span className={`absolute -bottom-1 left-0 h-[2px] bg-[#2563EB] transition-all duration-300 rounded-full ${
+                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                }`} />
+              </a>
+            )
+          })}
           
           <MagneticButton 
             onClick={handleOpenCTA}
@@ -132,16 +176,24 @@ export function Navbar({ onOpenModal }: NavbarProps) {
               className="fixed inset-x-0 top-0 pt-20 pb-8 px-6 bg-white/95 backdrop-blur-2xl border-b border-gray-200 shadow-2xl md:hidden z-40 flex flex-col gap-4"
             >
               <div className="flex flex-col gap-3 pt-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-base font-bold text-gray-800 hover:text-[#2563EB] py-2 border-b border-gray-100 transition-colors"
-                  >
-                    {link.name}
-                  </a>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = link.isRoute && (
+                    currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
+                  )
+
+                  return (
+                    <a
+                      key={link.name}
+                      href={link.isRoute ? link.href : `/#${link.href}`}
+                      onClick={(e) => handleNavClick(e, link)}
+                      className={`text-base py-2 border-b border-gray-100 transition-colors ${
+                        isActive ? 'text-[#2563EB] font-bold' : 'text-gray-800 hover:text-[#2563EB] font-medium'
+                      }`}
+                    >
+                      {link.name}
+                    </a>
+                  )
+                })}
               </div>
 
               <button
