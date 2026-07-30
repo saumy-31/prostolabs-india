@@ -59,10 +59,10 @@ export function Navbar({ onOpenModal }: NavbarProps) {
     }
   }, [])
 
+  // Navigation Links (Primary Header Menu)
   const navLinks = [
     { name: 'Home', href: '/', isRoute: true },
     { name: 'About', href: '/about', isRoute: true },
-    { name: 'Resources', href: '/resources', isRoute: true },
     { name: 'Pricing', href: 'pricing', isRoute: false },
     { name: 'FAQ', href: 'faq', isRoute: false },
     { name: 'Contact', href: '/contact', isRoute: true },
