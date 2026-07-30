@@ -274,7 +274,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           
           {/* BACKDROP OVERLAY */}
           <motion.div
@@ -305,7 +305,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                   </span>
                 </div>
 
-                <h2 className="text-xl sm:text-2xl font-black text-[#0A0A0A] tracking-tight font-sans">
+                <h2 id="modal-title" className="text-xl sm:text-2xl font-black text-[#0A0A0A] tracking-tight font-sans">
                   🚀 Start Your Website
                 </h2>
                 <p className="text-[11px] sm:text-xs text-[#6B7280] font-medium leading-normal">
@@ -329,10 +329,11 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                 
                 {/* SELECT PLAN DROPDOWN */}
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                  <label htmlFor="selectedPlan" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                     Select Your Plan
                   </label>
                   <select
+                    id="selectedPlan"
                     value={selectedPlan}
                     onChange={(e) => setSelectedPlan(e.target.value as PlanType)}
                     className="w-full text-xs font-bold px-3.5 py-2.5 rounded-xl border border-blue-200 bg-blue-50/60 text-[#2563EB] focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all cursor-pointer"
@@ -346,14 +347,18 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                 {/* ROW 1: FULL NAME | MOBILE NUMBER */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                    <label htmlFor="fullName" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                       Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
+                      id="fullName"
                       type="text"
                       placeholder="Enter your full name"
                       value={formData.fullName}
                       onChange={(e) => handleInputChange('fullName', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!errors.fullName}
+                      aria-describedby={errors.fullName ? "fullName-error" : undefined}
                       className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all ${
                         errors.fullName 
                           ? 'border-red-400 focus:ring-red-200' 
@@ -361,19 +366,23 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       }`}
                     />
                     {errors.fullName && (
-                      <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.fullName}</p>
+                      <p id="fullName-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.fullName}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                    <label htmlFor="mobileNumber" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                       Mobile Number <span className="text-red-500">*</span>
                     </label>
                     <input
+                      id="mobileNumber"
                       type="tel"
                       placeholder="+91 98765 43210"
                       value={formData.mobileNumber}
                       onChange={(e) => handleInputChange('mobileNumber', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!errors.mobileNumber}
+                      aria-describedby={errors.mobileNumber ? "mobileNumber-error" : undefined}
                       className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all ${
                         errors.mobileNumber 
                           ? 'border-red-400 focus:ring-red-200' 
@@ -381,7 +390,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       }`}
                     />
                     {errors.mobileNumber && (
-                      <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.mobileNumber}</p>
+                      <p id="mobileNumber-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.mobileNumber}</p>
                     )}
                   </div>
                 </div>
@@ -389,14 +398,18 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                 {/* ROW 2: EMAIL ADDRESS | BUSINESS NAME */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                    <label htmlFor="email" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                       Email Address <span className="text-red-500">*</span>
                     </label>
                     <input
+                      id="email"
                       type="email"
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
                       className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all ${
                         errors.email 
                           ? 'border-red-400 focus:ring-red-200' 
@@ -404,19 +417,23 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       }`}
                     />
                     {errors.email && (
-                      <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.email}</p>
+                      <p id="email-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.email}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                    <label htmlFor="businessName" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                       Business Name <span className="text-red-500">*</span>
                     </label>
                     <input
+                      id="businessName"
                       type="text"
                       placeholder="ABC Restaurant"
                       value={formData.businessName}
                       onChange={(e) => handleInputChange('businessName', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!errors.businessName}
+                      aria-describedby={errors.businessName ? "businessName-error" : undefined}
                       className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all ${
                         errors.businessName 
                           ? 'border-red-400 focus:ring-red-200' 
@@ -424,7 +441,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       }`}
                     />
                     {errors.businessName && (
-                      <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.businessName}</p>
+                      <p id="businessName-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.businessName}</p>
                     )}
                   </div>
                 </div>
@@ -432,12 +449,16 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                 {/* ROW 3: BUSINESS TYPE | DO YOU ALREADY HAVE A DOMAIN? */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 items-start">
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                    <label htmlFor="businessType" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                       Business Type <span className="text-red-500">*</span>
                     </label>
                     <select
+                      id="businessType"
                       value={formData.businessType}
                       onChange={(e) => handleInputChange('businessType', e.target.value)}
+                      aria-required="true"
+                      aria-invalid={!!errors.businessType}
+                      aria-describedby={errors.businessType ? "businessType-error" : undefined}
                       className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] focus:outline-none focus:bg-white focus:ring-2 transition-all cursor-pointer ${
                         errors.businessType 
                           ? 'border-red-400 focus:ring-red-200' 
@@ -450,14 +471,14 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       ))}
                     </select>
                     {errors.businessType && (
-                      <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.businessType}</p>
+                      <p id="businessType-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.businessType}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1.5">
+                    <span className="block text-[11px] font-bold text-[#0A0A0A] mb-1.5">
                       Do you already have a domain?
-                    </label>
+                    </span>
                     <div className="flex items-center gap-5 pt-1">
                       <label className="flex items-center gap-1.5 text-xs font-semibold text-[#0A0A0A] cursor-pointer">
                         <input
@@ -497,15 +518,19 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                       className="overflow-hidden"
                     >
                       <div className="pt-1">
-                        <label className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
+                        <label htmlFor="domainName" className="block text-[11px] font-bold text-[#0A0A0A] mb-1">
                           Domain Name <span className="text-red-500">*</span>
                         </label>
                         <div className="relative">
                           <input
+                            id="domainName"
                             type="text"
                             placeholder="example.in"
                             value={formData.domainName}
                             onChange={(e) => handleInputChange('domainName', e.target.value)}
+                            aria-required="true"
+                            aria-invalid={!!errors.domainName}
+                            aria-describedby={errors.domainName ? "domainName-error" : undefined}
                             className={`w-full text-xs px-3.5 py-2.5 rounded-xl border font-medium bg-gray-50/60 text-[#0A0A0A] placeholder-gray-400 focus:outline-none focus:bg-white focus:ring-2 transition-all ${
                               errors.domainName 
                                 ? 'border-red-400 focus:ring-red-200' 
@@ -515,7 +540,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                           <Globe className="w-3.5 h-3.5 text-gray-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
                         </div>
                         {errors.domainName && (
-                          <p className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.domainName}</p>
+                          <p id="domainName-error" className="text-[10px] font-semibold text-red-500 mt-0.5">{errors.domainName}</p>
                         )}
                       </div>
                     </motion.div>
@@ -527,9 +552,9 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                   <div className="flex items-center justify-between pb-2 border-b border-blue-100">
                     <div>
                       <span className="text-[9px] font-bold text-blue-600 uppercase tracking-wider block">Selected Plan</span>
-                      <h4 className="text-xs sm:text-sm font-black text-[#0A0A0A] flex items-center gap-1">
+                      <h3 className="text-xs sm:text-sm font-black text-[#0A0A0A] flex items-center gap-1">
                         {currentPlanMeta.name}
-                      </h4>
+                      </h3>
                     </div>
                     <div className="text-right">
                       <span className="text-base sm:text-lg font-black text-[#2563EB]">{currentPlanMeta.price}</span>
@@ -560,6 +585,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.015 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.985 }}
+                aria-label="Submit enquiry and continue to WhatsApp"
                 className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-xs sm:text-sm py-3 px-5 rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
               >
                 {isSubmitting ? (
@@ -584,6 +610,7 @@ export function EnquiryModal({ isOpen, onClose, initialPlan = 'care' }: EnquiryM
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
+                  role="status"
                   className="absolute bottom-16 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-[11px] font-bold px-3.5 py-2 rounded-full shadow-2xl flex items-center gap-2 border border-gray-700"
                 >
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />

@@ -73,7 +73,12 @@ export function Pricing({ onOpenModal }: PricingProps) {
   ]
 
   return (
-    <section ref={containerRef} className="relative py-12 sm:py-16 md:py-20 bg-[#FAFAFA] overflow-hidden" id="pricing">
+    <section 
+      ref={containerRef} 
+      className="relative py-12 sm:py-16 md:py-20 bg-[#FAFAFA] overflow-hidden" 
+      id="pricing"
+      aria-label="Website plans for small businesses"
+    >
       <div className="max-w-[1300px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* SECTION HEADER */}
@@ -84,7 +89,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 transform-gpu"
           >
-            <span className="text-xs">💙</span>
+            <span className="text-xs" role="img" aria-label="blue heart">💙</span>
             <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Simple Pricing</span>
           </motion.div>
 
@@ -122,7 +127,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
             <span>← Swipe to compare plans →</span>
           </motion.div>
 
-          {/* Horizontally Scrollable Cards Container (pt-4 guarantees no badge clipping) */}
+          {/* Horizontally Scrollable Cards Container */}
           <motion.div 
             initial={{ opacity: 0, y: 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -132,7 +137,6 @@ export function Pricing({ onOpenModal }: PricingProps) {
             
             {/* CARD 1: CARE PLAN (RECOMMENDED & FIRST) */}
             <div className="snap-center shrink-0 w-[88%] max-w-[320px] bg-white rounded-3xl p-6 border-2 border-[#2563EB] shadow-xl relative flex flex-col justify-between transform-gpu">
-              {/* Floating Top Badge with Proper Elevation & Padding */}
               <div className="absolute -top-3.5 right-5 z-20 bg-[#2563EB] text-white px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wide shadow-md whitespace-nowrap">
                 🔥 Most Popular
               </div>
@@ -165,6 +169,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('care')}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Start Care Plan for ₹499 per month"
                 className="w-full h-[52px] bg-[#2563EB] text-white font-bold text-sm rounded-2xl shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors transform-gpu"
               >
                 <span>Start for ₹499/month</span>
@@ -202,6 +207,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('onetime')}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Buy One-Time Plan for ₹4,999"
                 className="w-full h-[52px] bg-white text-[#0A0A0A] border border-gray-300 font-bold text-sm rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors transform-gpu"
               >
                 Buy One-Time
@@ -237,6 +243,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
               <motion.button 
                 onClick={() => onOpenModal?.('custom')}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Request a custom solution quote"
                 className="w-full h-[52px] bg-[#0A0A0A] text-white font-bold text-sm rounded-2xl shadow-md flex items-center justify-center cursor-pointer hover:bg-gray-800 active:bg-gray-900 transition-colors transform-gpu"
               >
                 Request Quote
@@ -297,6 +304,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 variants={featureVariants}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Start Care Plan for ₹499 per month"
                 className="w-full relative inline-flex items-center justify-center gap-2 bg-[#2563EB] text-white px-6 py-3.5 rounded-xl font-bold text-sm transition-all duration-300 hover:shadow-[0_8px_25px_rgba(37,99,235,0.35)] overflow-hidden group/btn mt-auto z-10 cursor-pointer transform-gpu"
               >
                 <span className="relative z-10 flex items-center gap-2">
@@ -344,6 +352,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 variants={featureVariants}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Buy One-Time Plan for ₹4,999"
                 className="w-full inline-flex items-center justify-center gap-2 bg-white text-[#0A0A0A] border border-gray-200 px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer transform-gpu"
               >
                 Buy Once
@@ -382,6 +391,7 @@ export function Pricing({ onOpenModal }: PricingProps) {
                 variants={featureVariants}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Request a custom solution quote"
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#0A0A0A] text-white px-6 py-3.5 rounded-xl font-bold text-sm hover:bg-gray-800 transition-all duration-300 shadow-2xs mt-auto z-10 cursor-pointer transform-gpu"
               >
                 Request a Quote

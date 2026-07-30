@@ -16,9 +16,9 @@ interface AboutUsProps {
 
 export function AboutUs({ onOpenModal }: AboutUsProps) {
   return (
-    <div className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
+    <main id="about-content" aria-label="About ProstoLabs India" className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* AMBIENT BACKGROUND GLOWS - Scaled down for mobile to eliminate horizontal scroll canvas expansion */}
+      {/* AMBIENT BACKGROUND GLOWS */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] sm:w-[500px] md:w-[800px] h-[300px] sm:h-[400px] max-w-full bg-blue-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto space-y-12 relative z-10">
@@ -27,13 +27,14 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
         <div className="flex items-center justify-between">
           <a 
             href="/" 
+            aria-label="Return to ProstoLabs India homepage"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-600 hover:text-[#2563EB] transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/80 shadow-2xs"
           >
             <ArrowLeft size={16} />
             <span>Back to Home</span>
           </a>
           <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 shadow-2xs">
-            <span className="text-xs">🇮🇳</span>
+            <span className="text-xs" role="img" aria-label="India flag">🇮🇳</span>
             <span className="text-[10px] font-bold text-[#2563EB] uppercase tracking-wider">Built for India</span>
           </div>
         </div>
@@ -104,7 +105,7 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
             </div>
 
             <p className="text-xs sm:text-sm text-[#6B7280] leading-relaxed">
-              We created a third option: **Done-For-You Websites starting at just ₹499/month.** We build, host, secure, and maintain your website while providing direct WhatsApp support so you never have to worry about tech code or updates.
+              We created a third option: <strong>Done-For-You Websites starting at just ₹499/month.</strong> We build, host, secure, and maintain your website while providing direct WhatsApp support so you never have to worry about tech code or updates.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
@@ -156,11 +157,12 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
         {/* BOTTOM CTA CARD */}
         <div className="bg-gradient-to-r from-[#1E3A8A] via-[#2563EB] to-[#1D4ED8] rounded-[32px] p-8 sm:p-10 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-2xl font-black font-sans">Ready to launch your website?</h3>
+            <h2 className="text-2xl font-black font-sans">Ready to launch your website?</h2>
             <p className="text-xs sm:text-sm text-blue-100 font-medium">Get started today for just ₹499/month or ₹4,999 one-time.</p>
           </div>
           <button
             onClick={() => onOpenModal?.('care')}
+            aria-label="Start your website with ProstoLabs Care Plan"
             className="bg-white text-[#2563EB] font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl hover:bg-blue-50 transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-lg"
           >
             <span>Start Your Website</span>
@@ -169,6 +171,6 @@ export function AboutUs({ onOpenModal }: AboutUsProps) {
         </div>
 
       </div>
-    </div>
+    </main>
   )
 }

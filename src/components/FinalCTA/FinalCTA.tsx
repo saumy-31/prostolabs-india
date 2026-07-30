@@ -78,8 +78,12 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
   const isInView = useInView(sectionRef, { once: true, margin: "-60px" })
 
   return (
-    /* Added "hidden lg:block" so the entire section renders ONLY on Desktop (≥1024px) */
-    <section ref={sectionRef} className="hidden lg:block py-8 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" id="get-started">
+    <section 
+      ref={sectionRef} 
+      className="hidden lg:block py-8 sm:py-12 md:py-14 bg-[#FAFAFA] relative overflow-hidden" 
+      id="get-started"
+      aria-label="Start your website today"
+    >
       <div className="max-w-[1350px] mx-auto px-4 sm:px-6 md:px-12 relative z-10">
         
         {/* FULL-WIDTH PREMIUM CANVAS CARD */}
@@ -162,9 +166,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                   Fully Managed Care
                 </div>
 
-                <div className="text-3xl md:text-4xl font-black text-[#0A0A0A] font-sans tracking-tight mb-2">
+                <h3 className="text-3xl md:text-4xl font-black text-[#0A0A0A] font-sans tracking-tight mb-2">
                   ₹499 <span className="text-sm font-semibold text-gray-500">/ month</span>
-                </div>
+                </h3>
 
                 <p className="text-xs text-gray-600 mb-5 leading-relaxed font-medium min-h-[36px]">
                   Best for businesses that want everything managed seamlessly.
@@ -186,6 +190,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                 onClick={() => onOpenModal?.('care')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
+                aria-label="Start Monthly Plan at ₹499 per month"
                 className="w-full bg-[#2563EB] text-white font-bold text-xs sm:text-sm py-3.5 rounded-xl shadow-lg hover:bg-blue-700 transition-colors text-center mt-auto flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Start Monthly Plan</span>
@@ -204,9 +209,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                   💎 Full Ownership
                 </div>
 
-                <div className="text-3xl md:text-4xl font-black text-white font-sans tracking-tight mb-2">
+                <h3 className="text-3xl md:text-4xl font-black text-white font-sans tracking-tight mb-2">
                   ₹4,999 <span className="text-sm font-semibold text-blue-200">one-time</span>
-                </div>
+                </h3>
 
                 <p className="text-xs text-blue-100 mb-5 leading-relaxed font-medium min-h-[36px]">
                   Perfect for businesses that want to own their website completely.
@@ -232,6 +237,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                 onClick={() => onOpenModal?.('onetime')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
+                aria-label="Buy One-Time Plan for ₹4,999"
                 className="w-full bg-white text-[#2563EB] font-bold text-xs sm:text-sm py-3.5 rounded-xl shadow-md hover:bg-blue-50 transition-colors text-center mt-auto cursor-pointer"
               >
                 Buy One-Time Plan
@@ -249,9 +255,9 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                   Enterprise & Apps
                 </div>
 
-                <div className="text-2xl md:text-3xl font-black text-white font-sans tracking-tight mb-2">
+                <h3 className="text-2xl md:text-3xl font-black text-white font-sans tracking-tight mb-2">
                   Custom Solution
-                </div>
+                </h3>
 
                 <p className="text-xs text-blue-100 mb-5 leading-relaxed font-medium min-h-[36px]">
                   For businesses needing something beyond a standard website.
@@ -273,13 +279,13 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                 onClick={() => onOpenModal?.('custom')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
+                aria-label="Get a custom quote for enterprise projects"
                 className="w-full bg-white/20 text-white border border-white/30 font-bold text-xs sm:text-sm py-3.5 rounded-xl shadow-md hover:bg-white/30 transition-colors backdrop-blur-md text-center mt-auto cursor-pointer"
               >
                 Get a Custom Quote
               </motion.button>
             </motion.div>
           </motion.div>
-
 
           {/* TRUST STRIP BADGES */}
           <div className="mb-6 sm:mb-10 relative z-10">
@@ -295,7 +301,6 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
             </div>
           </div>
 
-
           {/* SOCIAL PROOF AVATARS STACK */}
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
@@ -308,10 +313,11 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
                 <motion.img 
                   key={i} 
                   src={person.src} 
-                  alt={person.name} 
+                  alt={`${person.name}, ${person.role}`} 
                   title={`${person.name} (${person.role})`}
                   whileHover={{ scale: 1.15, zIndex: 30 }}
                   className="inline-block h-9 w-9 rounded-full ring-2 ring-white/90 object-cover shadow-md transition-transform" 
+                  loading="lazy"
                 />
               ))}
             </div>
@@ -320,13 +326,13 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
             </p>
           </motion.div>
 
-
           {/* PRIMARY & SECONDARY ACTION BUTTONS */}
           <div className="flex flex-row items-center justify-center gap-3.5 max-w-md mx-auto relative z-10">
             <motion.button 
               onClick={() => onOpenModal?.('care')}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
+              aria-label="Start your website today with ProstoLabs"
               className="bg-white text-[#2563EB] px-7 py-3.5 rounded-2xl font-black text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center justify-center gap-2 group text-center cursor-pointer"
             >
               <span>Start Your Website Today</span>
@@ -337,6 +343,7 @@ export function FinalCTA({ onOpenModal }: FinalCTAProps) {
               href="https://wa.me/916392577105" 
               target="_blank" 
               rel="noopener noreferrer"
+              aria-label="Talk on WhatsApp with ProstoLabs"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="bg-emerald-500 text-white border border-emerald-400/30 px-7 py-3.5 rounded-2xl font-bold text-sm shadow-lg hover:bg-emerald-600 transition-all flex items-center justify-center gap-2 text-center cursor-pointer"

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion'
 import { 
   Star, 
@@ -27,6 +27,7 @@ const testimonials = [
     industry: 'Restaurant & Dining',
     location: 'Bengaluru, KA',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Rohan Sharma, Founder of Spice Route Bistro - ProstoLabs website review',
     rating: 5,
     quote: "Our new website has completely changed how customers discover us online. Table reservations and direct WhatsApp orders doubled in our very first month.",
     projectType: 'Fine Dining Portal & Menu',
@@ -43,6 +44,7 @@ const testimonials = [
     industry: 'Gym & Fitness',
     location: 'Mumbai, MH',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Priya Patel, Managing Director of FitPulse Fitness Arena - ProstoLabs website review',
     rating: 5,
     quote: "The process was incredibly simple, and the website looks amazing on mobile. Members love checking class schedules and booking trial passes directly online.",
     projectType: 'High-Energy Fitness Site',
@@ -59,6 +61,7 @@ const testimonials = [
     industry: 'Beauty & Wellness',
     location: 'Delhi, NCR',
     avatar: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Ananya Verma, Lead Stylist of Lumière Spa & Salon - ProstoLabs website review',
     rating: 5,
     quote: "Customers can now contact us instantly through WhatsApp. Appointment management has never been easier, and our brand finally looks luxury.",
     projectType: 'Luxury Booking Showcase',
@@ -75,6 +78,7 @@ const testimonials = [
     industry: 'Healthcare & Clinic',
     location: 'Hyderabad, TS',
     avatar: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Dr. Arvind Rao, Chief Medical Specialist at CarePlus Multi-Specialty Clinic - ProstoLabs website review',
     rating: 5,
     quote: "Professional, fast, and exactly what our medical practice needed. Patients regularly compliment how clean and easy it is to find doctor slots.",
     projectType: 'Medical Clinic & OPD Portal',
@@ -91,6 +95,7 @@ const testimonials = [
     industry: 'Real Estate',
     location: 'Pune, MH',
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Vikram Malhotra, Principal Realtor at Apex Realty Group - ProstoLabs website review',
     rating: 5,
     quote: "Our luxury property listings finally look premium online. We closed two major villa deals directly from inquiries that came through our ProstoLabs site.",
     projectType: 'Property Showcase Site',
@@ -107,6 +112,7 @@ const testimonials = [
     industry: 'Coaching & Education',
     location: 'Jaipur, RJ',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80&crop=faces',
+    altText: 'Suresh Kumar, Academic Director at Mindspace Academy - ProstoLabs website review',
     rating: 5,
     quote: "Batch admissions grew noticeably after launching our website. Parents appreciate seeing transparent course schedules and faculty achievements.",
     projectType: 'Academy Enrollment Site',
@@ -136,7 +142,12 @@ export function Testimonials() {
   const current = testimonials[activeIndex]
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-20 md:py-28 bg-[#FAFAFA] relative overflow-hidden" id="testimonials">
+    <section 
+      ref={sectionRef} 
+      className="py-12 sm:py-20 md:py-28 bg-[#FAFAFA] relative overflow-hidden" 
+      id="testimonials"
+      aria-label="Website development reviews India"
+    >
       
       {/* Background Radial Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[650px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none transform-gpu" />
@@ -247,14 +258,15 @@ export function Testimonials() {
                     <div className="flex items-center gap-3 min-w-0 flex-1">
                       <img 
                         src={item.avatar} 
-                        alt={item.name} 
+                        alt={item.altText} 
                         className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs shrink-0 transform-gpu" 
+                        loading="lazy"
                       />
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1 truncate">
+                        <h3 className="font-extrabold text-sm text-[#0A0A0A] font-sans flex items-center gap-1 truncate">
                           <span className="truncate">{item.name}</span>
                           <CheckCircle2 size={14} className="text-[#2563EB] shrink-0" />
-                        </h4>
+                        </h3>
                         <p className="text-xs text-gray-500 font-medium truncate">{item.business}</p>
                         <p className="text-[10px] text-gray-400 flex items-center gap-0.5 mt-0.5 truncate">
                           <MapPin size={10} className="shrink-0" /> <span className="truncate">{item.location}</span>
@@ -320,14 +332,15 @@ export function Testimonials() {
                   <div className="flex items-center gap-3.5">
                     <img 
                       src={current.avatar} 
-                      alt={current.name} 
+                      alt={current.altText} 
                       className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-2xs shrink-0 transform-gpu" 
+                      loading="lazy"
                     />
                     <div>
-                      <h4 className="font-bold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
+                      <h3 className="font-bold text-sm text-[#0A0A0A] font-sans flex items-center gap-1">
                         {current.name}
                         <CheckCircle2 size={14} className="text-[#2563EB]" />
-                      </h4>
+                      </h3>
                       <p className="text-xs text-gray-500 font-medium">{current.role}, {current.business}</p>
                       <p className="text-[11px] text-gray-400 flex items-center gap-0.5 mt-0.5">
                         <MapPin size={10} /> {current.location}
@@ -357,6 +370,7 @@ export function Testimonials() {
                   onClick={() => setActiveIndex(idx)}
                   whileHover={shouldReduceMotion ? {} : { x: 4 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label={`Read testimonial from ${item.name}, ${item.business}`}
                   className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 cursor-pointer transform-gpu ${
                     isActive 
                       ? 'bg-white border-[#2563EB] shadow-md ring-2 ring-blue-100' 

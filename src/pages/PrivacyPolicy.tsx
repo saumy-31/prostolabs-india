@@ -13,13 +13,14 @@ import {
 
 export function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <main id="privacy-policy-content" aria-label="Privacy Policy ProstoLabs India" className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
       <div className="max-w-4xl mx-auto space-y-10 relative z-10">
         
         {/* TOP BACK BUTTON / BRAND BAR */}
         <div className="flex items-center justify-between">
           <a 
             href="/" 
+            aria-label="Return to ProstoLabs India homepage"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-600 hover:text-[#2563EB] transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/80 shadow-2xs"
           >
             <ArrowLeft size={16} />
@@ -203,6 +204,6 @@ export function PrivacyPolicy() {
 
         </motion.div>
       </div>
-    </div>
+    </main>
   )
 }

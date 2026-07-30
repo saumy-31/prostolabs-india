@@ -16,7 +16,6 @@ import {
   Dumbbell,
   Scissors,
   Stethoscope,
-  
   UserCheck
 } from 'lucide-react'
 
@@ -64,6 +63,7 @@ const industries = [
       description: 'Handcrafted recipes, organic local ingredients, and an unforgettable fine dining ambiance.',
       accent: 'from-amber-500 via-orange-600 to-red-600',
       heroImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80',
+      altText: 'Gourmet Bistro - Restaurant website design portfolio example by ProstoLabs India',
       ctaText: 'Reserve Table',
       secondaryCta: 'Explore Menu',
       stat1: '4.9 ⭐',
@@ -89,6 +89,7 @@ const industries = [
       description: 'State-of-the-art strength gear, elite personal coaching, and high-energy group functional training.',
       accent: 'from-emerald-500 via-teal-500 to-cyan-600',
       heroImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&auto=format&fit=crop&q=80',
+      altText: 'FitPulse Fitness Arena - Gym website design portfolio example by ProstoLabs India',
       ctaText: 'Claim Free Pass',
       secondaryCta: 'View Schedule',
       stat1: '1,250+',
@@ -114,6 +115,7 @@ const industries = [
       description: 'Pamper yourself with bespoke hair styling, skin rejuvenation, and luxury spa treatments.',
       accent: 'from-pink-500 via-rose-500 to-purple-600',
       heroImage: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&auto=format&fit=crop&q=80',
+      altText: 'Lumiere Spa & Salon - Beauty salon website design portfolio example by ProstoLabs India',
       ctaText: 'Book Slot',
       secondaryCta: 'View Spa Menu',
       stat1: '5.0 ⭐',
@@ -139,6 +141,7 @@ const industries = [
       description: 'Expert doctors, zero waiting time, and compassionate medical care for your entire family.',
       accent: 'from-blue-600 via-blue-500 to-cyan-500',
       heroImage: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&auto=format&fit=crop&q=80',
+      altText: 'CarePlus Health - Medical clinic website design portfolio example by ProstoLabs India',
       ctaText: 'Book OPD Slot',
       secondaryCta: 'Find Doctor',
       stat1: '15+ Yrs',
@@ -164,6 +167,7 @@ const industries = [
       description: 'Explore verified luxury properties with 3D virtual walkthroughs and 100% legal clearance.',
       accent: 'from-amber-600 via-yellow-600 to-amber-700',
       heroImage: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop&q=80',
+      altText: 'Apex Estates - Real estate website design portfolio example by ProstoLabs India',
       ctaText: 'Schedule Visit',
       secondaryCta: 'Brochure',
       stat1: '₹50Cr+',
@@ -189,6 +193,7 @@ const industries = [
       description: 'Learn from IIT & AIIMS alumni mentors with small batch sizes and rigorous test series.',
       accent: 'from-indigo-600 via-purple-600 to-blue-700',
       heroImage: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&auto=format&fit=crop&q=80',
+      altText: 'Apex Academy - Coaching institute website design portfolio example by ProstoLabs India',
       ctaText: 'Free Demo Class',
       secondaryCta: 'Batch Schedule',
       stat1: '98.4%',
@@ -227,7 +232,12 @@ export function Showcase() {
   }
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" id="work">
+    <section 
+      ref={sectionRef} 
+      className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" 
+      id="work"
+      aria-label="Website design portfolio India"
+    >
       
       {/* Background Soft Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[550px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.06)_0%,_transparent_75%)] pointer-events-none" />
@@ -243,7 +253,7 @@ export function Showcase() {
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 shadow-2xs mb-3 transform-gpu"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
-            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase"> Our Work</span>
+            <span className="text-[11px] font-bold text-[#2563EB] tracking-wider uppercase">Our Work</span>
           </motion.div>
 
           <motion.h2 
@@ -275,6 +285,7 @@ export function Showcase() {
           <div className="bg-white border border-gray-200/90 rounded-full p-1 shadow-2xs flex items-center">
             <button
               onClick={() => setIsBeforeView(false)}
+              aria-label="Show ProstoLabs redesign showcase"
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer transform-gpu ${
                 !isBeforeView 
                   ? 'bg-[#2563EB] text-white shadow-xs' 
@@ -286,6 +297,7 @@ export function Showcase() {
             </button>
             <button
               onClick={() => setIsBeforeView(true)}
+              aria-label="Show old dated website example"
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 flex items-center gap-1.5 cursor-pointer transform-gpu ${
                 isBeforeView 
                   ? 'bg-amber-600 text-white shadow-xs' 
@@ -314,6 +326,7 @@ export function Showcase() {
                   <button
                     key={ind.id}
                     onClick={() => handleTabChange(idx)}
+                    aria-label={`Show ${ind.name} portfolio preview`}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all flex items-center gap-1.5 border shrink-0 cursor-pointer transform-gpu active:scale-95 ${
                       isActive 
                         ? 'bg-[#0A0A0A] border-[#0A0A0A] text-white shadow-xs' 
@@ -371,8 +384,9 @@ export function Showcase() {
                       <div className="absolute inset-0 z-0">
                         <img 
                           src={currentInd.preview.heroImage} 
-                          alt={currentInd.preview.headline}
+                          alt={currentInd.preview.altText}
                           className="w-full h-full object-cover opacity-35 filter brightness-90"
+                          loading="lazy"
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F19]/90 via-[#0B0F19]/80 to-[#0B0F19]" />
                       </div>
@@ -415,7 +429,10 @@ export function Showcase() {
                         </div>
 
                         {/* Phone CTA */}
-                        <button className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1 transform-gpu active:scale-95 transition-transform cursor-pointer`}>
+                        <button 
+                          aria-label={`Action for ${currentInd.name}`}
+                          className={`w-full py-2.5 rounded-xl font-extrabold text-xs text-white bg-gradient-to-r ${currentInd.preview.accent} shadow-md flex items-center justify-center gap-1 transform-gpu active:scale-95 transition-transform cursor-pointer`}
+                        >
                           <span>{currentInd.preview.ctaText}</span>
                           <ChevronRight size={14} />
                         </button>
@@ -480,6 +497,7 @@ export function Showcase() {
                   <button
                     key={ind.id}
                     onClick={() => handleTabChange(idx)}
+                    aria-label={`View ${ind.name} portfolio showcase`}
                     className={`px-3.5 py-2 rounded-2xl text-xs font-bold transition-all duration-300 flex items-center gap-2 border cursor-pointer transform-gpu ${
                       isActive 
                         ? 'bg-[#0A0A0A] border-[#0A0A0A] text-white shadow-xs scale-[1.02]' 
@@ -594,8 +612,9 @@ export function Showcase() {
                       <div className="absolute inset-0 z-0">
                         <img 
                           src={currentInd.preview.heroImage} 
-                          alt={currentInd.preview.headline} 
+                          alt={currentInd.preview.altText} 
                           className="w-full h-full object-cover opacity-30 filter contrast-105"
+                          loading="lazy"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F19] via-[#0B0F19]/90 to-transparent" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-[#0B0F19]/80" />
@@ -620,7 +639,10 @@ export function Showcase() {
                           <span className="hover:text-white cursor-pointer transition-colors">Contact</span>
                         </div>
 
-                        <button className={`px-4 py-2 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} shadow-md transform-gpu hover:opacity-95 active:scale-95 transition-all cursor-pointer`}>
+                        <button 
+                          aria-label={`Action for ${currentInd.name}`}
+                          className={`px-4 py-2 rounded-xl text-white font-bold text-xs bg-gradient-to-r ${currentInd.preview.accent} shadow-md transform-gpu hover:opacity-95 active:scale-95 transition-all cursor-pointer`}
+                        >
                           {currentInd.preview.ctaText}
                         </button>
                       </div>
@@ -640,12 +662,18 @@ export function Showcase() {
                         </p>
 
                         <div className="flex items-center gap-3">
-                          <button className={`px-6 py-3 rounded-xl text-white font-extrabold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1.5 shadow-lg cursor-pointer transform-gpu hover:opacity-95 active:scale-95 transition-all`}>
+                          <button 
+                            aria-label={`Primary action: ${currentInd.preview.ctaText}`}
+                            className={`px-6 py-3 rounded-xl text-white font-extrabold text-xs bg-gradient-to-r ${currentInd.preview.accent} flex items-center gap-1.5 shadow-lg cursor-pointer transform-gpu hover:opacity-95 active:scale-95 transition-all`}
+                          >
                             <span>{currentInd.preview.ctaText}</span>
                             <ChevronRight className="w-4 h-4" />
                           </button>
 
-                          <button className="px-5 py-3 rounded-xl bg-white/10 text-white border border-white/20 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer transform-gpu active:scale-95">
+                          <button 
+                            aria-label={`Secondary action: ${currentInd.preview.secondaryCta}`}
+                            className="px-5 py-3 rounded-xl bg-white/10 text-white border border-white/20 font-bold text-xs hover:bg-white/20 transition-all backdrop-blur-md cursor-pointer transform-gpu active:scale-95"
+                          >
                             {currentInd.preview.secondaryCta}
                           </button>
                         </div>

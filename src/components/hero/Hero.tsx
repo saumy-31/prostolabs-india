@@ -103,13 +103,15 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
         transition={{ duration: 0.35, delay: 0.1 }}
         className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5 transform-gpu"
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=300&auto=format&fit=crop&q=80')` }}
+        role="img"
+        aria-label="Spice Route Bistro - Example of affordable restaurant website design by ProstoLabs India"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         <div className="relative z-10 space-y-0.5">
           <span className="bg-amber-500/90 text-black font-extrabold text-[8px] px-1.5 py-0.5 rounded-md uppercase tracking-wider">
             Fine Dining
           </span>
-          <h5 className="font-extrabold text-xs text-white leading-tight">Spice Route Bistro</h5>
+          <h3 className="font-extrabold text-xs text-white leading-tight">Spice Route Bistro</h3>
         </div>
       </motion.div>
 
@@ -152,6 +154,7 @@ const RestaurantWebsite = memo(function RestaurantWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Reserve table now on Spice Route Bistro"
         className="w-full h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Reserve Table Now</span>
@@ -176,7 +179,7 @@ const ClinicWebsite = memo(function ClinicWebsite() {
         </div>
         <div className="min-w-0">
           <div className="text-[8px] font-bold text-cyan-400 uppercase">Cardiologist</div>
-          <h5 className="font-extrabold text-xs text-white truncate">Dr. Ananya Sharma</h5>
+          <h3 className="font-extrabold text-xs text-white truncate">Dr. Ananya Sharma</h3>
           <div className="text-[8px] text-gray-300 font-medium">MD • 15+ Yrs Exp</div>
         </div>
       </motion.div>
@@ -215,6 +218,7 @@ const ClinicWebsite = memo(function ClinicWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Book OPD appointment with Dr. Ananya Sharma"
         className="w-full h-8 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Book OPD Appointment</span>
@@ -237,7 +241,7 @@ const SalonWebsite = memo(function SalonWebsite() {
         <span className="bg-pink-500 text-white font-black text-[8px] px-2 py-0.5 rounded-full uppercase tracking-wider">
           20% OFF FIRST VISIT
         </span>
-        <h5 className="font-black text-xs text-white mt-1.5">Lumiere Spa & Salon</h5>
+        <h3 className="font-black text-xs text-white mt-1.5">Lumiere Spa & Salon</h3>
         <p className="text-[8px] text-pink-200 leading-tight">Bespoke hair styling & deep skin hydration</p>
       </motion.div>
 
@@ -271,6 +275,7 @@ const SalonWebsite = memo(function SalonWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Claim 20% discount pass for Lumiere Spa & Salon"
         className="w-full h-8 bg-gradient-to-r from-rose-500 to-pink-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Claim 20% Discount Pass</span>
@@ -296,7 +301,7 @@ const GymWebsite = memo(function GymWebsite() {
           </span>
           <span className="text-[8px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">24/7 OPEN</span>
         </div>
-        <h5 className="font-black text-sm text-white mt-1">FitPulse Fitness Arena</h5>
+        <h3 className="font-black text-sm text-white mt-1">FitPulse Fitness Arena</h3>
       </motion.div>
 
       <div className="grid grid-cols-2 gap-1.5">
@@ -327,6 +332,7 @@ const GymWebsite = memo(function GymWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Get free 1-day trial pass for FitPulse Fitness Arena"
         className="w-full h-8 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Get Free 1-Day Trial Pass</span>
@@ -346,13 +352,15 @@ const RealEstateWebsite = memo(function RealEstateWebsite() {
         transition={{ duration: 0.35, delay: 0.1 }}
         className="relative h-24 rounded-2xl bg-cover bg-center overflow-hidden border border-white/10 flex flex-col justify-end p-2.5 transform-gpu"
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=300&auto=format&fit=crop&q=80')` }}
+        role="img"
+        aria-label="Apex Sky Villas - Real estate website design example by ProstoLabs India"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
         <div className="relative z-10 space-y-0.5">
           <span className="bg-amber-400 text-black font-extrabold text-[8px] px-1.5 py-0.5 rounded uppercase">
             0% Brokerage
           </span>
-          <h5 className="font-extrabold text-xs text-white">Apex Sky Villas</h5>
+          <h3 className="font-extrabold text-xs text-white">Apex Sky Villas</h3>
         </div>
       </motion.div>
 
@@ -368,6 +376,7 @@ const RealEstateWebsite = memo(function RealEstateWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Schedule private visit to Apex Sky Villas"
         className="w-full h-8 bg-gradient-to-r from-amber-600 to-yellow-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Schedule Private Visit</span>
@@ -390,7 +399,7 @@ const CoachingWebsite = memo(function CoachingWebsite() {
         <div className="inline-block bg-indigo-500 text-white font-extrabold text-[8px] px-2 py-0.5 rounded uppercase mb-1">
           BATCH 2026 ADMISSIONS
         </div>
-        <h5 className="font-black text-xs text-white">Mindspace Academy</h5>
+        <h3 className="font-black text-xs text-white">Mindspace Academy</h3>
         <p className="text-[8px] text-indigo-200">IIT & AIIMS Alumni Faculty Mentors</p>
       </motion.div>
 
@@ -410,6 +419,7 @@ const CoachingWebsite = memo(function CoachingWebsite() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.35 }}
+        aria-label="Register free demo class for Mindspace Academy"
         className="w-full h-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-[10px] font-extrabold text-white flex items-center justify-center gap-1 shadow-md transform-gpu"
       >
         <span>Register Free Demo Class</span>
@@ -491,11 +501,11 @@ export function Hero({ onOpenModal }: HeroProps) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      // 'isolate-layer' establishes WebKit z-index stacking context on iOS
+      aria-label="Affordable website development India"
       className="relative pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16 lg:pb-20 bg-[#FAFAFA] overflow-hidden select-none isolate-layer" 
       id="hero"
     >
-      {/* BACKGROUND AMBIENT GLOW - Fixed iOS refresh collapse by using deterministic animate trigger and controlled blur class */}
+      {/* BACKGROUND AMBIENT GLOW */}
       <motion.div 
         style={{ y: shouldReduceMotion ? 0 : bgScrollY, x: shouldReduceMotion ? 0 : glowX }}
         animate={{ scale: [1, 1.08, 1], opacity: [0.08, 0.14, 0.08] }}
@@ -531,15 +541,13 @@ export function Hero({ onOpenModal }: HeroProps) {
           className="space-y-2 transform-gpu"
         >
           <h1 className="text-[2.25rem] leading-[1.1] font-black text-[#0A0A0A] font-sans tracking-tight">
-            Professional Websites
-          </h1>
-          <div className="text-2xl font-extrabold text-[#0A0A0A] flex items-center justify-center gap-1.5">
-            <span>From Just</span>
-            <div className="text-3xl font-black text-[#2563EB]">
+            Professional Websites <br />
+            <span className="text-2xl font-extrabold text-[#0A0A0A]">From Just </span>
+            <div className="inline-block text-3xl font-black text-[#2563EB]">
               <AnimatedPriceCounter />
               <span className="text-lg font-bold ml-0.5">/mo</span>
             </div>
-          </div>
+          </h1>
         </motion.div>
 
         {/* SUBTITLE */}
@@ -580,6 +588,7 @@ export function Hero({ onOpenModal }: HeroProps) {
           <motion.button 
             onClick={() => onOpenModal?.('care')}
             whileTap={{ scale: 0.98 }}
+            aria-label="Start website plan at ₹499 per month"
             className="w-full h-[56px] bg-[#2563EB] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors transform-gpu"
           >
             <span>Start at ₹499/month</span>
@@ -588,6 +597,7 @@ export function Hero({ onOpenModal }: HeroProps) {
 
           <a 
             href="#pricing"
+            aria-label="View pricing plans"
             className="w-full h-[56px] bg-white text-[#0A0A0A] border border-gray-200 font-bold text-base rounded-2xl shadow-2xs flex items-center justify-center cursor-pointer hover:bg-gray-50 active:bg-gray-100 transition-colors transform-gpu"
           >
             View Pricing
@@ -699,6 +709,7 @@ export function Hero({ onOpenModal }: HeroProps) {
               {phoneDemos.map((_, idx) => (
                 <button
                   key={idx}
+                  aria-label={`View website demo ${idx + 1}`}
                   onClick={() => {
                     setIsLoading(true)
                     setTimeout(() => {
@@ -820,6 +831,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 transition={{ duration: 0.4, delay: 1.25 }}
                 whileHover={{ scale: 1.02, boxShadow: "0 20px 35px -10px rgba(37,99,235,0.35)" }}
                 whileTap={{ scale: 0.98 }}
+                aria-label="Start website plan at ₹499 per month"
                 className="bg-[#2563EB] text-white font-bold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group cursor-pointer transform-gpu"
               >
                 <span>Start at ₹499/month</span>
@@ -831,6 +843,7 @@ export function Hero({ onOpenModal }: HeroProps) {
                 initial={{ opacity: 0, x: -12 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1.35 }}
+                aria-label="View pricing plans"
                 className="bg-white text-[#0A0A0A] border border-gray-200/90 font-bold text-sm px-6 py-3.5 rounded-xl transition-all items-center justify-center text-center shadow-2xs cursor-pointer hover:bg-gray-50 transform-gpu active:bg-gray-100"
               >
                 View Pricing

@@ -14,13 +14,14 @@ import {
 
 export function TermsConditions() {
   return (
-    <div className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <main id="terms-content" aria-label="Terms and Conditions ProstoLabs India" className="min-h-screen bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900">
       <div className="max-w-4xl mx-auto space-y-10 relative z-10">
         
         {/* TOP BACK BUTTON / BRAND BAR */}
         <div className="flex items-center justify-between">
           <a 
             href="/" 
+            aria-label="Return to ProstoLabs India homepage"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-600 hover:text-[#2563EB] transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/80 shadow-2xs"
           >
             <ArrowLeft size={16} />
@@ -156,7 +157,7 @@ export function TermsConditions() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-4 space-y-2">
-                <h4 className="text-xs font-black text-emerald-900 uppercase">✓ Included in Content Updates</h4>
+                <h3 className="text-xs font-black text-emerald-900 uppercase">✓ Included in Content Updates</h3>
                 <ul className="text-xs text-emerald-900 space-y-1 font-semibold">
                   <li>• Updating images & promotional banners</li>
                   <li>• Modifying prices, offers, or discounts</li>
@@ -166,7 +167,7 @@ export function TermsConditions() {
               </div>
 
               <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 space-y-2">
-                <h4 className="text-xs font-black text-amber-900 uppercase">✕ Excluded (Charged Separately)</h4>
+                <h3 className="text-xs font-black text-amber-900 uppercase">✕ Excluded (Charged Separately)</h3>
                 <ul className="text-xs text-amber-900 space-y-1 font-semibold">
                   <li>• Complete website redesigns</li>
                   <li>• Brand name or logo redesigns</li>
@@ -231,6 +232,6 @@ export function TermsConditions() {
 
         </motion.div>
       </div>
-    </div>
+    </main>
   )
 }

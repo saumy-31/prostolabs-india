@@ -76,7 +76,12 @@ export function HowItWorks() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 20 })
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" id="how-it-works">
+    <section 
+      ref={sectionRef} 
+      className="py-12 sm:py-16 md:py-20 bg-[#FAFAFA] relative overflow-hidden" 
+      id="how-it-works"
+      aria-label="Website development process"
+    >
       
       {/* Background Soft Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[500px] bg-[radial-gradient(ellipse_at_center,_rgba(37,99,235,0.05)_0%,_transparent_75%)] pointer-events-none transform-gpu" />
@@ -154,7 +159,7 @@ export function HowItWorks() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 01
                   </span>
-                  <span className="text-xl">💬</span>
+                  <span className="text-xl" role="img" aria-label="chat icon">💬</span>
                 </div>
 
                 <h3 className="text-lg font-bold text-[#0A0A0A] font-sans">
@@ -203,7 +208,7 @@ export function HowItWorks() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 02
                   </span>
-                  <span className="text-xl">🎨</span>
+                  <span className="text-xl" role="img" aria-label="design icon">🎨</span>
                 </div>
 
                 <h3 className="text-lg font-bold text-[#0A0A0A] font-sans">
@@ -255,7 +260,7 @@ export function HowItWorks() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
                     Step 03
                   </span>
-                  <span className="text-xl">👀</span>
+                  <span className="text-xl" role="img" aria-label="review icon">👀</span>
                 </div>
 
                 <h3 className="text-lg font-bold text-[#0A0A0A] font-sans">
@@ -301,7 +306,7 @@ export function HowItWorks() {
                   <span className="text-[11px] font-bold uppercase tracking-wider text-white bg-[#2563EB] px-2.5 py-1 rounded-full">
                     Step 04
                   </span>
-                  <span className="text-xl">🚀</span>
+                  <span className="text-xl" role="img" aria-label="launch icon">🚀</span>
                 </div>
 
                 <h3 className="text-lg font-bold text-[#0A0A0A] font-sans">

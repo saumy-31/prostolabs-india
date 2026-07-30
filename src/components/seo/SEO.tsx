@@ -1,35 +1,56 @@
 import { Helmet } from 'react-helmet-async'
 
 interface SEOProps {
-  title?: string
-  description?: string
-  canonical?: string
+  title: string
+  description: string
+  path: string
+  keywords?: string // <--- THIS PREVENTS THE TYPESCRIPT / ESLINT ERROR
+  ogImage?: string
+  ogType?: 'website' | 'article'
+  schema?: Record<string, any> | Array<Record<string, any>>
 }
 
-export function SEO({ 
-  title = "ProstoLabs | Professional Websites for Growing Businesses", 
-  description = "We design, build, host, and maintain professional websites for Indian businesses for just ₹4,999. You focus on your business, we handle the tech.",
-  canonical = "https://in.prostolabs.com"
-}: SEOProps) {
+export const SEO = ({
+  title,
+  description,
+  path,
+  keywords,
+  ogImage = 'https://in.prostolabs.com/log.png',
+  ogType = 'website',
+  schema
+}: SEOProps) => {
+  const siteUrl = 'https://in.prostolabs.com'
+  const fullUrl = `${siteUrl}${path.startsWith('/') ? path : `/${path}`}`
+
   return (
     <Helmet>
+      {/* Primary Meta Tags */}
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="canonical" href={canonical} />
-      
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={canonical} />
+      {keywords && <meta name="keywords" content={keywords} />}
+      <link rel="canonical" href={fullUrl} />
+
+      {/* Open Graph / Facebook / WhatsApp */}
+      <meta property="og:site_name" content="ProstoLabs India" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      
-      {/* Twitter */}
+      <meta property="og:url" content={fullUrl} />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:image" content={ogImage} />
+      <meta property="og:locale" content="en_IN" />
+
+      {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      
-      {/* Brand Color */}
-      <meta name="theme-color" content="#2563EB" />
+      <meta name="twitter:image" content={ogImage} />
+
+      {/* JSON-LD Schema */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   )
 }

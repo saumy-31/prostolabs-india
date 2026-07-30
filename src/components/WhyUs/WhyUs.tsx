@@ -1,11 +1,5 @@
 import { useState, useRef } from 'react'
-import { 
-  motion, 
-  AnimatePresence, 
-  useInView, 
-  useReducedMotion,
-  type Variants 
-} from 'framer-motion'
+import { motion, AnimatePresence, useInView, useReducedMotion, type Variants } from 'framer-motion'
 import { 
   Check, 
   X, 
@@ -134,7 +128,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
       {/* ========================================================================= */}
       {/* SECTION 1: PROSTOLABS VS TRADITIONAL AGENCIES CARDS */}
       {/* ========================================================================= */}
-      <section ref={agencySectionRef} className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
+      <section ref={agencySectionRef} id="agency-comparison" aria-label="Managed website service India" className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu" />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10">
@@ -259,6 +253,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                 <motion.button 
                   onClick={() => onOpenModal?.('care')}
                   whileTap={{ scale: 0.98 }}
+                  aria-label="Get started with ProstoLabs Care Plan at ₹499 per month"
                   className="w-full bg-[#2563EB] text-white font-bold text-sm h-[52px] px-6 rounded-2xl shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2 cursor-pointer active:bg-blue-700 transition-colors transform-gpu"
                 >
                   <span>Get Started at ₹499/month</span>
@@ -385,6 +380,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                   onClick={() => onOpenModal?.('care')}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
+                  aria-label="Get started with ProstoLabs Care Plan at ₹499 per month"
                   className="w-full bg-[#2563EB] text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/25 hover:bg-blue-700 transition-all flex items-center justify-center gap-2 text-center cursor-pointer transform-gpu"
                 >
                   <span>Get Started at ₹499/month</span>
@@ -400,7 +396,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
       {/* ========================================================================= */}
       {/* SECTION 2: MANAGED SERVICE VS DIY BUILDERS */}
       {/* ========================================================================= */}
-      <section ref={diySectionRef} className="py-16 sm:py-20 md:py-24 bg-white border-t border-gray-200/80 relative overflow-hidden">
+      <section ref={diySectionRef} id="diy-comparison" aria-label="Wix alternative India, GoDaddy alternative" className="py-16 sm:py-20 md:py-24 bg-white border-t border-gray-200/80 relative overflow-hidden">
         <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[700px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none transform-gpu" />
 
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 relative z-10">
@@ -444,7 +440,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
           {/* ========================================================================= */}
           <div className="block lg:hidden relative mb-12">
             <div className="rounded-2xl border-2 border-gray-200 bg-white shadow-lg overflow-x-auto no-scrollbar relative transform-gpu">
-              <table className="w-full text-left min-w-[500px] border-collapse">
+              <table className="w-full text-left min-w-[500px] border-collapse" aria-label="Mobile website builder comparison matrix">
                 <thead>
                   <tr className="bg-gray-100/80 border-b border-gray-200 text-[10px] font-extrabold uppercase tracking-wider text-gray-700">
                     <th className="p-3.5 w-[35%] font-sans">Feature</th>
@@ -523,6 +519,7 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               <motion.button
                 onClick={() => setShowAllMobileRows(!showAllMobileRows)}
                 whileTap={{ scale: 0.96 }}
+                aria-label={showAllMobileRows ? "Show fewer features in comparison table" : "View all features in comparison table"}
                 className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] active:bg-blue-50 transition-colors cursor-pointer transform-gpu"
               >
                 <span>{showAllMobileRows ? "Show Less ↑" : "View All Features ↓"}</span>
@@ -646,9 +643,10 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
                 onClick={() => setShowAllDesktopRows(!showAllDesktopRows)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                aria-label={showAllDesktopRows ? "Show fewer features in desktop comparison table" : "View all 20 comparison features in desktop table"}
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white border border-gray-300 shadow-md text-xs font-extrabold text-[#2563EB] hover:bg-blue-50 transition-all cursor-pointer transform-gpu"
               >
-                <span>{showAllDesktopRows ? "Show Less ↑" : "View All 22 Comparison Features ↓"}</span>
+                <span>{showAllDesktopRows ? "Show Less ↑" : "View All 20 Comparison Features ↓"}</span>
               </motion.button>
             </div>
           </div>
@@ -676,17 +674,14 @@ export function WhyUs({ onOpenModal }: WhyUsProps) {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 font-sans text-sm font-bold text-[#0A0A0A]">
                 {[
                   "We build everything for you",
-                  
                   "No coding or DIY work required",
                   "Enterprise hosting included",
                   "100% managed website maintenance",
                   "Direct WhatsApp support access",
                   "SEO ready out of the box",
                   "Flawless mobile responsiveness",
-              
                   "Launch in 3–7 business days",
                   "Transparent pricing — 0 hidden fees",
-                  
                 ].map((point, index) => (
                   <div key={index} className="flex items-center gap-3 p-3.5 rounded-2xl bg-white border border-gray-200/80 shadow-2xs">
                     <div className="w-5 h-5 rounded-full bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">

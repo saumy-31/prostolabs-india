@@ -1,5 +1,11 @@
 import { useState, useRef } from 'react'
-import { motion, AnimatePresence, useInView, useReducedMotion, type Variants } from 'framer-motion'
+import { 
+  motion, 
+  AnimatePresence, 
+  useInView, 
+  useReducedMotion,
+  type Variants 
+} from 'framer-motion'
 import { 
   ChevronDown, 
   MessageSquare, 
@@ -37,6 +43,7 @@ const itemVariants: Variants = {
 // --- FAQ DATA ---
 const faqList = [
   {
+    id: "faq-1",
     question: "1. Does the ₹499/month Care Plan include a domain?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -47,6 +54,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-2",
     question: "2. What if my preferred domain isn't available?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -56,6 +64,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-3",
     question: "3. How many times can I update my website content?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -76,6 +85,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-4",
     question: "4. What is not included in unlimited content updates?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -94,6 +104,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-5",
     question: "5. Can I add more features later?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -117,6 +128,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-6",
     question: "6. Can I cancel my ₹499/month Care Plan?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -127,6 +139,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-7",
     question: "7. How long does it take to launch my website?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -136,6 +149,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-8",
     question: "8. Is hosting included?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -146,6 +160,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-9",
     question: "9. Will my website work on mobile devices?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -155,6 +170,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-10",
     question: "10. Will my website be SEO-friendly?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -171,6 +187,7 @@ const faqList = [
     )
   },
   {
+    id: "faq-11",
     question: "11. Why is ProstoLabs so affordable?",
     answer: (
       <div className="space-y-2 sm:space-y-3">
@@ -192,7 +209,12 @@ export function FAQ({ onOpenModal }: FAQProps) {
   }
 
   return (
-    <section ref={sectionRef} className="py-12 sm:py-20 md:py-32 bg-[#FAFAFA] relative overflow-hidden" id="faq">
+    <section 
+      ref={sectionRef} 
+      className="py-12 sm:py-20 md:py-32 bg-[#FAFAFA] relative overflow-hidden" 
+      id="faq"
+      aria-label="Website development questions"
+    >
       
       {/* AMBIENT FLOATING GRADIENT BACKGROUND ORBS */}
       <motion.div 
@@ -252,6 +274,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
           >
             {faqList.map((item, idx) => {
               const isOpen = openIndex === idx
+              const answerId = `${item.id}-answer`
 
               return (
                 <motion.div 
@@ -277,13 +300,15 @@ export function FAQ({ onOpenModal }: FAQProps) {
 
                   <button
                     onClick={() => toggleAccordion(idx)}
+                    aria-expanded={isOpen}
+                    aria-controls={answerId}
                     className="w-full min-h-[56px] py-4 px-5 sm:p-5 md:p-6 text-left flex items-center justify-between gap-3.5 cursor-pointer relative z-10"
                   >
-                    <span className={`text-sm sm:text-base font-sans leading-snug transition-colors duration-200 pr-1 ${
+                    <h3 className={`text-sm sm:text-base font-sans leading-snug transition-colors duration-200 pr-1 ${
                       isOpen ? 'font-extrabold text-[#2563EB]' : 'font-bold text-[#0A0A0A]'
                     }`}>
                       {item.question}
-                    </span>
+                    </h3>
 
                     <motion.div 
                       animate={{ rotate: isOpen ? 180 : 0 }}
@@ -299,6 +324,9 @@ export function FAQ({ onOpenModal }: FAQProps) {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
+                        id={answerId}
+                        role="region"
+                        aria-label={item.question}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -414,6 +442,7 @@ export function FAQ({ onOpenModal }: FAQProps) {
                 onClick={() => onOpenModal?.('care')}
                 whileHover={{ scale: 1.02 }} 
                 whileTap={{ scale: 0.98 }}
+                aria-label="Talk to ProstoLabs and open enquiry form"
                 className="w-full bg-[#2563EB] text-white font-bold text-sm h-[52px] sm:h-auto sm:py-3.5 rounded-2xl sm:rounded-xl shadow-md hover:bg-blue-700 transition-all flex items-center justify-center gap-2 cursor-pointer transform-gpu active:bg-blue-700"
               >
                 <span>Talk to ProstoLabs</span>

@@ -17,9 +17,9 @@ interface ContactProps {
 
 export function Contact({ onOpenModal }: ContactProps) {
   return (
-    <div className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
+    <main id="contact-content" aria-label="Contact ProstoLabs India" className="min-h-screen w-full bg-[#FAFAFA] text-[#0A0A0A] py-12 md:py-20 px-4 sm:px-6 md:px-12 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-hidden relative">
       
-      {/* AMBIENT BACKGROUND GLOW - Scaled down for mobile to eliminate horizontal scroll canvas expansion */}
+      {/* AMBIENT BACKGROUND GLOW */}
       <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[320px] sm:w-[500px] md:w-[800px] h-[300px] sm:h-[400px] max-w-full bg-blue-500/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto space-y-10 relative z-10">
@@ -28,6 +28,7 @@ export function Contact({ onOpenModal }: ContactProps) {
         <div className="flex items-center justify-between">
           <a 
             href="/" 
+            aria-label="Return to ProstoLabs India homepage"
             className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-600 hover:text-[#2563EB] transition-colors bg-white px-4 py-2 rounded-xl border border-gray-200/80 shadow-2xs"
           >
             <ArrowLeft size={16} />
@@ -76,7 +77,7 @@ export function Contact({ onOpenModal }: ContactProps) {
               </div>
 
               <div>
-                <h3 className="text-xl font-black text-[#0A0A0A]">Instant WhatsApp Support</h3>
+                <h2 className="text-xl font-black text-[#0A0A0A]">Instant WhatsApp Support</h2>
                 <p className="text-xs text-[#6B7280] font-medium mt-1">
                   The fastest way to get your website started or ask pre-sales questions.
                 </p>
@@ -98,6 +99,7 @@ export function Contact({ onOpenModal }: ContactProps) {
               href="https://wa.me/916392577105"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Chat directly with ProstoLabs India on WhatsApp"
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare size={18} fill="white" />
@@ -116,7 +118,7 @@ export function Contact({ onOpenModal }: ContactProps) {
               </div>
 
               <div>
-                <h3 className="text-xl font-black text-[#0A0A0A]">Submit an Enquiry</h3>
+                <h2 className="text-xl font-black text-[#0A0A0A]">Submit an Enquiry</h2>
                 <p className="text-xs text-[#6B7280] font-medium mt-1">
                   Fill in your details and select your plan using our quick enquiry modal.
                 </p>
@@ -136,6 +138,7 @@ export function Contact({ onOpenModal }: ContactProps) {
 
             <button
               onClick={() => onOpenModal?.('care')}
+              aria-label="Open website enquiry modal form"
               className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Open Enquiry Form</span>
@@ -146,6 +149,6 @@ export function Contact({ onOpenModal }: ContactProps) {
         </div>
 
       </div>
-    </div>
+    </main>
   )
 }
