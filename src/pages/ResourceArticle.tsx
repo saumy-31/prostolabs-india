@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { resources } from '../data/resourcesData'
 import { 
-  ArrowLeft, Clock, Calendar, User, Share2, 
+  ArrowLeft, Clock, Calendar, User, 
   ChevronDown, ChevronUp, Check, Copy, MessageSquare,
   Sparkles, Lightbulb, Quote, TrendingUp, CheckCircle2,
   AlertTriangle, ArrowRight, Building2
